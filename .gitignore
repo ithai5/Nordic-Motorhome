@@ -40,3 +40,11 @@ SWD/Nordic Motorhome paper.pptx
 SWD/Use case .vpp
 
 pom.xml
+
+*.bak_001d
+
+*.bak_000f
+
+Nordic Motorhome.pptx
+
+src/main/resources/application.properties

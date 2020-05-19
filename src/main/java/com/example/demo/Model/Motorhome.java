@@ -1,7 +1,15 @@
 package com.example.demo.Model;
 
+<<<<<<< HEAD
 
+=======
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+>>>>>>> master
 public class Motorhome {
+    @Id
     //ATTRIBUTES
     //From MhType
     private String typeName;
@@ -14,14 +22,23 @@ public class Motorhome {
     //From MhInfo
     private String licencePlate;
     private Integer odometer;
+<<<<<<< HEAD
     private Boolean status;
     private String condition;
+=======
+    private Boolean state;
+    private String report;
+>>>>>>> master
 
     //CONSTRUCTORS
 
     public Motorhome() {}
 
+<<<<<<< HEAD
     public Motorhome (String typeName, Double pricePerDay, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean status, String condition)
+=======
+    public Motorhome (String typeName, Double pricePerDay, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean state, String report)
+>>>>>>> master
     {
         this.typeName = typeName;
         this.pricePerDay = pricePerDay;
@@ -31,8 +48,8 @@ public class Motorhome {
         this.bedNum = bedNum;
         this.licencePlate = licencePlate;
         this.odometer = odometer;
-        this.status = status;
-        this.condition = condition;
+        this.state = state;
+        this.report = report;
     }
 
     //getters setters
@@ -116,6 +133,7 @@ public class Motorhome {
         this.odometer = odometer;
     }
 
+<<<<<<< HEAD
     public Boolean isStatus ()
     {
         return status;
@@ -134,6 +152,26 @@ public class Motorhome {
     public void setCondition (String condition)
     {
         this.condition = condition;
+=======
+    public Boolean isState ()
+    {
+        return state;
+    }
+
+    public void setState (Boolean status)
+    {
+        this.state = status;
+    }
+
+    public String getReport ()
+    {
+        return report;
+    }
+
+    public void setReport (String condition)
+    {
+        this.report = report;
+>>>>>>> master
     }
 
     @Override

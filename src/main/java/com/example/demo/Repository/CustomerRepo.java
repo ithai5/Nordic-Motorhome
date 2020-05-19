@@ -38,12 +38,19 @@ public class CustomerRepo {
         String sql = "INSERT INTO KeaProject.Address (country, city, street, houseNum, zip) " +
                 "VALUES (?,?,?,?,?)";
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
+<<<<<<< HEAD
         sql = "SELECT addressId FROM KeaProject.Address ";
         RowMapper<IdHolder> addressIds = new BeanPropertyRowMapper<>(IdHolder.class);//getting a list of all the addressId
         List<IdHolder> idList = template.query(sql,addressIds); //sign in the row mapper list into an integer list
         for(int i = 0;i<idList.size();i++){
             System.out.println(idList.get(i));
         }
+=======
+        //break point for method for axstract the last added id in a table
+        sql = "SELECT addressId FROM KeaProject.Address ";
+        RowMapper<IdHolder> addressIds = new BeanPropertyRowMapper<>(IdHolder.class);//getting a list of all the addressId
+        List<IdHolder> idList = template.query(sql,addressIds); //sign in the row mapper list into an integer list
+>>>>>>> master
         return idList.get(idList.size()-1).getAddressId(); //getting the last value that has been added to the list
 
     }

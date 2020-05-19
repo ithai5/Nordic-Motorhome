@@ -30,12 +30,19 @@ build/
 ### VS Code ###
 .vscode/
 
-SWD/Class diagram Nordic Motorhome.vpp
+
 
 SWD/Domain Model.vpp
 
 SWD/Nordic Motorhome paper.pptx
 
+
 SWD/Use case .vpp
 
-Use case .vpp
+pom.xml
+
+*.bak_001d
+
+*.bak_000f
+
+Nordic Motorhome.pptx

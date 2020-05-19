@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Motorhome View</title>
+</head>
+    <body>
+        <h1>Main menu</h1>
+        <table>
+            <thead>
+            <tr>
+                <th>Type</th>
+                <th>Price Per day</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Seats</th>
+                <th>Beds</th>
+                <th>Licence Plate</th>
+                <th>Odometer</th>
+                <th>Status</th>
+                <th>Report</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="motorhome:${motorhomes}">
+                <td th:text="${motorhome.typeName}"></td>
+                <td th:text="${motorhome.pricePerDay}"></td>
+                <td th:text="${motorhome.brand}"></td>
+                <td th:text="${motorhome.model}"></td>
+                <td th:text="${motorhome.seatNum}"></td>
+                <td th:text="${motorhome.bedNum}"></td>
+                <td th:text="${motorhome.licencePlate}"></td>
+                <td th:text="${motorhome.odometer}"></td>
+                <td th:text="${motorhome.state}"></td>
+                <td th:text="${motorhome.report}"></td>
+
+                <td>
+                    <a th:href="@{'/rentalContract/viewRentalContract/'+${rentalContract.rentalContract_id}}">
+                        <button>View</button>
+                    </a>
+
+                    <a th:href="@{'/rentalContract/deleteRentalContract/'+${rentalContract.rentalContract_id}}">
+                        <button>Delete</button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

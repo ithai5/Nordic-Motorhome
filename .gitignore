@@ -46,3 +46,5 @@ pom.xml
 *.bak_000f
 
 Nordic Motorhome.pptx
+
+src/main/resources/application.properties

@@ -1,13 +1,11 @@
 package com.example.demo.Model;
 
-<<<<<<< HEAD
 
-=======
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
->>>>>>> master
+
 public class Motorhome {
     @Id
     //ATTRIBUTES
@@ -22,23 +20,17 @@ public class Motorhome {
     //From MhInfo
     private String licencePlate;
     private Integer odometer;
-<<<<<<< HEAD
-    private Boolean status;
-    private String condition;
-=======
+
     private Boolean state;
     private String report;
->>>>>>> master
+
 
     //CONSTRUCTORS
 
     public Motorhome() {}
 
-<<<<<<< HEAD
-    public Motorhome (String typeName, Double pricePerDay, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean status, String condition)
-=======
     public Motorhome (String typeName, Double pricePerDay, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean state, String report)
->>>>>>> master
+
     {
         this.typeName = typeName;
         this.pricePerDay = pricePerDay;
@@ -133,26 +125,7 @@ public class Motorhome {
         this.odometer = odometer;
     }
 
-<<<<<<< HEAD
-    public Boolean isStatus ()
-    {
-        return status;
-    }
 
-    public void setStatus (Boolean status)
-    {
-        this.status = status;
-    }
-
-    public String getCondition ()
-    {
-        return condition;
-    }
-
-    public void setCondition (String condition)
-    {
-        this.condition = condition;
-=======
     public Boolean isState ()
     {
         return state;
@@ -171,13 +144,13 @@ public class Motorhome {
     public void setReport (String condition)
     {
         this.report = report;
->>>>>>> master
+
     }
 
     @Override
     public String toString ()
     {
-        return "Motorhome{" + "typeName='" + typeName + '\'' + ", pricePerDay=" + pricePerDay + ", brand='" + brand + '\'' + ", model='" + model + '\'' + ", seatNum=" + seatNum + ", bedNum=" + bedNum + ", licencePlate='" + licencePlate + '\'' + ", odometer=" + odometer + ", status=" + status + ", condition='" + condition + '\'' + '}';
+        return "Motorhome{" + "typeName='" + typeName + '\'' + ", pricePerDay=" + pricePerDay + ", brand='" + brand + '\'' + ", model='" + model + '\'' + ", seatNum=" + seatNum + ", bedNum=" + bedNum + ", licencePlate='" + licencePlate + '\'' + ", odometer=" + odometer + ", state=" + state + ", report='" + report + '\'' + '}';
     }
     //GETTERS & SETTERS
 

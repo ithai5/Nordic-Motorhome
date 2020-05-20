@@ -34,13 +34,15 @@ public class CustomerController {
         return "home/searchCustomer";
     }
 */
-    @GetMapping("/searchCustomer/{keyword}")
-    public String searchCustomer(@PathVariable("keyword") String keyword, Model model){
-        System.out.println("postmapping" + keyword);
-        List<Customer> customerList = customerService.searchForCustomer(keyword);
+    @GetMapping("/searchCustomer/")
+    public String searchCustomer(@ModelAttribute Customer customer, Model model){
+        System.out.println("postmapping" + customer.getFirstName());
+        List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
         model.addAttribute("customers", customerList);
         return "home/searchCustomer";
     }
+
+
 
 
 

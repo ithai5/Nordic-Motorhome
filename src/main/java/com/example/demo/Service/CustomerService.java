@@ -19,4 +19,8 @@ public class CustomerService {
     public Customer addCustomer(Customer customer){
         return customerRepo.addCustomer(customer);
     }
+
+    public List<Customer> searchForCustomer(String keyword){
+        return customerRepo.searchForCustomer(keyword);
+    }
 }

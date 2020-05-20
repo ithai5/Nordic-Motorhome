@@ -46,6 +46,16 @@ public class CustomerRepo {
 
     }
 
+    public List<Customer> searchForCustomer(String keyword){
+        String sql = "SELECT * FROM Customer c " + "JOIN Address a ON c.addressId=a.addressId " +
+                "WHERE c.firstName LIKE '%" + keyword + "%' " +
+                "OR c.lastName LIKE '%" + keyword + "%' " +
+                "OR c.email LIKE '%" + keyword + "%' " +
+                "OR phone LIKE '%" + keyword + "%' ";
+        RowMapper<Customer> customerRowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        return template.query(sql,customerRowMapper);
+    }
+
     /*
     public Customer findCustomerById(int customer_id){
         String sql = "SELECT * " +

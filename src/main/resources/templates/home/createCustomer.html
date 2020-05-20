@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Create Customer</title>
@@ -36,5 +36,12 @@
         </div>
         <input type="submit" value="Create New Customer">
     </form>
+
+    <form th:action="@{'/searchCustomer/'+${keyword}}" method="get">Search Customer
+        <input type="text" name="keyword" placeholder="Type search parameter" required>
+        <input type="submit" value="Search Customer">
+    </form>
+    
+        
 </body>
 </html>

@@ -10,9 +10,11 @@ public class Motorhome {
     @Id
     //ATTRIBUTES
     //From MhType
+    private Integer mhTypeId;
     private String typeName;
     private Double pricePerDay;
     //From MhSpecs
+    private Integer mhSpecsId; // why is it on grey color?
     private String brand;
     private String model;
     private Integer seatNum;
@@ -20,7 +22,6 @@ public class Motorhome {
     //From MhInfo
     private String licencePlate;
     private Integer odometer;
-
     private Boolean state;
     private String report;
 
@@ -29,11 +30,13 @@ public class Motorhome {
 
     public Motorhome() {}
 
-    public Motorhome (String typeName, Double pricePerDay, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean state, String report)
+    public Motorhome (Integer mhTypeId, String typeName, Double pricePerDay, Integer mhSpecsId, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean state, String report)
 
     {
+        this.mhTypeId = mhTypeId;
         this.typeName = typeName;
         this.pricePerDay = pricePerDay;
+        this.mhSpecsId = mhSpecsId;
         this.brand = brand;
         this.model = model;
         this.seatNum = seatNum;
@@ -45,6 +48,14 @@ public class Motorhome {
     }
 
     //getters setters
+    public Integer getMhTypeId(){
+        return mhTypeId;
+    }
+
+    public void setMhTypeId(Integer mhTypeId) {
+        this.mhTypeId = mhTypeId;
+    }
+
     public String getTypeName ()
     {
         return typeName;
@@ -63,6 +74,14 @@ public class Motorhome {
     public void setPricePerDay (Double pricePerDay)
     {
         this.pricePerDay = pricePerDay;
+    }
+
+    public Integer getMhSpecsId(){
+        return mhSpecsId;
+    }
+
+    public void setMhSpecsId(Integer mhSpecsId) {
+        this.mhSpecsId = mhSpecsId;
     }
 
     public String getBrand ()

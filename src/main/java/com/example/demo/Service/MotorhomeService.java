@@ -16,4 +16,7 @@ public class MotorhomeService {
         return motorhomeRepo.fetchAll();
     }
 
+    public Motorhome addMotorhome(Motorhome motorhome){
+        return motorhomeRepo.addMotorhome(motorhome);
+    }
 }

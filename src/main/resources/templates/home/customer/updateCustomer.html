@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Customer</title>
+</head>
+<body>
+<form action="/customer/updateCustomer" method="post">
+    <div>customer id
+        <input type="number" name="customerId" th:value="${customer.customerId}" >
+    </div>
+    <div>first name
+        <input type="text" name="firstName" th:value="${customer.firstName}">
+    </div>
+    <div>lastName
+        <input type="text" name="lastName" th:value="${customer.lastName}">
+    </div>
+    <div>phone
+        <input type="text" name="phone" th:value="${customer.phone}">
+    </div>
+    <div>email
+        <input type="email" name="email" th:value="${customer.email}">
+    </div>
+    <div>driverNum
+        <input type="text" name="driverNum" th:value="${customer.driverNum}">
+    </div>
+    <div>addressId
+        <input type="number" name="addressId" th:value="${customer.addressId}" >
+    </div>
+    <div>country
+        <input type="text" name="country" th:value="${customer.country}">
+    </div>
+    <div>
+        <input type="text" name="city" th:value="${customer.city}">
+    </div>
+    <div>street
+        <input type="text" name="street" th:value="${customer.street}">
+    </div>
+    <div>houseNum
+        <input type="text" name="houseNum" th:value="${customer.houseNum}">
+    </div>
+    <div>zip
+        <input type="text" name="zip" th:value="${customer.zip}">
+    </div>
+    <div>
+        <input type="submit" value="submit">
+    </div>
+</form>
+</body>
+</html>

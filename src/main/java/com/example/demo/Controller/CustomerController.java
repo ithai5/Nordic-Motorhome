@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -34,12 +33,11 @@ public class CustomerController {
         return "home/searchCustomer";
     }
 */
-    @GetMapping("/searchCustomer/")
+    @GetMapping("/customer/searchCustomer/")
     public String searchCustomer(@ModelAttribute Customer customer, Model model){
-        System.out.println("postmapping" + customer.getFirstName());
         List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
         model.addAttribute("customers", customerList);
-        return "home/searchCustomer";
+        return "home/customer/searchCustomer";
     }
 
 

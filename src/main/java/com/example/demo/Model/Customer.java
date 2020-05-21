@@ -10,7 +10,7 @@ public class Customer extends Person{
     @Id
 
     //Customer database table
-    private Integer customerId;
+    private int customerId;
     private String phone;
     private String driverNum;
     //Address database table
@@ -19,13 +19,14 @@ public class Customer extends Person{
     private String street;
     private String houseNum;
     private String zip;
+    private int addressId;
 
     public Customer ()
     {
     }
 
 
-    public Customer (String firstName, String lastName, String email, int customerId, String phone, String driverNum, String country, String city, String street, String houseNum, String zip)
+    public Customer (String firstName, String lastName, String email, Integer customerId, String phone, String driverNum, String country, String city, String street, String houseNum, String zip, Integer addressId)
     {
         super(firstName, lastName, email);
         this.customerId = customerId;
@@ -36,6 +37,7 @@ public class Customer extends Person{
         this.street = street;
         this.houseNum = houseNum;
         this.zip = zip;
+        this.addressId = addressId;
     }
 
     public Integer getCustomerId ()
@@ -118,9 +120,19 @@ public class Customer extends Person{
         this.zip = zip;
     }
 
+    public void setAddressId (Integer addressId)
+    {
+        this.addressId = addressId;
+    }
+
+    public Integer getAddressId ()
+    {
+        return addressId;
+    }
+
     @Override
     public String toString ()
     {
-        return "Customer{" + "customerId=" + customerId + ", phone='" + phone + '\'' + ", driverNum='" + driverNum + '\'' + ", country='" + country + '\'' + ", city='" + city + '\'' + ", street='" + street + '\'' + ", houseNum='" + houseNum + '\'' + ", zip='" + zip + '\'' + '}';
+        return  super.toString() + "Customer{" + "customerId=" + customerId + ", phone='" + phone + '\'' + ", driverNum='" + driverNum + '\'' + ", country='" + country + '\'' + ", city='" + city + '\'' + ", street='" + street + '\'' + ", houseNum='" + houseNum + '\'' + ", zip='" + zip + '\'' + ", addressId=" + addressId + "} " ;
     }
 }

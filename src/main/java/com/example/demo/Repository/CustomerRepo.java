@@ -48,37 +48,42 @@ public class CustomerRepo {
 
     public List<Customer> searchForCustomer(String keyword){
         String sql = "SELECT * FROM KeaProject.Customer c " + "JOIN KeaProject.Address a ON c.addressId = a.addressId " +
-                "WHERE firstName LIKE '%" + keyword + "%' " +
-                "OR lastName LIKE '%" + keyword + "%' " +
-                "OR email LIKE '%" + keyword + "%' " +
-                "OR phone LIKE '%" + keyword + "%' ";
+                "WHERE firstName LIKE '" + keyword + "%' " +
+                "OR lastName LIKE '" + keyword + "%' " +
+                "OR email LIKE '" + keyword + "' " +
+                "OR phone LIKE '" + keyword + "' ";
         RowMapper<Customer> customerRowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return template.query(sql,customerRowMapper);
     }
 
-    /*
-    public Customer findCustomerById(int customer_id){
+
+    public Customer findCustomerById(int customerId){
         String sql = "SELECT * " +
-                "FROM KeaProject.Customer " +
-                "WHERE customer_id = ?";
+                "FROM KeaProject.Customer c " +
+                "JOIN KeaProject.Address a ON a.addressId = c.addressId " +
+                "WHERE customerId = ?";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
-        Customer customer = template.queryForObject(sql, rowMapper, customer_id);
+        Customer customer = template.queryForObject(sql, rowMapper, customerId);
         return customer;
     }
 
     public Boolean deleteCustomer(int customerId){
         String sql = "DELETE FROM KeaProject.Customer " +
-                "WHERE customer_id = ?";
+                "WHERE customerId = ?";
         return template.update(sql,customerId)<0;
     }
 
     public Customer updateCustomer(Customer customer){
         String sql = "UPDATE KeaProject.Customer " +
-                "SET firstName = ?, lastName = ?, email = ? " +
-                "WHERE customer_id = ?";
-        template.update(sql, customer.getFirstName(),customer.getLastName(),customer.getEmail(), customer.getCustomer_id());
+                "SET firstName = ?, lastName = ?, email = ?, phone = ?, driverNum = ? " +
+                "WHERE customerId = ?";
+        template.update(sql, customer.getFirstName(),customer.getLastName(),customer.getEmail(),customer.getPhone(),customer.getDriverNum(), customer.getCustomerId());
+        sql = "UPDATE KeaProject.Address " +
+                "SET country = ?, city = ?, street = ?, houseNum = ?, zip = ? " +
+                "WHERE addressId = ?";
+        template.update(sql, customer.getCountry(),customer.getCity(), customer.getStreet(), customer.getHouseNum(), customer.getZip(),customer.getAddressId());
         return customer;
     }
 
-     */
+
 }

@@ -23,4 +23,17 @@ public class CustomerService {
     public List<Customer> searchForCustomer(String keyword){
         return customerRepo.searchForCustomer(keyword);
     }
+
+    public Customer findCustomerById(int customerId)
+    {
+        return customerRepo.findCustomerById(customerId);
+    }
+
+    public Boolean deleteCustomer (int customerId){
+        return customerRepo.deleteCustomer(customerId);
+    }
+    public Customer updateCustomer(Customer customer){
+        return customerRepo.updateCustomer(customer);
+    }
+
 }

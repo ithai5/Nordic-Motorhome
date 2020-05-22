@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date selection</title>
+</head>
+<body>
+    <h1>Please select the dates for the customer's rental</h1>
+
+    <form action="/contract/motorhomeSelection" method="post">
+        <div>Start Date</div>
+        <input type="datetime-local" name="startDate" required>
+
+        <div>End Date</div>
+        <input type="datetime-local" name="endDate" required>
+
+        <input type="submit" value="Next">
+    </form>
+
+</body>
+</html>

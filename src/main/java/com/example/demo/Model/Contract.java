@@ -19,9 +19,10 @@ public class Contract {
 
     //CONSTRUCTORS
 
-    public Contract() {}
+    public Contract() {
+    }
 
-    public Contract(int contractId, String startDate, String endDate, int startKm, double totalPrice, int customerId, String licencePlate) {
+    public Contract(int contractId, String startDate, String endDate, int startKm, double totalPrice, int customerId, String licencePlate, int timestamp) {
         this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -29,5 +30,88 @@ public class Contract {
         this.totalPrice = totalPrice;
         this.customerId = customerId;
         this.licencePlate = licencePlate;
+        this.timestamp = timestamp;
+    }
+
+    //GETTERS & SETTERS
+
+    public int getContractId() {
+        return contractId;
+    }
+
+    public void setContractId(int contractId) {
+        this.contractId = contractId;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public int getStartKm() {
+        return startKm;
+    }
+
+    public void setStartKm(int startKm) {
+        this.startKm = startKm;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
+
+    public String getLicencePlate() {
+        return licencePlate;
+    }
+
+    public void setLicencePlate(String licencePlate) {
+        this.licencePlate = licencePlate;
+    }
+
+    public int getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(int timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    //toString()
+
+    @Override
+    public String toString() {
+        return "Contract{" +
+                "contractId=" + contractId +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", startKm=" + startKm +
+                ", totalPrice=" + totalPrice +
+                ", customerId=" + customerId +
+                ", licencePlate='" + licencePlate + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
     }
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View Contract</title>
+</head>
+<body>
+    <h1>Contract information</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Contract ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Odometer at Start</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:object="${contract}">
+                <td th:text="${contract.contractId}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td th:text="${contract.endDate}"></td>
+                <td th:text="${contract.startKm}"></td>
+                <td th:text="${contract.totalPrice}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>E-mail</th>
+            <th>Zipcode</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:object="${customer}">
+            <td th:text="${customer.firstName}"></td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:text="${customer.email}"></td>
+            <td th:text="${customer.zip}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Number of beds</th>
+            <th>Price per day</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:object="${motorhome}">
+            <td th:text="${motorhome.typeName}"></td>
+            <td th:text="${motorhome.brand}"></td>
+            <td th:text="${motorhome.model}"></td>
+            <td th:text="${motorhome.bedNum}"></td>
+            <td th:text="${motorhome.pricePerDay}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{'/contract/deleteContract/'+${contract.contractId}}">
+        <button>Delete</button>
+    </a>
+</body>
+</html>

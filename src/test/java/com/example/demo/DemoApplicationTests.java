@@ -19,6 +19,8 @@ class DemoApplicationTests {
 
     @Test
     void searchTest () {
-        System.out.println(idHolderService.searchMotorhomeByPlate("CK33661"));
+        System.out.println(idHolderService.findMotorhomeByPlate("CK33661"));
+        System.out.println(idHolderService.findContractById(73));
+        System.out.println(idHolderService.findCustomerById(114));
     }
 }

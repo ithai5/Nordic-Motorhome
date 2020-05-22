@@ -159,7 +159,7 @@ public class Motorhome {
         return report;
     }
 
-    public void setReport (String condition)
+    public void setReport (String report)
     {
         this.report = report;
     }

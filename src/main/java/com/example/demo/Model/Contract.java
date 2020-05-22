@@ -14,13 +14,12 @@ public class Contract {
     private double totalPrice;
     private int timestamp; //timestamp needed to determine cancellation fees
     //Foreign keys
-    //Values displayed from the customerId
     private int customerId;
-    //Values displayed from the licencePlate
     private String licencePlate;
-    //Values displayed from the transferId
     private Integer pickId;
     private Integer dropId;
+    //Missing Transfer table
+
 
     //CONSTRUCTORS
 

@@ -45,4 +45,21 @@ public class ContractRepo {
 
         return template.query(sql,new BeanPropertyRowMapper<>(Motorhome.class));
     }
+
+    //Deleting a contract
+    public void deleteContract(int contractId){
+        String sql = "DELETE FROM KeaProject.Contract " +
+                "WHERE contractId = ?";
+    }
+
+    public List<Contract> searchForContract(String keyword){
+        System.out.println("keyword = " + keyword);
+        String sql = "SELECT * FROM KeaProject.Contract " +
+                "WHERE startDate LIKE '" + keyword + "%' " +
+                "OR endDate LIKE '" + keyword + "%' " +
+                "OR customerId = " + keyword + " " +
+                "OR licencePlate = '" + keyword + "' ";
+        RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        return template.query(sql, contractRowMapper);
+    }
 }

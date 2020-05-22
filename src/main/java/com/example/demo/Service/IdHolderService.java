@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import com.example.demo.Model.Contract;
 import com.example.demo.Model.Customer;
 import com.example.demo.Model.Motorhome;
 import com.example.demo.Repository.IdHolderRepo;
@@ -13,5 +14,9 @@ public class IdHolderService {
     @Autowired
     IdHolderRepo idHolderRepo;
 
-    public Motorhome searchMotorhomeByPlate(String licencePlate) {return idHolderRepo.findMotorhomeByPlate(licencePlate);}
+    public Motorhome findMotorhomeByPlate(String licencePlate) {return idHolderRepo.findMotorhomeByPlate(licencePlate);}
+
+    public Contract findContractById(int contractId) {return idHolderRepo.findContractById(contractId);}
+
+    public Customer findCustomerById(int customerId) {return idHolderRepo.findCustomerById(customerId);}
 }

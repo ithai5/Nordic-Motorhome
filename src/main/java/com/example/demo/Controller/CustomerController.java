@@ -21,6 +21,7 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    //Doesn't work!
     @GetMapping("/customer/viewCustomer")
     public String viewCustomers(Model model){
         List<Customer> customerList = customerService.fetchAll();

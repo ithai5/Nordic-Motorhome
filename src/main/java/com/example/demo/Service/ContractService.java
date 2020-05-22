@@ -26,6 +26,10 @@ public class ContractService {
     }
 
     public List<Motorhome> availableCars(String startDate, String endDate) {return contractRepo.availableCars(startDate, endDate);}
+
+    public void deleteContract(int contractId) {contractRepo.deleteContract(contractId);}
+
+    public List<Contract> searchContract(String keyword) {return contractRepo.searchForContract(keyword);}
     /*
     public List<Customer> searchForCustomer(String keyword){
         return customerRepo.searchForCustomer(keyword);

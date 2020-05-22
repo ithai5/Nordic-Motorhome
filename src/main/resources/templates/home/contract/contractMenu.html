@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract List</title>
+</head>
+<body>
+    <h2>Search for a Contract</h2>
+    <form action="/contract/searchContract" method="get">
+        <input type="text" name="keyword" placeholder="Type search parameter" required>
+        <input type="submit" value="Search">
+    </form>
+    <h1>All Contracts</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Contract ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Odometer at Start</th>
+                <th>Total Price</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="contract:${contracts}">
+                <td th:text="${contract.contractId}"></td>
+                <td th:text="${contract.startDate}"></td>
+                <td     th:text="${contract.endDate}"></td>
+                <td th:text="${contract.startKm}"></td>
+                <td th:text="${contract.totalPrice}"></td>
+                <td><a th:href="@{'/contract/viewContract/'+${contract.contractId}}">
+                    <button>View</button>
+                </a>
+                    <a th:href="@{'/contract/deleteContract/'+${contract.contractId}}">
+                        <button>Delete</button>
+                    </a>
+                    <a th:href="@{'/contract/updateContract/'+${contract.contractId}}">
+                        <button>Update</button>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

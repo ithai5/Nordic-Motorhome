@@ -16,34 +16,33 @@ public class IdHolderRepo {
 
     @Autowired
     JdbcTemplate template;
-    /*
-    //Maps a customer to the customer model. This will include a value for the address id,
-    //but not the actual address values (city, country etc.)
-    public List<Customer> searchCustomerById(int id) {
-        String sql = "SELECT * FROM KeaProject.Customer WHERE Customer.customerId = " + id + ";";
-        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
-        return template.query(sql, rowMapper);
+
+    public Contract findContractById(int contractId) {
+        String sql = "SELECT * FROM KeaProject.Contract con " +
+                "JOIN KeaProject.Customer cus ON con.customerId = cus.customerId " +
+                "JOIN KeaProject.MhInfo inf ON con.licencePlate = inf.licencePlate " +
+                "WHERE contractId = ?";
+
+        RowMapper<Contract> contractRowmapper = new BeanPropertyRowMapper<>(Contract.class);
+        return template.queryForObject(sql, contractRowmapper, contractId);
     }
 
-    //Retrieves the address info by using the addressId, and maps it onto the customer model
-    public List<Customer> searchAddressById(int id) {
-        String sql = "SELECT * FROM KeaProject.Address WHERE Address.addressId = " + id + ";";
-        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
-        return template.query(sql, rowMapper);
-    }
-    */
     public Motorhome findMotorhomeByPlate(String licencePlate){
         String sql = "SELECT * FROM KeaProject.MhInfo i " +
                 "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
                 "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId " +
                 "WHERE licencePlate = ?";
         RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
-        Motorhome motorhome = template.queryForObject(sql, motorhomeRowMapper, licencePlate);
-        return motorhome;
+        return template.queryForObject(sql, motorhomeRowMapper, licencePlate);
     }
 
-    Contract searchContractById() {
-        return null;
+    public Customer findCustomerById(int customerId){
+        String sql = "SELECT * " +
+                "FROM KeaProject.Customer c " +
+                "JOIN KeaProject.Address a ON a.addressId = c.addressId " +
+                "WHERE customerId = ?";
+        RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        Customer customer = template.queryForObject(sql, rowMapper, customerId);
+        return customer;
     }
-
 }

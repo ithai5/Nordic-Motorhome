@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Customer</title>
+
+</head>
+<body>
+
+<h1>Main page</h1>
+<table>
+    <thead>
+
+    </thead>
+    <tbody>
+    <tr th:each="contract:${contracts}">
+        <td th:text="${contract.firstName}"></td>
+        <td th:text="${customer.lastName}"></td>
+        <td th:text="${customer.email}"></td>
+        <td th:text="${customer.driverNum}"></td>
+        <td th:text="${customer.country}"></td>
+        <td th:text="${customer.city}"></td>
+        <td th:text="${customer.street}"></td>
+        <td th:text="${customer.houseNum}"></td>
+        <td th:text="${customer.zip}"></td>
+        <td><a th:href="@{'/customer/viewCustomer/'+${customer.customerId}}">
+            <button>View</button>
+        </a>
+            <a th:href="@{'/customer/deleteCustomer/'+${customer.customerId}}">
+                <button>Delete</button>
+            </a>
+            <a th:href="@{'/customer/updateCustomer/'+${customer.customerId}}">
+                <button>Update</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+</body>
+</html>

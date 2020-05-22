@@ -43,7 +43,6 @@ public class CustomerRepo {
         RowMapper<IdHolder> addressIds = new BeanPropertyRowMapper<>(IdHolder.class);//getting a list of all the addressId
         List<IdHolder> idList = template.query(sql,addressIds); //sign in the row mapper list into an integer list
         return idList.get(idList.size()-1).getAddressId(); //getting the last value that has been added to the list
-
     }
 
     public List<Customer> searchForCustomer(String keyword){

@@ -6,8 +6,15 @@ import javax.persistence.Id;
 @Entity
 public class IdHolder {
     @Id
+    private Integer employeeId;
     private Integer customerId;
     private Integer addressId;
+    private Integer mhTypeId;
+    private Integer mhSpecsId;
+    private String licencePlate;
+    private Integer contractId;
+    private Integer transferId;
+    private Integer extraId;
 
     public IdHolder ()
     {
@@ -31,6 +38,22 @@ public class IdHolder {
     public void setAddressId (Integer addressId)
     {
         this.addressId = addressId;
+    }
+
+    public Integer getMhTypeId () {
+        return mhTypeId;
+    }
+
+    public void setMhTypeId (Integer mhTypeId) {
+        this.mhTypeId = mhTypeId;
+    }
+
+    public Integer getMhSpecsId () {
+        return mhSpecsId;
+    }
+
+    public void setMhSpecsId (Integer mhSpecsId) {
+        this.mhSpecsId = mhSpecsId;
     }
 
     @Override

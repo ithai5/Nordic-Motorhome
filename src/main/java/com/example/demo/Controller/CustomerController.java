@@ -17,6 +17,13 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @GetMapping("/customer/viewCustomer")
+    public String viewCustomers(Model model){
+        List<Customer> customerList = customerService.fetchAll();
+        model.addAttribute("customers", customerList);
+        return "/customer/viewCustomer";
+    }
+
     @GetMapping("/customer/createCustomer")
     public String createCustomer(){
         return "home/customer/createCustomer";

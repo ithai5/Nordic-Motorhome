@@ -1,10 +1,11 @@
+// this class is part of the model package in final first year project for KEA
+//Made By Itai Gramse
+
 package com.example.demo.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.net.Inet4Address;
 
-// this class is part of the model package in final first year project for KEA
 @Entity
 public class Customer extends Person{
     @Id

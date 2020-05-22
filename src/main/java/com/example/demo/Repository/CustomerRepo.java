@@ -1,3 +1,6 @@
+// this class is part of the model package in final first year project for KEA
+//Made By Itai Gramse
+
 package com.example.demo.Repository;
 
 import com.example.demo.Model.Customer;
@@ -29,7 +32,11 @@ public class CustomerRepo {
                 "VALUES (?,?,?,?,?,?)";
         int addressId = createAddress(customer); //creating a new address in the database and get the id
         template.update(sql,customer.getFirstName(),customer.getLastName(),customer.getEmail(), customer.getDriverNum(),customer.getPhone(),addressId);
-        return null;
+        sql = "SELECT * FROM KeaProject.Customer";
+        //creating a new query to find the last customer that have been added to the database
+        RowMapper<Customer> customerRowMapper = new BeanPropertyRowMapper<>(Customer.class);
+        List<Customer> customerList = template.query(sql,customerRowMapper);
+        return customerList.get(customerList.size()-1);//return the last customer that have been added
     }
 
     public int createAddress(Customer customer){
@@ -38,7 +45,6 @@ public class CustomerRepo {
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
         //takes the informaion form the cusotmer object and sign it in to the address table in the database
 
-        //break point for method for axstract the last added id in a table
         sql = "SELECT addressId FROM KeaProject.Address ";
         RowMapper<IdHolder> addressIds = new BeanPropertyRowMapper<>(IdHolder.class);//getting a list of all the addressId
         List<IdHolder> idList = template.query(sql,addressIds); //sign in the row mapper list into an integer list

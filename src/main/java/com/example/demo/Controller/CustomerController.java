@@ -1,3 +1,7 @@
+// this class is part of the model package in final first year project for KEA
+//Made By Itai Gramse
+
+
 package com.example.demo.Controller;
 
 import com.example.demo.Model.Customer;

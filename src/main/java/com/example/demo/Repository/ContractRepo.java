@@ -12,10 +12,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ContractRepo {
+public class ContractRepo extends IdHolderRepo {
 
-    @Autowired
-    JdbcTemplate template;
 
     public List<Contract> fetchAll(){
         String sql = "SELECT * " +

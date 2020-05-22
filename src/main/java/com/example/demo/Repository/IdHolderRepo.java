@@ -2,6 +2,7 @@ package com.example.demo.Repository;
 
 import com.example.demo.Model.Contract;
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.IdHolder;
 import com.example.demo.Model.Motorhome;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Id;
 import java.util.List;
 
 @Repository
@@ -45,4 +47,13 @@ public class IdHolderRepo {
         Customer customer = template.queryForObject(sql, rowMapper, customerId);
         return customer;
     }
+    public IdHolder lastAddedToTable(String tableName){
+        String sql = "SELECT * FROM KeaProject." + tableName;
+        System.out.println(sql);
+        //creating a new query to find the last customer that have been added to the database
+        RowMapper<IdHolder> idHolderRowMapper = new BeanPropertyRowMapper<>(IdHolder.class);
+        List<IdHolder> idHolderList = template.query(sql,idHolderRowMapper);
+        return idHolderList.get(idHolderList.size()-1);//return the last customer that have been added
+    }
+
 }

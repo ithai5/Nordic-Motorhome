@@ -14,9 +14,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class CustomerRepo {
+public class CustomerRepo extends IdHolderRepo{
     @Autowired
-    JdbcTemplate template;
+    IdHolderRepo idHolderRepo;
 
     //collect all the information about customers
     public List<Customer> fetchAll(){
@@ -32,23 +32,18 @@ public class CustomerRepo {
                 "VALUES (?,?,?,?,?,?)";
         int addressId = createAddress(customer); //creating a new address in the database and get the id
         template.update(sql,customer.getFirstName(),customer.getLastName(),customer.getEmail(), customer.getDriverNum(),customer.getPhone(),addressId);
-        sql = "SELECT * FROM KeaProject.Customer";
-        //creating a new query to find the last customer that have been added to the database
-        RowMapper<Customer> customerRowMapper = new BeanPropertyRowMapper<>(Customer.class);
-        List<Customer> customerList = template.query(sql,customerRowMapper);
-        return customerList.get(customerList.size()-1);//return the last customer that have been added
+        customer.setCustomerId(lastAddedToTable("Customer").getCustomerId());
+        return customer;//return the last customer that have been added
     }
+
 
     public int createAddress(Customer customer){
         String sql = "INSERT INTO KeaProject.Address (country, city, street, houseNum, zip) " +
                 "VALUES (?,?,?,?,?)";
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
-        //takes the informaion form the cusotmer object and sign it in to the address table in the database
-
-        sql = "SELECT addressId FROM KeaProject.Address ";
-        RowMapper<IdHolder> addressIds = new BeanPropertyRowMapper<>(IdHolder.class);//getting a list of all the addressId
-        List<IdHolder> idList = template.query(sql,addressIds); //sign in the row mapper list into an integer list
-        return idList.get(idList.size()-1).getAddressId(); //getting the last value that has been added to the list
+        System.out.println(customer.getCountry());
+        //takes the informaion form the custmer object and sign it in to the address table in the database
+        return lastAddedToTable("Address").getAddressId(); //getting the last value that has been added to the list
     }
 
     public List<Customer> searchForCustomer(String keyword){

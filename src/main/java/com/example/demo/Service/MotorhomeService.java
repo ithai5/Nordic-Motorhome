@@ -16,13 +16,16 @@ public class MotorhomeService {
         return motorhomeRepo.fetchAll();
     }
 
-    public Motorhome addMotorhome(Motorhome motorhome){
+    public Motorhome addMotorhome (Motorhome motorhome){
         return motorhomeRepo.addMotorhome(motorhome);
     }
 
-    public List<Motorhome> searchMotorhome(String keyword){
+    public List<Motorhome> searchMotorhome (String keyword){
         return motorhomeRepo.searchMotorhome(keyword);
     }
 
+    public Motorhome findMotorhomeByPlate (String licencePlate){
+        return motorhomeRepo.findMotorhomeByPlate(licencePlate);
+    }
 }
 

@@ -56,16 +56,26 @@ public class MotorhomeRepo {
 
 
     public List<Motorhome> searchMotorhome(String keyword){
-        String sql = "SELECT * FROM MhType t " +
-                "JOIN MhSpecs s ON t.mhTypeId = s.mhTypeId " +
-                "JOIN MhInfo i ON s.mhSpecsId = i.mhSpecsId " +
+        String sql = "SELECT * FROM KeaProject.MhType t " +
+                "JOIN KeaProject.MhSpecs s ON t.mhTypeId = s.mhTypeId " +
+                "JOIN KeaProject.MhInfo i ON s.mhSpecsId = i.mhSpecsId " +
                 "WHERE licencePlate LIKE '" + keyword + "' " +
                 "OR brand LIKE '" + keyword + "%' " +
                 "OR model LIKE '" + keyword + "%' " +
                 "OR seatNum LIKE '" + keyword + "' " +
                 "OR bedNum LIKE '" + keyword + "' " +
                 "OR typeName LIKE '" + keyword + "%' ";
-        RowMapper<Motorhome> motorhomeRowMapper  = new BeanPropertyRowMapper<>(Motorhome.class);
+        RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
         return template.query(sql, motorhomeRowMapper);
     }
+
+    public Motorhome findMotorhomeByPlate(String licencePlate){
+        String sql = "SELECT * FROM KeaProject.MhInfo i " +
+            "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+            "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId";
+        RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
+        Motorhome motorhome = template.queryForObject(sql, motorhomeRowMapper, licencePlate);
+        return motorhome;
+    }
+
 }

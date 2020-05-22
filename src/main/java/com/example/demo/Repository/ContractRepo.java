@@ -1,7 +1,6 @@
 package com.example.demo.Repository;
 
 import com.example.demo.Model.Contract;
-import com.example.demo.Model.Customer;
 import com.example.demo.Model.Motorhome;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//Made by Thomas
 @Repository
 public class ContractRepo extends IdHolderRepo {
 
@@ -29,7 +29,7 @@ public class ContractRepo extends IdHolderRepo {
         template.update(sql, contract.getContractId(), contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), customerId, licencePlate);
     }
 
-    //Doesn't include state and report
+    //Courtesy of Itai
     public List<Motorhome> availableCars(String startDate, String endDate) {
         String sql = "SELECT * FROM MhSpecs AS specs " +
                 "JOIN " +
@@ -50,12 +50,11 @@ public class ContractRepo extends IdHolderRepo {
                 "WHERE contractId = ?";
     }
 
+    //Adapted by Thomas from Itais search method
     public List<Contract> searchForContract(String keyword){
-        System.out.println("keyword = " + keyword);
         String sql = "SELECT * FROM KeaProject.Contract " +
                 "WHERE startDate LIKE '" + keyword + "%' " +
                 "OR endDate LIKE '" + keyword + "%' " +
-                "OR customerId = " + keyword + " " +
                 "OR licencePlate = '" + keyword + "' ";
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, contractRowMapper);

@@ -57,14 +57,15 @@ public class ContractController {
     return "redirect:/contract";
   }
 
-  @GetMapping("/contract/searchContract")
-  public String searchContract(@ModelAttribute String keyword, Model model){
-    List<Contract> searchHits = contractService.searchContract(keyword);
+  @PostMapping("/contract/searchContract")
+  public String searchContract(@ModelAttribute Contract keyword, Model model){
+
+    List<Contract> searchHits = contractService.searchContract(keyword.getStartDate());
     if (searchHits.isEmpty()){ //check it there is any results for the search and direct to another page
       return "home/contract/contractMenu";
     }
     model.addAttribute("contracts", searchHits); //show the result of the search statement
-    return "home/customer/searchContract";
+    return "home/contract/searchContract";
   }
 
 }

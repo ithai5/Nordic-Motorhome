@@ -16,16 +16,25 @@ public class MotorhomeService {
         return motorhomeRepo.fetchAll();
     }
 
-    public Motorhome addMotorhome (Motorhome motorhome){
+    public Motorhome addMotorhome(Motorhome motorhome){
         return motorhomeRepo.addMotorhome(motorhome);
     }
 
-    public List<Motorhome> searchMotorhome (String keyword){
+    public List<Motorhome> searchMotorhome(String keyword){
         return motorhomeRepo.searchMotorhome(keyword);
     }
 
-    public Motorhome findMotorhomeByPlate (String licencePlate){
+    public Motorhome findMotorhomeByPlate(String licencePlate){
         return motorhomeRepo.findMotorhomeByPlate(licencePlate);
     }
+
+    public boolean deleteMotorhome(String licencePlate){
+        return motorhomeRepo.deleteMotorhome(licencePlate);
+    }
+
+    public Motorhome updateMotorhome(Motorhome motorhome){
+        return motorhomeRepo.updateMotorhome(motorhome);
+    }
+
 }
 

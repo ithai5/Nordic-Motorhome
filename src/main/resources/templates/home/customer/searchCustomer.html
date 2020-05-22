@@ -10,21 +10,18 @@
 <h1>Search Customer Result Page</h1>
 <table>
     <thead>
-
-    <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Email</th>
-        <th>Driver Number</th>
-        <th>Country</th>
-        <th>City</th>
-        <th>Street</th>
-        <th>House Number</th>
-        <th>Zip Code</th>
-        <th></th>
-    </tr>
-
-
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Driver Number</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Street</th>
+            <th>House Number</th>
+            <th>Zip Code</th>
+            <th></th>
+        </tr>
     </thead>
     <tbody>
     <tr th:each="customer:${customers}">
@@ -39,7 +36,7 @@
         <td th:text="${customer.zip}"></td>
         <td><a th:href="@{'/customer/viewCustomer/'+${customer.customerId}}">
             <button>View</button>
-        </a>
+            </a>
             <a th:href="@{'/customer/deleteCustomer/'+${customer.customerId}}">
                 <button>Delete</button>
             </a>

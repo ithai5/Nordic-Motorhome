@@ -21,7 +21,7 @@ public class CustomerRepo {
     //collect all the information about customers
     public List<Customer> fetchAll(){
         String sql = "SELECT * " +
-                "FROM KeaProject.Customer";
+                "FROM KeaProject.Customer c JOIN KeaProject.Address a ON c.addressId = a.addressId";
         RowMapper<Customer> rowMapper= new BeanPropertyRowMapper<>(Customer.class);
         return template.query(sql,rowMapper);
     }
@@ -43,7 +43,7 @@ public class CustomerRepo {
         String sql = "INSERT INTO KeaProject.Address (country, city, street, houseNum, zip) " +
                 "VALUES (?,?,?,?,?)";
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
-        //takes the informaion form the cusotmer object and sign it in to the address table in the database
+        //takes the informaion form the customer object and sign it in to the address table in the database
 
         sql = "SELECT addressId FROM KeaProject.Address ";
         RowMapper<IdHolder> addressIds = new BeanPropertyRowMapper<>(IdHolder.class);//getting a list of all the addressId

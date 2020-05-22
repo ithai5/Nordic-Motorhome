@@ -8,6 +8,12 @@ public class HomeController {
     @GetMapping("/")
     public String index(){return "home/index";}
 
-    @GetMapping("/manageCustomers")
-    public String manageCustomers() {return "home/manageCustomers";}
+    @GetMapping("/customer")
+    public String manageCustomer(){return "home/customer";}
+
+    @GetMapping("/motorhome")
+    public String manageMotorhome(){return "home/motorhome";}
+
+    //@GetMapping("/contract")
+    //public String manageContract(){return "home/contract";}
 }

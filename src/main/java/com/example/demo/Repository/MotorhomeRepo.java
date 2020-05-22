@@ -78,4 +78,32 @@ public class MotorhomeRepo {
         return motorhome;
     }
 
+    public boolean deleteMotorhome(String licencePlate){
+        String sql = "DELETE FROM KeaProject.MhInfo WHERE licencePlate = ?";
+        template.update(sql, licencePlate)<0;
+    }
+
+    /*
+    public Motorhome updateMotorhome(Motorhome motorhome){
+        String sql = "UPDATE KeaProject.MhInfo " +
+                "SET licencePlate = ?, odometer = ?, state = ?, report = ? " +
+                "WHERE licencePlate = ?"; //incluyo set licencePlate?
+        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport());
+
+        sql = "UPDATE KeaProject.MhSpecs " +
+                "SET brand = ?, model = ?, seatNum = ?, bedNum = ? " +
+                "WHERE licencePlate = ?";
+        template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum());
+
+        sql = "UPDATE KeaProject.MhType " +
+                "SET typeName = ?, pricePerDay = ? " +
+                "WHERE licencePlate = ?";
+        template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay());
+        return motorhome;
+
+        "UPDATE KeaProject.MhInfo i, KeaProject.MhSpecs s, KeaProject.MhType t "  +
+                "JOIN KeaProject.MhSpecs s ON I.mhSpecsId = s.mhSpecsId " +
+                "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId"
+    }
+     */
 }

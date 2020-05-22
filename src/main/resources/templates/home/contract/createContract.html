@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a new contract</title>
+</head>
+<body>
+    <h1>Confirm and finalize contract</h1>
+    <form action="/contract/createContract" method="post">
+        <div>Starting date for rental</div>
+        <span th:value="${contract.startDate}"></span>
+        <span
+        <input type="text" name="endDate" th:value="${contract.endDate}" >
+
+        <div>Select the motorhome for rental</div>
+        <ul>
+            <li th:each="motorhome:${motorhomes}">
+                <input type="radio" name="licencePlate" th:value="${motorhome.licencePlate}">
+                <span th:text="${motorhome.brand}"></span>
+                <span th:text="${motorhome.model}"></span>
+                <span th:text="$"
+            </li>
+        </ul>
+    </form>
+</body>
+</html>

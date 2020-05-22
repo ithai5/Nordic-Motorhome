@@ -28,4 +28,9 @@ public class ContractController {
     return "home/contract/motorhomeSelection";
   }
 
+  @GetMapping("/contract")
+  public String menu() {
+    return "home/contract/menu";
+  }
+
 }

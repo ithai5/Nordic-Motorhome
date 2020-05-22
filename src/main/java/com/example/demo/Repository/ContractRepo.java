@@ -31,16 +31,17 @@ public class ContractRepo {
         template.update(sql, contract.getContractId(), contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), customerId, licencePlate);
     }
 
+    //Doesn't include state and report
     public List<Motorhome> availableCars(String startDate, String endDate) {
-        String sql = "SELECT * FROM MhSpecs AS b " +
+        String sql = "SELECT * FROM MhSpecs AS specs " +
                 "JOIN " +
-                "(SELECT CarInfo.licencePlate, startDate, endDate, rentalContract_id, CarInfo.specs_id, CarInfo.odometer, CarInfo.registration " +
-                "FROM KeaProject.CarInfo AS a " + "JOIN KeaProject.RentalContract ON a.licencePlate= RentalContract.licencePlate " +
+                "(SELECT MhInfo.licencePlate, startDate, endDate, contractId, MhInfo.mhSpecsId, MhInfo.odometer " +
+                "FROM KeaProject.MhInfo AS info " + "JOIN KeaProject.Contract ON info.licencePlate= Contract.licencePlate " +
                 "AND ((startDate >= '" + startDate + "' AND startDate <= '" + endDate + "') " + "OR(endDate >= '" + startDate + "' AND endDate <= '" + endDate + "') " +
                 "OR (startDate >= '" + startDate + "' AND endDate <= '" + endDate + "')) " +
-                "RIGHT JOIN CarInfo ON a.licencePlate = CarInfo.licencePlate " +
-                "WHERE rentalContract_id IS NULL) AS c " + "ON b.specs_id = c.specs_id  " +
-                "JOIN KeaProject.ClassType AS d " + "ON b.className_id = d.className_id";
+                "RIGHT JOIN MhInfo ON info.licencePlate = MhInfo.licencePlate " +
+                "WHERE contractId IS NULL) AS C " + "ON specs.mhSpecsId = C.mhSpecsId  " +
+                "JOIN KeaProject.MhType AS type " + "ON specs.mhTypeId = type.mhTypeId";
 
         return template.query(sql,new BeanPropertyRowMapper<>(Motorhome.class));
     }

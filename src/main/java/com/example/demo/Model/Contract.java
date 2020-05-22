@@ -12,17 +12,21 @@ public class Contract {
     private String endDate;
     private int startKm;
     private double totalPrice;
-    //Foreign keys
-    private int customerId;
-    private String licencePlate;
     private int timestamp; //timestamp needed to determine cancellation fees
+    //Foreign keys
+    //Values displayed from the customerId
+    private int customerId;
+    //Values displayed from the licencePlate
+    private String licencePlate;
+    //Values displayed from the transferId
+    private Integer pickId;
+    private Integer dropId;
 
     //CONSTRUCTORS
 
-    public Contract() {
-    }
+    public Contract() {}
 
-    public Contract(int contractId, String startDate, String endDate, int startKm, double totalPrice, int customerId, String licencePlate, int timestamp) {
+    public Contract(int contractId, String startDate, String endDate, int startKm, double totalPrice, int customerId, String licencePlate, int timestamp, Integer pickId, Integer dropId) {
         this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,9 +35,9 @@ public class Contract {
         this.customerId = customerId;
         this.licencePlate = licencePlate;
         this.timestamp = timestamp;
+        this.pickId = pickId;
+        this.dropId = dropId;
     }
-
-    //GETTERS & SETTERS
 
     public int getContractId() {
         return contractId;
@@ -99,6 +103,22 @@ public class Contract {
         this.timestamp = timestamp;
     }
 
+    public Integer getPickId() {
+        return pickId;
+    }
+
+    public void setPickId(Integer pickId) {
+        this.pickId = pickId;
+    }
+
+    public Integer getDropId() {
+        return dropId;
+    }
+
+    public void setDropId(Integer dropId) {
+        this.dropId = dropId;
+    }
+
     //toString()
 
     @Override
@@ -112,6 +132,8 @@ public class Contract {
                 ", customerId=" + customerId +
                 ", licencePlate='" + licencePlate + '\'' +
                 ", timestamp=" + timestamp +
+                ", pickId=" + pickId +
+                ", dropId=" + dropId +
                 '}';
     }
 }

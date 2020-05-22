@@ -6,10 +6,15 @@ import javax.persistence.Id;
 @Entity
 public class IdHolder {
     @Id
+    private Integer employeeId;
     private Integer customerId;
     private Integer addressId;
     private Integer mhTypeId;
     private Integer mhSpecsId;
+    private String licencePlate;
+    private Integer contractId;
+    private Integer transferId;
+    private Integer extraId;
 
     public IdHolder ()
     {

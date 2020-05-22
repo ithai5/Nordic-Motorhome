@@ -17,6 +17,13 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @GetMapping("/customer/viewCustomer")
+    public String viewCustomers(Model model){
+        List<Customer> customerList = customerService.fetchAll();
+        model.addAttribute("customers", customerList);
+        return "/customer/viewCustomer";
+    }
+
     @GetMapping("/customer/createCustomer")
     public String createCustomer(){
         return "home/customer/createCustomer";
@@ -36,7 +43,7 @@ public class CustomerController {
 */
     @GetMapping("/customer/searchCustomer/")
     public String searchCustomer(@ModelAttribute Customer customer, Model model){
-        List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
+        List<Customer> customerList = customerService.searchForCustomer(customer.getFirstName());
         model.addAttribute("customers", customerList);
         return "home/customer/searchCustomer";
     }

@@ -15,6 +15,7 @@ public class Contract {
     //Foreign keys
     private int customerId;
     private String licencePlate;
+    private int timestamp; //timestamp needed to determine cancellation fees
 
     //CONSTRUCTORS
 

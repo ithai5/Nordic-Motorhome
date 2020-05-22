@@ -27,17 +27,14 @@ public class CustomerController {
         customerService.addCustomer(customer);
         return "redirect:/";
     }
-/*
-    @GetMapping("/customer/searchCustomer")
-    public String searchCustomer(){
-        System.out.println("getmapping");
-        return "home/searchCustomer";
-    }
-*/
+
     @GetMapping("/customer/searchCustomer/")
     public String searchCustomer(@ModelAttribute Customer customer, Model model){
         List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
-        model.addAttribute("customers", customerList);
+        if (customerList.isEmpty()){ //check it there is any results for the search and direct to another page
+            return "home/customer/noSearchResults";
+        }
+        model.addAttribute("customers", customerList); //show the result of the search statement
         return "home/customer/searchCustomer";
     }
 

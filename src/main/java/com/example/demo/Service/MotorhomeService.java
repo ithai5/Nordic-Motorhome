@@ -19,4 +19,10 @@ public class MotorhomeService {
     public Motorhome addMotorhome(Motorhome motorhome){
         return motorhomeRepo.addMotorhome(motorhome);
     }
+
+    public List<Motorhome> searchMotorhome(String keyword){
+        return motorhomeRepo.searchMotorhome(keyword);
+    }
+
 }
+

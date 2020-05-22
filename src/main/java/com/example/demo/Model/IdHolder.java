@@ -8,6 +8,8 @@ public class IdHolder {
     @Id
     private Integer customerId;
     private Integer addressId;
+    private Integer mhTypeId;
+    private Integer mhSpecsId;
 
     public IdHolder ()
     {
@@ -31,6 +33,22 @@ public class IdHolder {
     public void setAddressId (Integer addressId)
     {
         this.addressId = addressId;
+    }
+
+    public Integer getMhTypeId () {
+        return mhTypeId;
+    }
+
+    public void setMhTypeId (Integer mhTypeId) {
+        this.mhTypeId = mhTypeId;
+    }
+
+    public Integer getMhSpecsId () {
+        return mhSpecsId;
+    }
+
+    public void setMhSpecsId (Integer mhSpecsId) {
+        this.mhSpecsId = mhSpecsId;
     }
 
     @Override

@@ -32,6 +32,7 @@ public class CustomerService {
     public Boolean deleteCustomer (int customerId){
         return customerRepo.deleteCustomer(customerId);
     }
+
     public Customer updateCustomer(Customer customer){
         return customerRepo.updateCustomer(customer);
     }

@@ -43,7 +43,7 @@ public class CustomerController {
 */
     @GetMapping("/customer/searchCustomer/")
     public String searchCustomer(@ModelAttribute Customer customer, Model model){
-        List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
+        List<Customer> customerList = customerService.searchForCustomer(customer.getFirstName());
         model.addAttribute("customers", customerList);
         return "home/customer/searchCustomer";
     }

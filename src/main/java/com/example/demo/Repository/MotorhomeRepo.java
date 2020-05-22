@@ -17,7 +17,7 @@ public class MotorhomeRepo {
     JdbcTemplate template;
 
     public List<Motorhome> fetchAll(){
-        String sql = "SELECT typeName, pricePerDay, brand, model, seatNumber,bedNumber, licencePlate,odometer, state, report " +
+        String sql = "SELECT typeName, pricePerDay, brand, model, seatNumber, bedNumber, licencePlate, odometer, ready, report " +
                 "FROM KeaProject.MhSpecs AS a " +
                 "JOIN KeaProject.MhInfo AS b ON a.mhSpecsId=b.mhSpecsId " +
                 "JOIN KeaProject.MhType AS c ON a.mhTypeId=c.mhTypeId";
@@ -25,31 +25,11 @@ public class MotorhomeRepo {
         return template.query(sql,rowMapper);
     }
 
-    /*
-    public Customer addCustomer(Customer customer){
-        String sql = "INSERT INTO KeaProject.Motorhome (firstName, lastName, email, driverNum, phone, addressId) " +
-                "VALUES (?,?,?,?,?,?)";
-        template.update(sql,customer.getFirstName(),customer.getLastName(),customer.getEmail(), customer.getDriverNum(),customer.getPhone(),addressId);
-        return null;
-    }
-
-    public int createAddress(Customer customer){
-        String sql = "INSERT INTO KeaProject.Address (country, city, street, houseNum, zip) " +
-                "VALUES (?,?,?,?,?)";
-        template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
-        //break point for method for axstract the last added id in a table
-        sql = "SELECT addressId FROM KeaProject.Address ";
-        RowMapper<IdHolder> addressIds = new BeanPropertyRowMapper<>(IdHolder.class);//getting a list of all the addressId
-        List<IdHolder> idList = template.query(sql,addressIds); //sign in the row mapper list into an integer list
-        return idList.get(idList.size()-1).getAddressId(); //getting the last value that has been added to the list
-    }
-     */
 
     public Motorhome addMotorhome(Motorhome motorhome){
-        String sql = "INSERT INTO KeaProject.MhInfo (licencePlate, odometer, state, report, mhSpecsId, mhTypeId") +
+        String sql = "INSERT INTO KeaProject.MhInfo (licencePlate, odometer, ready, report, mhSpecsId, mhTypeId " +
                 "VALUES (?, ?, ?, ?, ?)";
-        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome........, motorhome.getReport(), motorhome.getMhSpecsId(), motorhome.getMhTypeId());
-        // missing to include "state" (boolean) in the template!
+        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getMhSpecsId(), motorhome.getMhTypeId());
         return null;
     }
 
@@ -61,7 +41,7 @@ public class MotorhomeRepo {
         //now we need to find the last mhTypeId added in the table
         RowMapper<IdHolder> mhTypeIds = new BeanPropertyRowMapper<>(IdHolder.class);
         List<IdHolder> idList = template.query(sql, mhTypeIds);
-        return idList.get(idList.size()-1).getMhTypeId(); // doesnt work!
+        return idList.get(idList.size()-1).getMhTypeId();
     }
 
     public int addMhSpecs(Motorhome motorhome){
@@ -71,6 +51,21 @@ public class MotorhomeRepo {
         sql = "SELECT mhSpecsId FROM KeaProject.MhSpecs";
         RowMapper<IdHolder> mhSpecsIds = new BeanPropertyRowMapper<>(IdHolder.class);
         List<IdHolder> idList = template.query(sql, mhSpecsIds);
-        return idList.get(idList.size()-1).getMhSpecsId(); // doesnt work!
+        return idList.get(idList.size()-1).getMhSpecsId();
+    }
+
+
+    public List<Motorhome> searchMotorhome(String keyword){
+        String sql = "SELECT * FROM MhType t " +
+                "JOIN MhSpecs s ON t.mhTypeId = s.mhTypeId " +
+                "JOIN MhInfo i ON s.mhSpecsId = i.mhSpecsId " +
+                "WHERE licencePlate LIKE '" + keyword + "' " +
+                "OR brand LIKE '" + keyword + "%' " +
+                "OR model LIKE '" + keyword + "%' " +
+                "OR seatNum LIKE '" + keyword + "' " +
+                "OR bedNum LIKE '" + keyword + "' " +
+                "OR typeName LIKE '" + keyword + "%' ";
+        RowMapper<Motorhome> motorhomeRowMapper  = new BeanPropertyRowMapper<>(Motorhome.class);
+        return template.query(sql, motorhomeRowMapper);
     }
 }

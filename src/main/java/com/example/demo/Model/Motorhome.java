@@ -14,7 +14,7 @@ public class Motorhome {
     private String typeName;
     private Double pricePerDay;
     //From MhSpecs
-    private Integer mhSpecsId; // why is it on grey color?
+    private Integer mhSpecsId;
     private String brand;
     private String model;
     private Integer seatNum;
@@ -22,7 +22,7 @@ public class Motorhome {
     //From MhInfo
     private String licencePlate;
     private Integer odometer;
-    private Boolean state;
+    private Boolean ready;
     private String report;
 
 
@@ -30,7 +30,7 @@ public class Motorhome {
 
     public Motorhome() {}
 
-    public Motorhome (Integer mhTypeId, String typeName, Double pricePerDay, Integer mhSpecsId, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean state, String report)
+    public Motorhome (Integer mhTypeId, String typeName, Double pricePerDay, Integer mhSpecsId, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean ready, String report)
 
     {
         this.mhTypeId = mhTypeId;
@@ -43,7 +43,7 @@ public class Motorhome {
         this.bedNum = bedNum;
         this.licencePlate = licencePlate;
         this.odometer = odometer;
-        this.state = state;
+        this.ready = ready;
         this.report = report;
     }
 
@@ -144,15 +144,14 @@ public class Motorhome {
         this.odometer = odometer;
     }
 
-
-    public Boolean isState ()
+    public Boolean isReady ()
     {
-        return state;
+        return ready;
     }
 
-    public void setState (Boolean status)
+    public void setReady (Boolean ready)
     {
-        this.state = status;
+        this.ready = ready;
     }
 
     public String getReport ()
@@ -163,13 +162,12 @@ public class Motorhome {
     public void setReport (String condition)
     {
         this.report = report;
-
     }
 
     @Override
     public String toString ()
     {
-        return "Motorhome{" + "typeName='" + typeName + '\'' + ", pricePerDay=" + pricePerDay + ", brand='" + brand + '\'' + ", model='" + model + '\'' + ", seatNum=" + seatNum + ", bedNum=" + bedNum + ", licencePlate='" + licencePlate + '\'' + ", odometer=" + odometer + ", state=" + state + ", report='" + report + '\'' + '}';
+        return "Motorhome{" + "typeName='" + typeName + '\'' + ", pricePerDay=" + pricePerDay + ", brand='" + brand + '\'' + ", model='" + model + '\'' + ", seatNum=" + seatNum + ", bedNum=" + bedNum + ", licencePlate='" + licencePlate + '\'' + ", odometer=" + odometer + ", ready=" + ready + ", report='" + report + '\'' + '}';
     }
     //GETTERS & SETTERS
 

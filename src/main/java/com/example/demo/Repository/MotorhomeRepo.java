@@ -1,20 +1,16 @@
 package com.example.demo.Repository;
 
-import com.example.demo.Model.Customer;
 import com.example.demo.Model.IdHolder;
 import com.example.demo.Model.Motorhome;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class MotorhomeRepo {
-    @Autowired
-    JdbcTemplate template;
+public class MotorhomeRepo extends IdHolderRepo {
+
 
     public List<Motorhome> fetchAll(){
         String sql = "SELECT typeName, pricePerDay, brand, model, seatNumber, bedNumber, licencePlate, odometer, ready, report " +

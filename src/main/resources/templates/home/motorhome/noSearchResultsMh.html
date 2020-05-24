@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div><h1>There are no results for your search</h1>
+        <form action="/motorhome/searchMotorhome/" method="get">Search Motorhome
+            <input type="text" name="licencePlate" placeholder="Type search parameter" required>
+            <input type="submit" value="Search Motorhome">
+        </form>
+    </div>
+    <div>
+        <h1>Add New Motorhome</h1>
+        <form action="/motorhome/createMotorhome" method="post">
+            <div>Enter type name
+                <input type="text" name="typeName" placeholder="Urben Plus" required>
+            </div>
+            <div>Enter price per day
+                <input type="number" name="pricePerDay" placeholder="999" required>
+            </div>
+            <div>Enter brand
+                <input type="text" name="brand" placeholder="Coachmen" required>
+            </div>
+            <div>Enter model
+                <input type="text" name="model" placeholder="pursuit" required>
+            </div>
+            <div>Enter seat number
+                <input type="number" name="seatNum" placeholder="8" required>
+            </div>
+            <div>Enter bed number
+                <input type="number" name="bedNum" placeholder="8" required>
+            </div>
+            <div>Enter licence plate
+                <input type="text" name="licencePlate" placeholder="ab123456" required>
+            </div>
+            <div>Enter odometer
+                <input type="number" name="odometer" placeholder="0" required>
+            </div>
+            <div>Enter status
+                <input type="" name="ready" placeholder="available" >
+            </div>
+            <div>Enter report
+                <input type="text" name="report" placeholder="nice and shine" >
+            </div>
+            <input type="submit" value="Create New Motorhome">
+        </form>
+    </div>
+</body>
+</html>

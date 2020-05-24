@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h1>Search Customer Result Page</h1>
+<h1>Search Customer Results</h1>
 <table>
     <thead>
         <tr>
@@ -34,7 +34,8 @@
         <td th:text="${customer.street}"></td>
         <td th:text="${customer.houseNum}"></td>
         <td th:text="${customer.zip}"></td>
-        <td><a th:href="@{'/customer/viewCustomer/'+${customer.customerId}}">
+        <td>
+            <a th:href="@{'/customer/viewCustomer/'+${customer.customerId}}">
             <button>View</button>
             </a>
             <a th:href="@{'/customer/deleteCustomer/'+${customer.customerId}}">

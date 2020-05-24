@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -21,12 +22,13 @@ public class MotorhomeController {
     @GetMapping("/motorhome/viewMotorhome")
     public String viewMotorhomes (Model model){
         List<Motorhome> motorhomeList = motorhomeService.fetchAll();
-        return "/motorhome/viewMotorhome";
+        model.addAttribute("motorhomes", motorhomeList);
+        return "home/motorhome/viewMotorhome";
     }
 
     @GetMapping("/motorhome/createMotorhome")
     public String addMotorhome(){
-        return "/motorhome/createMotorhome";
+        return "home/motorhome/createMotorhome";
     }
 
     @PostMapping("/motorhome/createMotorhome")
@@ -38,7 +40,16 @@ public class MotorhomeController {
     @GetMapping("/motorhome/searchMotorhome")
     public String searchMotorhome (@ModelAttribute Motorhome motorhome, Model model){
         List<Motorhome> motorhomeList = motorhomeService.searchMotorhome(motorhome.getLicencePlate());
+        if(motorhomeList.isEmpty()){
+            return "home/motorhome/noSearchResultsMh";
+        }
         model.addAttribute("motorhomes", motorhomeList);
         return "home/motorhome/searchMotorhome";
+    }
+
+    @GetMapping("/motorhome/deleteMotorhome/{licencePlate}")
+    public String deleteMotorhome(@PathVariable("licencePlate") String licencePlate){
+        Boolean delete = motorhomeService.deleteMotorhome(licencePlate);
+        return "redirect:/";
     }
 }

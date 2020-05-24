@@ -5,7 +5,7 @@
     <title>Search Motorhome</title>
 </head>
 <body>
-<h1>Search Customer Result Page</h1>
+<h1>Search Motorhome Results</h1>
 <table>
     <thead>
     <tr>
@@ -17,7 +17,6 @@
         <th>Type</th>
     </tr>
     </thead>
-
     <tbody>
     <tr th:each="motorhome:${motorhomes}">
         <td th:text="${motorhome.licencePlate}"></td>
@@ -26,6 +25,17 @@
         <td th:text="${motorhome.seatNum}"></td>
         <td th:text="${motorhome.bedNum}"></td>
         <td th:text="${motorhome.typeName}"></td>
+        <td>
+            <a th:href="@{'/motorhome/viewMotorhome/'+${motorhome.licencePlate}}">
+                <button>View</button>
+            </a>
+            <a th:href="@{'/motorhome/deleteMotorhome/'+${motorhome.licencePlate}}">
+                <button>Delete</button>
+            </a>
+            <a th:href="@{'/motorhome/updateMotorhome/'+${motorhome.licencePlate}}">
+                <button>Update</button>
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>

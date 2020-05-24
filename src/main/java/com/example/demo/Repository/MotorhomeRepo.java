@@ -13,7 +13,7 @@ public class MotorhomeRepo extends IdHolderRepo {
 
 
     public List<Motorhome> fetchAll(){
-        String sql = "SELECT typeName, pricePerDay, brand, model, seatNumber, bedNumber, licencePlate, odometer, ready, report " +
+        String sql = "SELECT typeName, pricePerDay, brand, model, seatNum, bedNum, licencePlate, odometer, ready, report " +
                 "FROM KeaProject.MhSpecs AS a " +
                 "JOIN KeaProject.MhInfo AS b ON a.mhSpecsId=b.mhSpecsId " +
                 "JOIN KeaProject.MhType AS c ON a.mhTypeId=c.mhTypeId";
@@ -23,31 +23,25 @@ public class MotorhomeRepo extends IdHolderRepo {
 
 
     public Motorhome addMotorhome(Motorhome motorhome){
-        String sql = "INSERT INTO KeaProject.MhInfo (licencePlate, odometer, ready, report, mhSpecsId, mhTypeId " +
-                "VALUES (?, ?, ?, ?, ?)";
-        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getMhSpecsId(), motorhome.getMhTypeId());
-        return null;
+        String sql = "INSERT INTO KeaProject.MhInfo (licencePlate, odometer, ready, report, mhSpecsId) " +
+                "VALUES (?, ?, ?, ?)";
+        int mhSpecsId = addMhSpecs(motorhome);
+        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), mhSpecsId);
+        return motorhome;
     }
+    public int addMhSpecs(Motorhome motorhome){
+        String sql = "INSERT INTO KeaProject.MhSpecs (brand, model, seatNum, bedNum, mhTypeId) " +
+                "VALUES (?, ?, ?, ?, ?)";
+        int mhTypeId = addMhType(motorhome);
+        template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), mhTypeId);
+        return lastAddedToTable("MhSpecs").getMhSpecsId();
 
+    }
     public int addMhType(Motorhome motorhome){
-        String sql = "INSERT INTO KeaProject.MhType (typeName, pricePerDay)" +
+        String sql = "INSERT INTO KeaProject.MhType (typeName, pricePerDay) " +
                 "VALUES (?, ?)";
         template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay());
-        sql = "SELECT mhTypeId FROM KeaProject.MhType";
-        //now we need to find the last mhTypeId added in the table
-        RowMapper<IdHolder> mhTypeIds = new BeanPropertyRowMapper<>(IdHolder.class);
-        List<IdHolder> idList = template.query(sql, mhTypeIds);
-        return idList.get(idList.size()-1).getMhTypeId();
-    }
-
-    public int addMhSpecs(Motorhome motorhome){
-        String sql = "INSERT INTO KeaProject.MhSpecs (brand, model, seatNum, bedNum)" +
-                "VALUES (?, ?, ?, ?)";
-        template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum());
-        sql = "SELECT mhSpecsId FROM KeaProject.MhSpecs";
-        RowMapper<IdHolder> mhSpecsIds = new BeanPropertyRowMapper<>(IdHolder.class);
-        List<IdHolder> idList = template.query(sql, mhSpecsIds);
-        return idList.get(idList.size()-1).getMhSpecsId();
+        return lastAddedToTable("MhType").getMhTypeId();
     }
 
 
@@ -76,30 +70,33 @@ public class MotorhomeRepo extends IdHolderRepo {
 
     public boolean deleteMotorhome(String licencePlate){
         String sql = "DELETE FROM KeaProject.MhInfo WHERE licencePlate = ?";
-        template.update(sql, licencePlate)<0;
+        return template.update(sql, licencePlate)<0;
     }
 
     /*
     public Motorhome updateMotorhome(Motorhome motorhome){
         String sql = "UPDATE KeaProject.MhInfo " +
-                "SET licencePlate = ?, odometer = ?, state = ?, report = ? " +
-                "WHERE licencePlate = ?"; //incluyo set licencePlate?
-        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport());
+                "SET odometer = ?, ready = ?, report = ? " +
+                "WHERE licencePlate = ?";
+        template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getLicencePlate());
 
         sql = "UPDATE KeaProject.MhSpecs " +
-                "SET brand = ?, model = ?, seatNum = ?, bedNum = ? " +
+                "SET mhSpecsId = ?, brand = ?, model = ?, seatNum = ?, bedNum = ? " +
                 "WHERE licencePlate = ?";
-        template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum());
+        template.update(sql, motorhome.getMhSpecsId(), motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum());
 
         sql = "UPDATE KeaProject.MhType " +
                 "SET typeName = ?, pricePerDay = ? " +
-                "WHERE licencePlate = ?";
-        template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay());
+                "WHERE mhTypeId = ?";
+        template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId());
         return motorhome;
-
-        "UPDATE KeaProject.MhInfo i, KeaProject.MhSpecs s, KeaProject.MhType t "  +
-                "JOIN KeaProject.MhSpecs s ON I.mhSpecsId = s.mhSpecsId " +
-                "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId"
+*/
+        //String sql = "UPDATE KeaProject.MhInfo i "  +
+        //        "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+        //       "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId" +
+        //      "SET odometer = ?, ready = ?, report = ?, mhSpecsId = ?, brand = ?, model = ?, seatNum = ?, bedNum = ?, mhTypeId = ?, typeName = ?, pricePerDay = ?" +
+        //      "WHERE licencePlate = ? AND
+        //template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getMhSpecsId(), motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), motorhome.getMhTypeId(), motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId(), )
     }
-     */
+
 }

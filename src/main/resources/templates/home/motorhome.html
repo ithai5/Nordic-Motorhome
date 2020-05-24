@@ -9,14 +9,10 @@
         <button style="color=blue">VIEW ALL MOTORHOMES</button>
     </a>
 
-    <a href="/motorhome/searchMotorhome/">
-        <button style="color=blue">SEARCH MOTORHOME</button>
-    </a>
-
     <a href="/motorhome/createMotorhome/">
         <button style="color=blue">ADD MOTORHOME</button>
     </a>
-
+    <!--
     <a href="/motorhome/updateMotorhome/">
         <button style="color=blue">UPDATE MOTORHOME</button>
     </a>
@@ -24,5 +20,19 @@
     <a href="/motorhome/deleteMotorhome/">
         <button style="color=blue">DELETE MOTORHOME</button>
     </a>
+
+    <a href="/motorhome/searchMotorhome/">
+        <button style="color=blue">SEARCH MOTORHOME</button>
+    </a>
+    -->
+    <form action="/motorhome/searchMotorhome" method="get">
+        <div>
+            Search for a motorhome to view info, update or delete
+            <input type="text" name="licencePlate" placeholder="Searching parameter" required>
+            <input type="submit" value="Search motorhome">
+
+        </div>
+    </form>
+
 </body>
 </html>

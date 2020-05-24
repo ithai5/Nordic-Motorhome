@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import java.util.List;
 
 @Repository
-public class IdHolderRepo {
+public class  IdHolderRepo {
 
     @Autowired
     JdbcTemplate template;

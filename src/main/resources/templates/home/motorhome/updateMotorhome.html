@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Motorhome</title>
+</head>
+<body>
+<form action="/motorhome/updateMotorhome" method="post">
+    <div>Licence Plate
+        <input type="text" name="licencePlate" th:value="${motorhome.licencePlate}" >
+    </div>
+    <div>Odometer
+        <input type="number" name="odometer" th:value="${motorhome.odometer}">
+    </div>
+    <div>State
+        <input type="number" name="state" th:value="${motorhome.state}">
+    </div>
+    <div>Report
+        <input type="text" name="report" th:value="${motorhome.report}">
+    </div>
+    <div>MhSpecsId
+        <input type="number" name="mhSpecsId" th:value="${motorhome.mhSpecsId}">
+    </div>
+    <div>Brand
+        <input type="text" name="brand" th:value="${motorhome.brand}">
+    </div>
+    <div>Model
+        <input type="text" name="model" th:value="${motorhome.model}" >
+    </div>
+    <div>Seats Number
+        <input type="number" name="seatNum" th:value="${motorhome.seatNum}">
+    </div>
+    <div>Beds Number
+        <input type="number" name="bedNum" th:value="${motorhome.bedNum}">
+    </div>
+    <div>Type Id
+        <input type="number" name="mhTypeId" th:value="${motorhome.mhTypeId}">
+    </div>
+    <div>Type Name
+        <input type="text" name="typeName" th:value="${motorhome.typeName}">
+    </div>
+    <div>Price Per Day
+        <input type="number" name="pricePerDay" th:value="${motorhome.pricePerDay}">
+    </div>
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+</body>
+</html>

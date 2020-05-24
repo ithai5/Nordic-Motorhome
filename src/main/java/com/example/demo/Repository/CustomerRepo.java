@@ -15,8 +15,7 @@ import java.util.List;
 
 @Repository
 public class CustomerRepo extends IdHolderRepo{
-    @Autowired
-    IdHolderRepo idHolderRepo;
+
 
     //collect all the information about customers
     public List<Customer> fetchAll(){

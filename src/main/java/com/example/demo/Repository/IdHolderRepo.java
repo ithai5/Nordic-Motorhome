@@ -47,13 +47,13 @@ public class IdHolderRepo {
         Customer customer = template.queryForObject(sql, rowMapper, customerId);
         return customer;
     }
-    public IdHolder lastAddedToTable(String tableName){
+    public IdHolder lastAddedToTable(String tableName){ //by inserting a string name of the table that you would like to find the last id that added to the table
         String sql = "SELECT * FROM KeaProject." + tableName;
         System.out.println(sql);
-        //creating a new query to find the last customer that have been added to the database
+        //creating a new query to find the last id  that have been added to the database
         RowMapper<IdHolder> idHolderRowMapper = new BeanPropertyRowMapper<>(IdHolder.class);
         List<IdHolder> idHolderList = template.query(sql,idHolderRowMapper);
-        return idHolderList.get(idHolderList.size()-1);//return the last customer that have been added
+        return idHolderList.get(idHolderList.size()-1);//return the last id that have been added
     }
 
 }

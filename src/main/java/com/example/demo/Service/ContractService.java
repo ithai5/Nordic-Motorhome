@@ -30,6 +30,10 @@ public class ContractService {
     public void deleteContract(int contractId) {contractRepo.deleteContract(contractId);}
 
     public List<Contract> searchContract(String keyword) {return contractRepo.searchForContract(keyword);}
+
+    public double totalContractPrice(int contractId){
+        return contractRepo.totalContractPrice(contractId);
+    }
     /*
     public List<Customer> searchForCustomer(String keyword){
         return customerRepo.searchForCustomer(keyword);

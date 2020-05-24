@@ -40,7 +40,6 @@ public class ContractController {
     model.addAttribute("contract", contract);
     model.addAttribute("customer", idHolderService.findCustomerById(contract.getCustomerId()));
     model.addAttribute("motorhome", idHolderService.findMotorhomeByPlate(contract.getLicencePlate()));
-
     return "home/contract/viewContract";
   }
 

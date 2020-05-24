@@ -2,9 +2,7 @@ package com.example.demo.Repository;
 
 import com.example.demo.Model.Contract;
 import com.example.demo.Model.Motorhome;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -59,4 +57,35 @@ public class ContractRepo extends IdHolderRepo {
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, contractRowMapper);
     }
+
+    public double totalContractPrice(int contractId){
+        double totalPrice = 0;
+        //creating an sql for find the price for the contract exclude extra
+        String sql = "SELECT contractId, startDate, endDate, customerId, " +
+                        "(pricePerDay+(SELECT SUM(amount*pricePerDay) AS PriceForExtra " + //collect the price of the extra per day
+                        "FROM KeaProject.ContractHasExtra h " +
+                        "JOIN Extra e ON h.extraId = e.extraId " +
+                        "WHERE contractId = " + contractId + ")) *DATEDIFF(endDate,startDate) AS totalPrice " +
+                //calculate the amount of days that the contract is and time it the price per day of the motorhome
+                     "FROM Contract c " +
+                     "JOIN MhInfo i ON c.licencePlate=i.licencePlate " +
+                     "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+                     "JOIN MhType t ON s.mhTypeId = t.mhTypeId " + //getting the price per day form the table MhType
+                     "WHERE contractId = " +contractId;
+        RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        List<Contract> contractList = template.query(sql, contractRowMapper);
+        totalPrice = contractList.get(0).getTotalPrice();
+        //Collecting the price of the transportation, can be split for another method
+        sql = "SELECT  (t1.price + t2.price) totalPirce FROM Contract c " +
+                "JOIN Transfer t1 ON c.pickId = t1.transferId " +
+                "JOIN Transfer t2 ON c.dropId =  t2.transferId " +
+                "WHERE c.contractId = " + contractId;
+        contractList = template.query(sql,contractRowMapper);
+        totalPrice += contractList.get(0).getTotalPrice();
+        System.out.println(totalPrice);
+        return totalPrice;
+    }
+
+
+
 }

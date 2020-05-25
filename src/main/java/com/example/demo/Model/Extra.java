@@ -7,11 +7,22 @@ import javax.persistence.Id;
 public class Extra {
     @Id
     private int extraId;
+    private int pricePerDay;
     private String extraName;
     private int amount;
 
     public Extra ()
     {
+    }
+
+    public int getPricePerDay ()
+    {
+        return pricePerDay;
+    }
+
+    public void setPricePerDay (int pricePerDay)
+    {
+        this.pricePerDay = pricePerDay;
     }
 
     public int getExtraId ()

@@ -37,6 +37,8 @@ public class MotorhomeRepo extends IdHolderRepo {
         int mhTypeId = addMhType(motorhome);
         template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), mhTypeId);
         return lastAddedToTable("MhSpecs").getId();
+
+
     }
 
     public int addMhType(Motorhome motorhome){
@@ -46,8 +48,6 @@ public class MotorhomeRepo extends IdHolderRepo {
         return lastAddedToTable("MhType").getId();
     }
 
-
-    //SEARCH
     public List<Motorhome> searchMotorhome(String keyword){
         String sql = "SELECT * FROM KeaProject.MhType t " +
                 "JOIN KeaProject.MhSpecs s ON t.mhTypeId = s.mhTypeId " +
@@ -83,31 +83,16 @@ public class MotorhomeRepo extends IdHolderRepo {
 
 
     //UPDATE
-    public Motorhome updateMotorhome(Motorhome motorhome) {
-        String sql = "UPDATE KeaProject.MhInfo " +
-                "SET odometer = ?, ready = ?, report = ? " +
-                "WHERE licencePlate = ?";
+    public Motorhome updateMotorhome(Motorhome motorhome)
+    {
+        String sql = "UPDATE KeaProject.MhInfo " + "SET odometer = ?, ready = ?, report = ? " + "WHERE licencePlate = ?";
         template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getLicencePlate());
 
-        sql = "UPDATE KeaProject.MhSpecs " +
-                "SET brand = ?, model = ?, seatNum = ?, bedNum = ? " +
-                "WHERE mhSpecsId = ?";
+        sql = "UPDATE KeaProject.MhSpecs " + "SET brand = ?, model = ?, seatNum = ?, bedNum = ? " + "WHERE mhSpecsId = ?";
         template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), motorhome.getMhSpecsId());
 
-        sql = "UPDATE KeaProject.MhType " +
-                "SET typeName = ?, pricePerDay = ? " +
-                "WHERE mhTypeId = ?";
+        sql = "UPDATE KeaProject.MhType " + "SET typeName = ?, pricePerDay = ? " + "WHERE mhTypeId = ?";
         template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId());
         return motorhome;
     }
-
-
-        //String sql = "UPDATE KeaProject.MhInfo i "  +
-        //        "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
-        //       "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId" +
-        //      "SET odometer = ?, ready = ?, report = ?, mhSpecsId = ?, brand = ?, model = ?, seatNum = ?, bedNum = ?, mhTypeId = ?, typeName = ?, pricePerDay = ?" +
-        //      "WHERE licencePlate = ? AND
-        //template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getMhSpecsId(), motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), motorhome.getMhTypeId(), motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId());
-
-
 }

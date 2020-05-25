@@ -74,4 +74,5 @@ public class MotorhomeController {
         motorhomeService.updateMotorhome(motorhome);
         return "redirect:/";
     }
+
 }

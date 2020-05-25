@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Model.Contract;
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.Extra;
 import com.example.demo.Model.Motorhome;
 import com.example.demo.Service.ContractService;
 import com.example.demo.Service.IdHolderService;
@@ -63,6 +64,14 @@ public class ContractController {
     }
     model.addAttribute("contracts", searchHits); //show the result of the search statement
     return "home/contract/searchContract";
+  }
+
+
+  @GetMapping("/contract/extraToContract")
+  public String viewExtra(Model model){
+    List<Extra> extraList = contractService.fetchAllExtra();
+    model.addAttribute("extras", extraList);
+    return "home/contract/extraToContract";
   }
 
 }

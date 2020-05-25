@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>add Extra</title>
+
+</head>
+<body>
+    <form action="/">
+        <tr th:each="extra:${extras}">
+            <div>
+                <input type="checkbox" name="extra.extraId" th:value="${extra.extraName}">
+                <span th:text="${extra.extraName}"></span>
+                <input type="number"  name="amount" min="0" max="8">
+            </div>
+        </tr>
+    </form>
+
+
+</body>
+</html>

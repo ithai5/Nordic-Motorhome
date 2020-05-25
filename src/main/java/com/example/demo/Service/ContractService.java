@@ -4,6 +4,7 @@ package com.example.demo.Service;
 
 import com.example.demo.Model.Contract;
 import com.example.demo.Model.Customer;
+import com.example.demo.Model.Extra;
 import com.example.demo.Model.Motorhome;
 import com.example.demo.Repository.ContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,10 @@ public class ContractService extends IdHolderService {
 
     public double totalContractPrice(int contractId){
         return contractRepo.totalContractPrice(contractId);
+    }
+
+    public List<Extra> fetchAllExtra(){
+        return contractRepo.fetchAllExtra();
     }
     /*
     public List<Customer> searchForCustomer(String keyword){

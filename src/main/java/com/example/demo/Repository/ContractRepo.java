@@ -1,6 +1,7 @@
 package com.example.demo.Repository;
 
 import com.example.demo.Model.Contract;
+import com.example.demo.Model.Extra;
 import com.example.demo.Model.Motorhome;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -88,6 +89,13 @@ public class ContractRepo extends IdHolderRepo {
 
     public void deleteLastContract(){
         deleteContract(lastAddedToTable("Contract").getId());
+    }
+
+    public List<Extra> fetchAllExtra(){
+        String sql = "SELECT *" +
+                "FROM KeaProject.Extra";
+        RowMapper<Extra> rowMapper= new BeanPropertyRowMapper<>(Extra.class);
+        return template.query(sql,rowMapper);
     }
 
 

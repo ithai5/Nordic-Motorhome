@@ -12,7 +12,7 @@ public class Contract {
     private String endDate;
     private int startKm;
     private double totalPrice;
-    private int timestamp; //timestamp needed to determine cancellation fees
+    private double pricePerDay; //Needed for the totalContractPrice calculation + seasonPrice method calculation
     //Foreign keys
     private int customerId;
     private String licencePlate;

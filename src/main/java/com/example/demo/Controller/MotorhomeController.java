@@ -18,6 +18,7 @@ public class MotorhomeController {
     @Autowired
     MotorhomeService motorhomeService;
 
+
     //VIEW ALL
     @GetMapping("/motorhome/viewMotorhome")
     public String viewMotorhomes (Model model){
@@ -59,22 +60,18 @@ public class MotorhomeController {
         return "redirect:/";
     }
 
-<<<<<<< Updated upstream
-=======
 
     //UPDATE
     @GetMapping("/motorhome/updateMotorhome/{licencePlate}")
     public String updateMotorhome(@PathVariable("licencePlate") String licencePlate, Model model){
-        model.addAttribute("motorhomes", motorhomeService.findMotorhomeByPlate(licencePlate));
+        model.addAttribute("motorhome", motorhomeService.findMotorhomeByPlate(licencePlate));
         return "home/motorhome/updateMotorhome";
     }
 
-
     @PostMapping("/motorhome/updateMotorhome")
     public String updateMotorhome(@ModelAttribute Motorhome motorhome){
+        System.out.println(motorhome.getLicencePlate());
         motorhomeService.updateMotorhome(motorhome);
         return "redirect:/";
     }
-
->>>>>>> Stashed changes
 }

@@ -37,8 +37,6 @@ public class MotorhomeRepo extends IdHolderRepo {
         int mhTypeId = addMhType(motorhome);
         template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), mhTypeId);
         return lastAddedToTable("MhSpecs").getId();
-
-
     }
 
     public int addMhType(Motorhome motorhome){
@@ -47,6 +45,8 @@ public class MotorhomeRepo extends IdHolderRepo {
         template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay());
         return lastAddedToTable("MhType").getId();
     }
+
+    //SEARCH
 
     public List<Motorhome> searchMotorhome(String keyword){
         String sql = "SELECT * FROM KeaProject.MhType t " +
@@ -64,6 +64,7 @@ public class MotorhomeRepo extends IdHolderRepo {
 
     /*
     //findByPlate
+    /* Moved inside idHolderRepo
     public Motorhome findMotorhomeByPlate(String licencePlate){
         String sql = "SELECT * FROM KeaProject.MhInfo i " +
             "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
@@ -73,14 +74,13 @@ public class MotorhomeRepo extends IdHolderRepo {
         Motorhome motorhome = template.queryForObject(sql, motorhomeRowMapper, licencePlate);
         return motorhome;
     }
-    */
-
     //DELETE
+     */
+
     public boolean deleteMotorhome(String licencePlate){
         String sql = "DELETE FROM KeaProject.MhInfo WHERE licencePlate = ?";
         return template.update(sql, licencePlate)<0;
     }
-
 
     //UPDATE
     public Motorhome updateMotorhome(Motorhome motorhome)
@@ -95,4 +95,5 @@ public class MotorhomeRepo extends IdHolderRepo {
         template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId());
         return motorhome;
     }
+
 }

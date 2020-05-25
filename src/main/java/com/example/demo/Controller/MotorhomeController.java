@@ -40,7 +40,6 @@ public class MotorhomeController {
         return "redirect:/";
     }
 
-
     //SEARCH
     @GetMapping("/motorhome/searchMotorhome")
     public String searchMotorhome (@ModelAttribute Motorhome motorhome, Model model){
@@ -74,5 +73,4 @@ public class MotorhomeController {
         motorhomeService.updateMotorhome(motorhome);
         return "redirect:/";
     }
-
 }

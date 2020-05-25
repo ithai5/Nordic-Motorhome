@@ -17,7 +17,7 @@ import java.util.List;
 public class  IdHolderRepo {
 
     @Autowired
-    JdbcTemplate template;
+    public JdbcTemplate template;
 
     public Contract findContractById(int contractId) {
         String sql = "SELECT * FROM KeaProject.Contract con " +

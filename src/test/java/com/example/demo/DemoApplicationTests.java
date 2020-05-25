@@ -1,7 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.Model.Customer;
-import com.example.demo.Service.IdHolderService;
+import com.example.demo.Service.ContractService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class DemoApplicationTests {
     @Autowired
-    IdHolderService idHolderService;
+    ContractService contractService;
 
     @Test
     void contextLoads ()
@@ -19,8 +18,8 @@ class DemoApplicationTests {
 
     @Test
     void searchTest () {
-        System.out.println(idHolderService.findMotorhomeByPlate("CK33661"));
-        System.out.println(idHolderService.findContractById(73));
-        System.out.println(idHolderService.findCustomerById(114));
+        System.out.println(contractService.findMotorhomeByPlate("CK33661"));
+        System.out.println(contractService.findContractById(73));
+        System.out.println(contractService.findCustomerById(114));
     }
 }

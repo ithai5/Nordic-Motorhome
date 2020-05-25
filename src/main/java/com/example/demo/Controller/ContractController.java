@@ -5,7 +5,6 @@ import com.example.demo.Model.Customer;
 import com.example.demo.Model.Extra;
 import com.example.demo.Model.Motorhome;
 import com.example.demo.Service.ContractService;
-import com.example.demo.Service.IdHolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,8 +26,7 @@ public class ContractController {
 
   @PostMapping("/contract/motorhomeSelection")
   public String selectMotorhome(@ModelAttribute Contract contract, Model model) {
-    List<Motorhome> mhForRent = contractService.availableCars(contract.getStartDate(), contract.getEndDate());
-    System.out.println(mhForRent);
+    List<Motorhome> mhForRent = contractService.availableMotorhomes(contract.getStartDate(), contract.getEndDate());
     model.addAttribute("motorhomes", mhForRent);
     return "home/contract/motorhomeSelection";
   }
@@ -66,6 +64,11 @@ public class ContractController {
     return "home/contract/searchContract";
   }
 
+  @GetMapping("/contract/additionalsSelection")
+  public String selectAdditionals(@ModelAttribute Contract contract, Model model) {
+    model.addAttribute("transfers", contractService.fetchAllTransfer());
+    return "home/contract/chooseAdditionals";
+  }
 
   @GetMapping("/contract/extraToContract")
   public String viewExtra(Model model){

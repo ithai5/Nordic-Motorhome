@@ -3,6 +3,7 @@ package com.example.demo.Repository;
 import com.example.demo.Model.Contract;
 import com.example.demo.Model.Extra;
 import com.example.demo.Model.Motorhome;
+import com.example.demo.Model.Transfer;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,11 +14,27 @@ import java.util.List;
 @Repository
 public class ContractRepo extends IdHolderRepo {
 
-
-    public List<Contract> fetchAll(){
+    //Retrieves all elements from the contract table
+    public List<Contract> fetchAllContract(){
         String sql = "SELECT * " +
                 "FROM KeaProject.Contract";
         RowMapper<Contract> rowMapper= new BeanPropertyRowMapper<>(Contract.class);
+        return template.query(sql,rowMapper);
+    }
+
+    //Retrieves all elements from the extras table
+    public List<Extra> fetchAllExtra(){
+        String sql = "SELECT *" +
+                "FROM KeaProject.Extra";
+        RowMapper<Extra> rowMapper= new BeanPropertyRowMapper<>(Extra.class);
+        return template.query(sql,rowMapper);
+    }
+
+    //Retrieves all elements from the transfer table
+    public List<Transfer> fetchAllTransfer(){
+        String sql = "SELECT *" +
+                "FROM KeaProject.Transfer";
+        RowMapper<Transfer> rowMapper= new BeanPropertyRowMapper<>(Transfer.class);
         return template.query(sql,rowMapper);
     }
 
@@ -29,7 +46,7 @@ public class ContractRepo extends IdHolderRepo {
     }
 
     //Courtesy of Itai
-    public List<Motorhome> availableCars(String startDate, String endDate) {
+    public List<Motorhome> availableMotorhomes(String startDate, String endDate) {
         String sql = "SELECT * FROM MhSpecs AS specs " +
                 "JOIN " +
                 "(SELECT MhInfo.licencePlate, startDate, endDate, contractId, MhInfo.mhSpecsId, MhInfo.odometer " +
@@ -47,6 +64,8 @@ public class ContractRepo extends IdHolderRepo {
     public void deleteContract(int contractId){
         String sql = "DELETE FROM KeaProject.Contract " +
                 "WHERE contractId = ?";
+
+        template.update(sql, contractId);
     }
 
     //Adapted by Thomas from Itais search method
@@ -90,14 +109,4 @@ public class ContractRepo extends IdHolderRepo {
     public void deleteLastContract(){
         deleteContract(lastAddedToTable("Contract").getId());
     }
-
-    public List<Extra> fetchAllExtra(){
-        String sql = "SELECT *" +
-                "FROM KeaProject.Extra";
-        RowMapper<Extra> rowMapper= new BeanPropertyRowMapper<>(Extra.class);
-        return template.query(sql,rowMapper);
-    }
-
-
-
 }

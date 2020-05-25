@@ -16,7 +16,6 @@ import java.util.List;
 @Repository
 public class CustomerRepo extends IdHolderRepo{
 
-
     //collect all the information about customers
     public List<Customer> fetchAll(){
         String sql = "SELECT * " +
@@ -55,7 +54,7 @@ public class CustomerRepo extends IdHolderRepo{
         return template.query(sql,customerRowMapper);
     }
 
-
+    /* Inside IdHolderRepo
     public Customer findCustomerById(int customerId){
         String sql = "SELECT * " +
                 "FROM KeaProject.Customer c " +
@@ -65,7 +64,7 @@ public class CustomerRepo extends IdHolderRepo{
         Customer customer = template.queryForObject(sql, rowMapper, customerId);
         return customer;
     }
-
+    */
     public Boolean deleteCustomer(int customerId){
         String sql = "DELETE FROM KeaProject.Customer " +
                 "WHERE customerId = ?";

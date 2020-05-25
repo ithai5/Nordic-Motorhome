@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MotorhomeService extends IdHolderService {
+public class MotorhomeService{
     @Autowired
     MotorhomeRepo motorhomeRepo;
 
@@ -24,9 +24,7 @@ public class MotorhomeService extends IdHolderService {
         return motorhomeRepo.searchMotorhome(keyword);
     }
 
-    public Motorhome findMotorhomeByPlate(String licencePlate){
-        return motorhomeRepo.findMotorhomeByPlate(licencePlate);
-    }
+    public Motorhome findMotorhomeByPlate(String licencePlate){return motorhomeRepo.findMotorhomeByPlate(licencePlate);}
 
     public boolean deleteMotorhome(String licencePlate){
         return motorhomeRepo.deleteMotorhome(licencePlate);

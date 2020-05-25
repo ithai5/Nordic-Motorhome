@@ -2,10 +2,8 @@
 
 package com.example.demo.Service;
 
-import com.example.demo.Model.Contract;
-import com.example.demo.Model.Customer;
-import com.example.demo.Model.Extra;
-import com.example.demo.Model.Motorhome;
+import com.example.demo.Model.*;
+
 import com.example.demo.Repository.ContractRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +12,19 @@ import java.util.List;
 
 //Written by Thomas
 @Service
-public class ContractService extends IdHolderService {
+public class ContractService{
     @Autowired
     ContractRepo contractRepo;
 
     public List<Contract> fetchAll(){
-        return contractRepo.fetchAll();
+        return contractRepo.fetchAllContract();
     }
 
     public void addContract(Contract contract, int customerId, String licencePlate){
         contractRepo.addContract(contract, customerId, licencePlate);
     }
 
-    public List<Motorhome> availableCars(String startDate, String endDate) {return contractRepo.availableCars(startDate, endDate);}
+    public List<Motorhome> availableMotorhomes(String startDate, String endDate) {return contractRepo.availableMotorhomes(startDate, endDate);}
 
     public void deleteContract(int contractId) {contractRepo.deleteContract(contractId);}
 
@@ -39,21 +37,13 @@ public class ContractService extends IdHolderService {
     public List<Extra> fetchAllExtra(){
         return contractRepo.fetchAllExtra();
     }
-    /*
-    public List<Customer> searchForCustomer(String keyword){
-        return customerRepo.searchForCustomer(keyword);
-    }
 
-    public Customer findCustomerById(int customerId)
-    {
-        return customerRepo.findCustomerById(customerId);
-    }
+    public List<Transfer> fetchAllTransfer(){return contractRepo.fetchAllTransfer();}
 
-    public Boolean deleteCustomer (int customerId){
-        return customerRepo.deleteCustomer(customerId);
-    }
-    public Customer updateCustomer(Customer customer){
-        return customerRepo.updateCustomer(customer);
-    }
-    */
+    //From the now defunct idHolderService
+    public Contract findContractById(int contractId) {return contractRepo.findContractById(contractId);}
+
+    public Motorhome findMotorhomeByPlate(String licencePlate){return contractRepo.findMotorhomeByPlate(licencePlate);}
+    
+    public Customer findCustomerById(int customerId){return contractRepo.findCustomerById(customerId);}
 }

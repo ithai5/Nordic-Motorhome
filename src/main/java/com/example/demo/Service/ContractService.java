@@ -13,7 +13,7 @@ import java.util.List;
 
 //Written by Thomas
 @Service
-public class ContractService {
+public class ContractService extends IdHolderService {
     @Autowired
     ContractRepo contractRepo;
 

@@ -47,6 +47,7 @@ public class  IdHolderRepo {
         Customer customer = template.queryForObject(sql, rowMapper, customerId);
         return customer;
     }
+
     public IdHolder lastAddedToTable(String tableName){ //by inserting a string name of the table that you would like to find the last id that added to the table
         String sql = "SELECT " + tableName.toLowerCase() + "Id AS id " +
                      "FROM KeaProject." + tableName;

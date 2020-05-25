@@ -20,8 +20,6 @@ import java.util.List;
 public class ContractController {
   @Autowired
   ContractService contractService;
-  @Autowired
-  IdHolderService idHolderService;
 
   @GetMapping("/contract/datesSelection")
   public String selectDates() {return "home/contract/datesSelection";}
@@ -36,10 +34,10 @@ public class ContractController {
 
   @GetMapping("/contract/viewContract/{contractId}")
   public String viewContract(@PathVariable("contractId") int contractId, Model model) {
-    Contract contract = idHolderService.findContractById(contractId);
+    Contract contract = contractService.findContractById(contractId);
     model.addAttribute("contract", contract);
-    model.addAttribute("customer", idHolderService.findCustomerById(contract.getCustomerId()));
-    model.addAttribute("motorhome", idHolderService.findMotorhomeByPlate(contract.getLicencePlate()));
+    model.addAttribute("customer", contractService.findCustomerById(contract.getCustomerId()));
+    model.addAttribute("motorhome", contractService.findMotorhomeByPlate(contract.getLicencePlate()));
     return "home/contract/viewContract";
   }
 

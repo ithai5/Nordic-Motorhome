@@ -32,9 +32,9 @@ public class MotorhomeService extends IdHolderService {
         return motorhomeRepo.deleteMotorhome(licencePlate);
     }
 
-    //public Motorhome updateMotorhome(Motorhome motorhome){
-    //    return motorhomeRepo.updateMotorhome(motorhome);
-    //}
+    public Motorhome updateMotorhome(Motorhome motorhome){
+        return motorhomeRepo.updateMotorhome(motorhome);
+    }
 
 }
 

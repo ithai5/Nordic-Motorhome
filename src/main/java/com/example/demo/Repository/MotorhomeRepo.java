@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public class MotorhomeRepo extends IdHolderRepo {
 
-
+    //VIEW ALL
     public List<Motorhome> fetchAll(){
         String sql = "SELECT typeName, pricePerDay, brand, model, seatNum, bedNum, licencePlate, odometer, ready, report " +
                 "FROM KeaProject.MhSpecs AS a " +
@@ -22,9 +22,10 @@ public class MotorhomeRepo extends IdHolderRepo {
     }
 
 
+    //ADD
     public Motorhome addMotorhome(Motorhome motorhome){
         String sql = "INSERT INTO KeaProject.MhInfo (licencePlate, odometer, ready, report, mhSpecsId) " +
-                "VALUES (?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?)";
         int mhSpecsId = addMhSpecs(motorhome);
         template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), mhSpecsId);
         return motorhome;
@@ -35,8 +36,12 @@ public class MotorhomeRepo extends IdHolderRepo {
                 "VALUES (?, ?, ?, ?, ?)";
         int mhTypeId = addMhType(motorhome);
         template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), mhTypeId);
+<<<<<<< Updated upstream
         return lastAddedToTable("MhSpecs").getId();
 
+=======
+        return lastAddedToTable("MhSpecs").getMhSpecsId();
+>>>>>>> Stashed changes
     }
 
     public int addMhType(Motorhome motorhome){
@@ -47,8 +52,12 @@ public class MotorhomeRepo extends IdHolderRepo {
     }
 
 
+<<<<<<< Updated upstream
 
 
+=======
+    //SEARCH
+>>>>>>> Stashed changes
     public List<Motorhome> searchMotorhome(String keyword){
         String sql = "SELECT * FROM KeaProject.MhType t " +
                 "JOIN KeaProject.MhSpecs s ON t.mhTypeId = s.mhTypeId " +
@@ -63,44 +72,58 @@ public class MotorhomeRepo extends IdHolderRepo {
         return template.query(sql, motorhomeRowMapper);
     }
 
+    //findByPlate
     public Motorhome findMotorhomeByPlate(String licencePlate){
         String sql = "SELECT * FROM KeaProject.MhInfo i " +
             "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
-            "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId";
+            "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId " +
+            "WHERE licencePlate = ?";
         RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
         Motorhome motorhome = template.queryForObject(sql, motorhomeRowMapper, licencePlate);
         return motorhome;
     }
 
+
+    //DELETE
     public boolean deleteMotorhome(String licencePlate){
         String sql = "DELETE FROM KeaProject.MhInfo WHERE licencePlate = ?";
         return template.update(sql, licencePlate)<0;
     }
 
-    /*
-    public Motorhome updateMotorhome(Motorhome motorhome){
+
+    //UPDATE
+    public Motorhome updateMotorhome(Motorhome motorhome) {
         String sql = "UPDATE KeaProject.MhInfo " +
                 "SET odometer = ?, ready = ?, report = ? " +
                 "WHERE licencePlate = ?";
         template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getLicencePlate());
 
         sql = "UPDATE KeaProject.MhSpecs " +
-                "SET mhSpecsId = ?, brand = ?, model = ?, seatNum = ?, bedNum = ? " +
-                "WHERE licencePlate = ?";
-        template.update(sql, motorhome.getMhSpecsId(), motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum());
+                "SET brand = ?, model = ?, seatNum = ?, bedNum = ? " +
+                "WHERE mhSpecsId = ?";
+        template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), motorhome.getMhSpecsId());
 
         sql = "UPDATE KeaProject.MhType " +
                 "SET typeName = ?, pricePerDay = ? " +
                 "WHERE mhTypeId = ?";
         template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId());
         return motorhome;
+<<<<<<< Updated upstream
 
+=======
+    }
+>>>>>>> Stashed changes
         //String sql = "UPDATE KeaProject.MhInfo i "  +
         //        "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
         //       "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId" +
         //      "SET odometer = ?, ready = ?, report = ?, mhSpecsId = ?, brand = ?, model = ?, seatNum = ?, bedNum = ?, mhTypeId = ?, typeName = ?, pricePerDay = ?" +
         //      "WHERE licencePlate = ? AND
         //template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getMhSpecsId(), motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), motorhome.getMhTypeId(), motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId(), )
+<<<<<<< Updated upstream
     }
 */
+=======
+
+
+>>>>>>> Stashed changes
 }

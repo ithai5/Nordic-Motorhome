@@ -18,7 +18,7 @@ public class MotorhomeController {
     @Autowired
     MotorhomeService motorhomeService;
 
-    // do we include "view motorhomes" option? missing model@addattribute?
+    //VIEW ALL
     @GetMapping("/motorhome/viewMotorhome")
     public String viewMotorhomes (Model model){
         List<Motorhome> motorhomeList = motorhomeService.fetchAll();
@@ -26,6 +26,8 @@ public class MotorhomeController {
         return "home/motorhome/viewMotorhome";
     }
 
+
+    //ADD
     @GetMapping("/motorhome/createMotorhome")
     public String addMotorhome(){
         return "home/motorhome/createMotorhome";
@@ -37,6 +39,8 @@ public class MotorhomeController {
         return "redirect:/";
     }
 
+
+    //SEARCH
     @GetMapping("/motorhome/searchMotorhome")
     public String searchMotorhome (@ModelAttribute Motorhome motorhome, Model model){
         List<Motorhome> motorhomeList = motorhomeService.searchMotorhome(motorhome.getLicencePlate());
@@ -47,10 +51,30 @@ public class MotorhomeController {
         return "home/motorhome/searchMotorhome";
     }
 
+
+    //DELETE
     @GetMapping("/motorhome/deleteMotorhome/{licencePlate}")
     public String deleteMotorhome(@PathVariable("licencePlate") String licencePlate){
         Boolean delete = motorhomeService.deleteMotorhome(licencePlate);
         return "redirect:/";
     }
 
+<<<<<<< Updated upstream
+=======
+
+    //UPDATE
+    @GetMapping("/motorhome/updateMotorhome/{licencePlate}")
+    public String updateMotorhome(@PathVariable("licencePlate") String licencePlate, Model model){
+        model.addAttribute("motorhomes", motorhomeService.findMotorhomeByPlate(licencePlate));
+        return "home/motorhome/updateMotorhome";
+    }
+
+
+    @PostMapping("/motorhome/updateMotorhome")
+    public String updateMotorhome(@ModelAttribute Motorhome motorhome){
+        motorhomeService.updateMotorhome(motorhome);
+        return "redirect:/";
+    }
+
+>>>>>>> Stashed changes
 }

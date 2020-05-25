@@ -26,7 +26,7 @@
         <td th:text="${motorhome.bedNum}"></td>
         <td th:text="${motorhome.typeName}"></td>
         <td>
-            <a th:href="@{'/motorhome/viewMotorhome/'+${motorhome.licencePlate}}">
+            <a th:href="@{'/motorhome/viewMotorhome/+${motorhome.licencePlate}}">
                 <button>View</button>
             </a>
             <a th:href="@{'/motorhome/deleteMotorhome/'+${motorhome.licencePlate}}">

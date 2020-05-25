@@ -59,29 +59,23 @@ public class ContractRepo extends IdHolderRepo {
     }
 
 
-    /*additions by Nesrin on Itai's method : This method simply focuses on pricePerDay based on the season
-    and type of motorhome */
-    public double totalContractDays(int contractId) {
+    /*Nesrin: Edited Itai's method to showcase calculation of pricePerDay according to peak season and type  */
+    public double totalDayPrice(int contractId) {
+
+        double peakPrice = 1.6;
+        double midPrice = 1.3;
         double totalPriceDays = 0;
-        //creating an sql for find the price for the contract exclude extra
-        String sql = "SELECT contractId, startDate, endDate, customerId, pricePerDay+(SELECT SUM(amount*pricePerDay) " +
-                "FROM KeaProject.Contract c " +
-                //calculate the amount of days that the contract is and time it the price per day of the motorhome
 
-                //Notes by Nesrin
-                /*difference between start date and end date (can change due to peak season, middle, low season)
-                (if date is between peak start and peak end)
-                    then price per day * 60%
-                (if date is between middle start and middle end) + 30%
-                    then price per day * 30%
-                else normal priceperday */
+       String sql = "SELECT contractId, startDate, endDate, customerId, pricePerDay, totalPrice " +
+        "FROM KeaProject.Contract c " +
+        "JOIN MhInfo i ON c.licencePlate=i.licencePlate " +
+        "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+        "JOIN MhType t ON s.mhTypeId = t.mhTypeId; " +
+               "WHERE startDate >='2020-05-01 00:00:00' AND endDate <='2020-08-30 00:00:00';" +
+        "UPDATE MhType t, Contract c " +
+        "SET t.pricePerDay = " + peakPrice + "*pricePerDay " + //calculating pricePerDay against 60%. I need to change this! MhTable will be updated again and again and the price will keep increasing
+        "WHERE contractId = " + contractId + ";";  //update according to contractId and hardcoded peak period
 
-
-                "FROM Contract c " +
-                "JOIN MhInfo i ON c.licencePlate=i.licencePlate " +
-                "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
-                "JOIN MhType t ON s.mhTypeId = t.mhTypeId " + //getting the price per day form the table MhType
-                "WHERE contractId = " + contractId;
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         List<Contract> contractList = template.query(sql, contractRowMapper);
         totalPriceDays = contractList.get(0).getTotalPrice();
@@ -90,7 +84,6 @@ public class ContractRepo extends IdHolderRepo {
         System.out.println(totalPriceDays);
         return totalPriceDays;
     }
-
 
 
     //Nesrin: This method addresses instances where the customer COULD choose extra items for the contract
@@ -120,7 +113,7 @@ public class ContractRepo extends IdHolderRepo {
     //Nesrin: simple method to add up all contract elements together
     public double completeContractTotal(int contractId) {
         double totalContractPrice = 0;
-        //totalContractDays + totalContractExtras
+        //totalDayPrice + totalContractExtras
         return totalContractPrice;
     }
 
@@ -132,7 +125,8 @@ public class ContractRepo extends IdHolderRepo {
         //this shall not induce automatic cancellation fees
     }
 
-
+    /*Nesrin: this method not only deals with contract expenses but other fees based on
+    the behaviour of the customer */
     public double CompleteInvoiceTotal (int contractId) {
 
         double totalInvoice = 0;

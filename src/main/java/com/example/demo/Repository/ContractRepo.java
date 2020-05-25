@@ -38,11 +38,11 @@ public class ContractRepo extends IdHolderRepo {
         return template.query(sql,rowMapper);
     }
 
-    public void addContract(Contract contract, int customerId, String licencePlate){
-        String sql = "INSERT INTO KeaProject.Contract (contractId, startDate, endDate, startKm, endKm, totalPrice, customerId, licencePlate) " +
-                "VALUES (?,?,?,?,?,?,?,?)";
+    public void addContract(Contract contract){
+        String sql = "INSERT INTO KeaProject.Contract (startDate, endDate, startKm, totalPrice, customerId, licencePlate) " +
+                "VALUES (?,?,?,?,?,?)";
 
-        template.update(sql, contract.getContractId(), contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), customerId, licencePlate);
+        template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate());
     }
 
     //Courtesy of Itai

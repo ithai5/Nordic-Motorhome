@@ -16,12 +16,12 @@ public class ContractService{
     @Autowired
     ContractRepo contractRepo;
 
-    public List<Contract> fetchAll(){
+    public List<Contract> fetchAllContract(){
         return contractRepo.fetchAllContract();
     }
 
-    public void addContract(Contract contract, int customerId, String licencePlate){
-        contractRepo.addContract(contract, customerId, licencePlate);
+    public void addContract(Contract contract){
+        contractRepo.addContract(contract);
     }
 
     public List<Motorhome> availableMotorhomes(String startDate, String endDate) {return contractRepo.availableMotorhomes(startDate, endDate);}

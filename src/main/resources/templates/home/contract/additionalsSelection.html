@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Additions to contract</title>
+</head>
+<body>
+    <h1>Choose the pick up and drop off locations for the motorhome</h1>
+
+    <form action="/contract/confirmContract" method="post">
+        <div>Pick up</div>
+        <select id="pickId" name="pickId">
+            <option
+                    th:each="pickId : ${transfers}"
+                    th:value="${pickId.transferId}"
+                    th:text="${pickId.location}"
+                    th:selected="${pickId.transferId==1}">
+            </option>
+        </select>
+
+        <div>Drop off</div>
+        <select id="dropId" name="dropId">
+            <option
+                    th:each="dropId : ${transfers}"
+                    th:value="${dropId.transferId}"
+                    th:text="${dropId.location}"
+                    th:selected="${dropId.transferId==1}">
+            </option>
+        </select>
+
+        <div>Choose extras!</div>
+        <tr th:each="extra:${extras}">
+            <div>
+                <input type="checkbox" name="extra.extraId" th:value="${extra.extraName}">
+                <span th:text="${extra.extraName}"></span>
+                <input type="number"  name="amount" min="0" max="8">
+            </div>
+        </tr>
+        <input type="submit" value="Go to confirm">
+    </form>
+
+</body>
+</html>

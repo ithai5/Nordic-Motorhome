@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Select a motorhome for the customer to rent</h1>
-    <form>
+    <form action="/contract/additionalsSelection" method="post">
         <ul>
             <li th:each="motorhome:${motorhomes}">
                 <input type="radio" name="licencePlate" th:value="${motorhome.licencePlate}" required>

@@ -29,20 +29,24 @@ public class MotorhomeRepo extends IdHolderRepo {
         template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), mhSpecsId);
         return motorhome;
     }
+
     public int addMhSpecs(Motorhome motorhome){
         String sql = "INSERT INTO KeaProject.MhSpecs (brand, model, seatNum, bedNum, mhTypeId) " +
                 "VALUES (?, ?, ?, ?, ?)";
         int mhTypeId = addMhType(motorhome);
         template.update(sql, motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), mhTypeId);
-        return lastAddedToTable("MhSpecs").getMhSpecsId();
+        return lastAddedToTable("MhSpecs").getId();
 
     }
+
     public int addMhType(Motorhome motorhome){
         String sql = "INSERT INTO KeaProject.MhType (typeName, pricePerDay) " +
                 "VALUES (?, ?)";
         template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay());
-        return lastAddedToTable("MhType").getMhTypeId();
+        return lastAddedToTable("MhType").getId();
     }
+
+
 
 
     public List<Motorhome> searchMotorhome(String keyword){
@@ -90,7 +94,7 @@ public class MotorhomeRepo extends IdHolderRepo {
                 "WHERE mhTypeId = ?";
         template.update(sql, motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId());
         return motorhome;
-*/
+
         //String sql = "UPDATE KeaProject.MhInfo i "  +
         //        "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
         //       "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId" +
@@ -98,5 +102,5 @@ public class MotorhomeRepo extends IdHolderRepo {
         //      "WHERE licencePlate = ? AND
         //template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getMhSpecsId(), motorhome.getBrand(), motorhome.getModel(), motorhome.getSeatNum(), motorhome.getBedNum(), motorhome.getMhTypeId(), motorhome.getTypeName(), motorhome.getPricePerDay(), motorhome.getMhTypeId(), )
     }
-
+*/
 }

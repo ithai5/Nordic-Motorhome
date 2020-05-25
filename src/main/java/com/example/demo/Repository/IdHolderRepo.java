@@ -48,7 +48,8 @@ public class  IdHolderRepo {
         return customer;
     }
     public IdHolder lastAddedToTable(String tableName){ //by inserting a string name of the table that you would like to find the last id that added to the table
-        String sql = "SELECT * FROM KeaProject." + tableName;
+        String sql = "SELECT " + tableName.toLowerCase() + "Id AS id " +
+                     "FROM KeaProject." + tableName;
         System.out.println(sql);
         //creating a new query to find the last id  that have been added to the database
         RowMapper<IdHolder> idHolderRowMapper = new BeanPropertyRowMapper<>(IdHolder.class);

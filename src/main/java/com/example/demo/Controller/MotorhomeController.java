@@ -52,4 +52,5 @@ public class MotorhomeController {
         Boolean delete = motorhomeService.deleteMotorhome(licencePlate);
         return "redirect:/";
     }
+
 }

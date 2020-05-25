@@ -31,7 +31,7 @@ public class CustomerRepo extends IdHolderRepo{
                 "VALUES (?,?,?,?,?,?)";
         int addressId = createAddress(customer); //creating a new address in the database and get the id
         template.update(sql,customer.getFirstName(),customer.getLastName(),customer.getEmail(), customer.getDriverNum(),customer.getPhone(),addressId);
-        customer.setCustomerId(lastAddedToTable("Customer").getCustomerId());
+        customer.setCustomerId(lastAddedToTable("Customer").getId());
         return customer;//return the last customer that have been added
     }
 
@@ -42,7 +42,7 @@ public class CustomerRepo extends IdHolderRepo{
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
         System.out.println(customer.getCountry());
         //takes the informaion form the custmer object and sign it in to the address table in the database
-        return lastAddedToTable("Address").getAddressId(); //getting the last value that has been added to the list
+        return lastAddedToTable("Address").getId(); //getting the last value that has been added to the list
     }
 
     public List<Customer> searchForCustomer(String keyword){

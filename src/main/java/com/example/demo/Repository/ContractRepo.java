@@ -86,6 +86,10 @@ public class ContractRepo extends IdHolderRepo {
         return totalPrice;
     }
 
+    public void deleteLastContract(){
+        deleteContract(lastAddedToTable("Contract").getId());
+    }
+
 
 
 }

@@ -59,67 +59,109 @@ public class ContractRepo extends IdHolderRepo {
     }
 
 
-    /*Nesrin: Edited Itai's method to showcase calculation of pricePerDay according to peak season and type  */
-    public double totalDayPrice(int contractId) {
+    public double amountOfDays (int contractId){
 
-        double peakPrice = 1.6;
-        double midPrice = 1.3;
-        double totalPriceDays = 0;
-
-       String sql = "SELECT contractId, startDate, endDate, customerId, pricePerDay, totalPrice " +
-        "FROM KeaProject.Contract c " +
-        "JOIN MhInfo i ON c.licencePlate=i.licencePlate " +
-        "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
-        "JOIN MhType t ON s.mhTypeId = t.mhTypeId; " +
-               "WHERE startDate >='2020-05-01 00:00:00' AND endDate <='2020-08-30 00:00:00';" +
-        "UPDATE MhType t, Contract c " +
-        "SET t.pricePerDay = " + peakPrice + "*pricePerDay " + //calculating pricePerDay against 60%. I need to change this! MhTable will be updated again and again and the price will keep increasing
-        "WHERE contractId = " + contractId + ";";  //update according to contractId and hardcoded peak period
-
+        String sql = "SELECT DATEDIFF(endDate, startDate) As totalPrice FROM KEAProject.Contract" +
+        "WHERE contractId = " + contractId;
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         List<Contract> contractList = template.query(sql, contractRowMapper);
-        totalPriceDays = contractList.get(0).getTotalPrice();
-        contractList = template.query(sql, contractRowMapper);
-        totalPriceDays += contractList.get(0).getTotalPrice();
-        System.out.println(totalPriceDays);
-        return totalPriceDays;
+        return contractList.get(0).getTotalPrice();
+    }
+
+    public double findPricePerDay (int contractId) {
+
+        String sql = "SELECT pricePerDay  FROM Contract c " +
+                "JOIN MhInfo i ON c.licencePlate = i.licencePlate " +
+                "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+                "JOIN MhType t ON s.mhTypeId =t.mhTypeId WHERE c.contractId = " + contractId;
+
+        RowMapper<Motorhome> motorhomeRowMapper= new BeanPropertyRowMapper<>(Motorhome.class);
+        List<Motorhome> motorhomeList = template.query(sql, motorhomeRowMapper);
+        return motorhomeList.get(0).getPricePerDay();
+    }
+
+    public double seasonPricing (int contractId) {
+
+        double peakSeason = 1.6;
+        double midSeason = 1.3;
+        double offSeason = 1;
+
+        int[]month = {7, 8, 5, 10};
+
+        for (int i=0; i<=2; i+=2){
+            String sql = "SELECT * FROM KeaProject.Contract c " +
+                    "JOIN MhInfo i ON c.licencePlate=i.licencePlate " +
+                    "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+                    "JOIN MhType t ON s.mhTypeId = t.mhTypeId " +
+                    "WHERE MONTH(startDate) >= " + month[i] + /*" AND DAY(startDate)>= " + startPeakDay +*/
+                    " AND MONTH(endDate) <= " + month[i+1] + /*" AND DAY(endDate)<= " + endPeakDay +*/
+                    " AND contractId = " + contractId;
+
+            RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+            List<Contract> contractList = template.query(sql, contractRowMapper);
+            if (!contractList.isEmpty()&& i==0){
+                return peakSeason;
+            }else if (!contractList.isEmpty()&& i==2){
+                return midSeason;
+            }
+        }
+        return offSeason;
     }
 
 
-    //Nesrin: This method addresses instances where the customer COULD choose extra items for the contract
-    public double contractExtrasPrice(int contractId) {
-        double totalExtraPrice = 0;
-        //creating an sql for find the price for the contract exclude extra
-        String sql = "SELECT contractId, startDate, endDate, customerId, " +
-                "(pricePerDay+(SELECT SUM(amount*pricePerDay) AS PriceForExtra " + //collect the price of the extra per day
-                "FROM KeaProject.ContractHasExtra h " +
-                "JOIN Extra e ON h.extraId = e.extraId " +
-                "WHERE contractId = " + contractId + ")) *DATEDIFF(endDate,startDate) AS totalPrice " +
+    //finding totalPrice of Extras
+    public double findExtraTotal(int contractId) {
 
-                //Possible transfer costs
-                "SELECT  (t1.price + t2.price) totalPirce FROM Contract c " +
+
+        String sql = "SELECT SUM(pricePerDay*amount) AS totalPrice FROM KeaProject.Contract c " +
+                "JOIN ContractHasExtra ce ON c.ContractId = ce.ContractId " +
+                "JOIN Extra e ON ce.extraId = e.extraId " +
+                "WHERE c.contractId = " + contractId;
+
+        RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        List<Contract> contractList = template.query(sql, contractRowMapper);
+
+        if (contractList.isEmpty()){
+            return 0;
+        }
+
+        return contractList.get(0).getTotalPrice();
+    }
+
+    //Possible transfer costs
+    public double findTransferCosts (int contractId) {
+
+        String sql = "SELECT  (t1.price + t2.price) totalPrice FROM Contract c " +
                 "JOIN Transfer t1 ON c.pickId = t1.transferId " +
                 "JOIN Transfer t2 ON c.dropId =  t2.transferId " +
                 "WHERE c.contractId = " + contractId;
+
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         List<Contract> contractList = template.query(sql, contractRowMapper);
-        totalExtraPrice = contractList.get(0).getTotalPrice();
-        contractList = template.query(sql, contractRowMapper);
-        totalExtraPrice += contractList.get(0).getTotalPrice();
-        System.out.println(totalExtraPrice);
-        return totalExtraPrice;
+
+        if (contractList.isEmpty()){
+            return 0;
+        }
+        return contractList.get(0).getTotalPrice();
     }
+
 
     //Nesrin: simple method to add up all contract elements together
     public double completeContractTotal(int contractId) {
-        double totalContractPrice = 0;
-        //totalDayPrice + totalContractExtras
-        return totalContractPrice;
+        double contractTotal = 0;
+        contractTotal = amountOfDays(contractId)*findPricePerDay(contractId)*seasonPricing(contractId);
+        contractTotal += findExtraTotal(contractId)*amountOfDays(contractId)+findTransferCosts(contractId);
+        return contractTotal;
     }
+
+    //Make a model version of invoice total
+    //createModel Inovice
+    //return invoicealso html
+
 
     /* Nesrin: method if customer reads summary and then chooses to abort process, leading to deletion of values
     in contract table */
-    public void cancelProcess (int contractId) {
+    public void deleteProcess (int contractId) {
         //technically, the contract is made in the table at the time of reviewing summary
         //lastaddedtotheTable method (from IdHolderRepo) + deleteContract method
         //this shall not induce automatic cancellation fees

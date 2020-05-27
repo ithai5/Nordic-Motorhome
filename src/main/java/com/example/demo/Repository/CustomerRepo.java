@@ -26,6 +26,9 @@ public class CustomerRepo extends IdHolderRepo{
 
     //creating a query for adding a new customer
     public Customer addCustomer(Customer customer){
+        if(preventSql(customer.toString())){
+            return null;
+        }
         String sql = "INSERT INTO KeaProject.Customer (firstName, lastName, email, driverNum, phone, addressId) " +
                 "VALUES (?,?,?,?,?,?)";
         int addressId = createAddress(customer); //creating a new address in the database and get the id
@@ -36,6 +39,9 @@ public class CustomerRepo extends IdHolderRepo{
 
 
     public int createAddress(Customer customer){
+        if(preventSql(customer.toString())){
+            return 0;
+        }
         String sql = "INSERT INTO KeaProject.Address (country, city, street, houseNum, zip) " +
                 "VALUES (?,?,?,?,?)";
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
@@ -45,6 +51,9 @@ public class CustomerRepo extends IdHolderRepo{
     }
 
     public List<Customer> searchForCustomer(String keyword){
+        if(preventSql(keyword)){
+            return null;
+        }
         String sql = "SELECT * FROM KeaProject.Customer c " + "JOIN KeaProject.Address a ON c.addressId = a.addressId " +
                 "WHERE firstName LIKE '" + keyword + "%' " +
                 "OR lastName LIKE '" + keyword + "%' " +
@@ -72,6 +81,9 @@ public class CustomerRepo extends IdHolderRepo{
     }
 
     public Customer updateCustomer(Customer customer){
+        if(preventSql(customer.toString())){
+            return null;
+        }
         String sql = "UPDATE KeaProject.Customer " +
                 "SET firstName = ?, lastName = ?, email = ?, phone = ?, driverNum = ? " +
                 "WHERE customerId = ?";

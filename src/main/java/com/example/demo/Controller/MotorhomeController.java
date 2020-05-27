@@ -44,7 +44,7 @@ public class MotorhomeController {
     @GetMapping("/motorhome/searchMotorhome")
     public String searchMotorhome (@ModelAttribute Motorhome motorhome, Model model){
         List<Motorhome> motorhomeList = motorhomeService.searchMotorhome(motorhome.getLicencePlate());
-        if(motorhomeList.isEmpty()){
+        if(motorhomeList.isEmpty()||motorhomeList==null){
             return "home/motorhome/noSearchResultsMh";
         }
         model.addAttribute("motorhomes", motorhomeList);

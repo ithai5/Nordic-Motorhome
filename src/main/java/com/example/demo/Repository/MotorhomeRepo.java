@@ -24,6 +24,9 @@ public class MotorhomeRepo extends IdHolderRepo {
 
     //ADD
     public Motorhome addMotorhome(Motorhome motorhome){
+        if(preventSql(motorhome.toString())){
+            return null;
+        }
         String sql = "INSERT INTO KeaProject.MhInfo (licencePlate, odometer, ready, report, mhSpecsId) " +
                 "VALUES (?, ?, ?, ?, ?)";
         int mhSpecsId = addMhSpecs(motorhome);
@@ -49,6 +52,9 @@ public class MotorhomeRepo extends IdHolderRepo {
     //SEARCH
 
     public List<Motorhome> searchMotorhome(String keyword){
+        if(preventSql(keyword)){
+            return null;
+        }
         String sql = "SELECT * FROM KeaProject.MhType t " +
                 "JOIN KeaProject.MhSpecs s ON t.mhTypeId = s.mhTypeId " +
                 "JOIN KeaProject.MhInfo i ON s.mhSpecsId = i.mhSpecsId " +
@@ -85,6 +91,9 @@ public class MotorhomeRepo extends IdHolderRepo {
     //UPDATE
     public Motorhome updateMotorhome(Motorhome motorhome)
     {
+        if(preventSql(motorhome.toString())){
+            return null;
+        }
         String sql = "UPDATE KeaProject.MhInfo " + "SET odometer = ?, ready = ?, report = ? " + "WHERE licencePlate = ?";
         template.update(sql, motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getLicencePlate());
 

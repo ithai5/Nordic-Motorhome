@@ -58,6 +58,6 @@ public class Extra {
     @Override
     public String toString ()
     {
-        return "Extra{" + "extraId=" + extraId + ", extraName='" + extraName + '\'' + ", amount=" + amount + '}';
+        return "Extra{" + "extraId=" + extraId + ", extraName=" + extraName  + ", amount=" + amount + '}';
     }
 }

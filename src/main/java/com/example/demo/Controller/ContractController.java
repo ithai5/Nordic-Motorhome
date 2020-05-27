@@ -105,6 +105,9 @@ public class ContractController {
   public String searchContract(@ModelAttribute Contract keyword, Model model){
 
     List<Contract> searchHits = contractService.searchContract(keyword.getStartDate());
+    if(searchHits ==null){
+      return "home/login";
+    }
     if (searchHits.isEmpty()){ //check it there is any results for the search and direct to another page
       return "home/contract/contractMenu";
     }

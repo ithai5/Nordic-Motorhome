@@ -39,6 +39,9 @@ public class ContractRepo extends IdHolderRepo {
     }
 
     public void addContract(Contract contract){
+        if (preventSql(contract.toString())){
+            return;
+        }
         String sql = "INSERT INTO KeaProject.Contract (startDate, endDate, startKm, totalPrice, customerId, licencePlate) " +
                 "VALUES (?,?,?,?,?,?)";
 
@@ -70,6 +73,9 @@ public class ContractRepo extends IdHolderRepo {
 
     //Adapted by Thomas from Itais search method
     public List<Contract> searchForContract(String keyword){
+        if (preventSql(keyword)){
+            return null;
+        }
         String sql = "SELECT * FROM KeaProject.Contract " +
                 "WHERE startDate LIKE '" + keyword + "%' " +
                 "OR endDate LIKE '" + keyword + "%' " +
@@ -109,4 +115,6 @@ public class ContractRepo extends IdHolderRepo {
     public void deleteLastContract(){
         deleteContract(lastAddedToTable("Contract").getId());
     }
+
+
 }

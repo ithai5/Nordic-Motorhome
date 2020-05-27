@@ -58,4 +58,13 @@ public class  IdHolderRepo {
         return idHolderList.get(idHolderList.size()-1);//return the last id that have been added
     }
 
+    public boolean preventSql(String toString){//check for sql injections
+        if((toString.contains(";") || toString.contains("\'")||(toString.contains("\"")))){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
 }

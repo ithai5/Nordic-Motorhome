@@ -67,6 +67,32 @@
         </tbody>
     </table>
 
+    <table>
+        <thead>
+        <tr>
+            <th>Season Price</th>
+            <th>Amount of Days</th>
+            <th>Total Price of Motorhome</th>
+            <th>Total Price of Extras</th>
+            <th>Transfer Total</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:object="${invoice}">
+            <td th:text="${invoice.seasonPrice}"></td>
+            <td th:text="${invoice.amountDays}"></td>
+            <td th:text="${invoice.typePriceTotal}"></td>
+            <td th:text="${invoice.extraPriceTotal}"></td>
+            <td th:text="${invoice.transferTotal}"></td>
+            <span th:text="${invoice.totalContractPrice}"></span>
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
     <a href="/contract">
         <button>Confirm</button>
     </a>

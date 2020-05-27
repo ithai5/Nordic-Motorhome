@@ -25,7 +25,7 @@ public class Contract {
 
     public Contract() {}
 
-    public Contract(int contractId, String startDate, String endDate, int startKm, double totalPrice, int customerId, String licencePlate, int timestamp, Integer pickId, Integer dropId) {
+    public Contract(int contractId, String startDate, String endDate, int startKm, double totalPrice, int customerId, String licencePlate, Integer pickId, Integer dropId) {
         this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -33,7 +33,7 @@ public class Contract {
         this.totalPrice = totalPrice;
         this.customerId = customerId;
         this.licencePlate = licencePlate;
-        this.timestamp = timestamp;
+
         this.pickId = pickId;
         this.dropId = dropId;
     }
@@ -94,13 +94,6 @@ public class Contract {
         this.licencePlate = licencePlate;
     }
 
-    public int getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(int timestamp) {
-        this.timestamp = timestamp;
-    }
 
     public Integer getPickId() {
         return pickId;
@@ -166,7 +159,6 @@ public class Contract {
                 ", totalPrice=" + totalPrice +
                 ", customerId=" + customerId +
                 ", licencePlate=" + licencePlate +
-                ", timestamp=" + timestamp +
                 ", pickId=" + pickId +
                 ", dropId=" + dropId +
                 '}';

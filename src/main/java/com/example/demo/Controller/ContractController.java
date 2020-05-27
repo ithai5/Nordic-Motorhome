@@ -68,6 +68,8 @@ public class ContractController {
     model.addAttribute("customer", contractService.findCustomerById(contract.getCustomerId()));
     model.addAttribute("motorhome", contractService.findMotorhomeByPlate(contract.getLicencePlate()));
 
+    model.addAttribute("invoice", contractService.completeContractTotal(contractService.lastAddedToTable("Contract").getId()));
+
     contractService.addContract(contract);
     contractService.addExtrasToContract(extras.getExtras());
     return "home/contract/confirmContract";
@@ -116,5 +118,6 @@ public class ContractController {
     model.addAttribute("contracts", searchHits); //show the result of the search statement
     return "home/contract/searchContract";
   }
+
 
 }

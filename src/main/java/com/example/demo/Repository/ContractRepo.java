@@ -1,55 +1,51 @@
 package com.example.demo.Repository;
 
 import com.example.demo.Model.Contract;
+import com.example.demo.Model.Extra;
 import com.example.demo.Model.Motorhome;
+import com.example.demo.Model.Transfer;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Made by Thomas
 @Repository
 public class ContractRepo extends IdHolderRepo {
 
-
-    public List<Contract> fetchAll() {
+    //Retrieves all elements from the contract table
+    public List<Contract> fetchAllContract(){
         String sql = "SELECT * " +
                 "FROM KeaProject.Contract";
         RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
         return template.query(sql, rowMapper);
     }
 
-    public void addContract(Contract contract, int customerId, String licencePlate) {
-        String sql = "INSERT INTO KeaProject.Contract (contractId, startDate, endDate, startKm, endKm, totalPrice, customerId, licencePlate) " +
+    public void addContract(Contract contract){
+        String sql = "INSERT INTO KeaProject.Contract (startDate, endDate, startKm, totalPrice, customerId, licencePlate, pickId, dropId) " +
                 "VALUES (?,?,?,?,?,?,?,?)";
-        //where is the totalPrice derived from? Nesrin
-        template.update(sql, contract.getContractId(), contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), customerId, licencePlate);
-    }
 
-    //Courtesy of Itai
-    public List<Motorhome> availableCars(String startDate, String endDate) {
-        String sql = "SELECT * FROM MhSpecs AS specs " +
-                "JOIN " +
-                "(SELECT MhInfo.licencePlate, startDate, endDate, contractId, MhInfo.mhSpecsId, MhInfo.odometer " +
-                "FROM KeaProject.MhInfo AS info " + "JOIN KeaProject.Contract ON info.licencePlate= Contract.licencePlate " +
-                "AND ((startDate >= '" + startDate + "' AND startDate <= '" + endDate + "') " + "OR(endDate >= '" + startDate + "' AND endDate <= '" + endDate + "') " +
-                "OR (startDate >= '" + startDate + "' AND endDate <= '" + endDate + "')) " +
-                "RIGHT JOIN MhInfo ON info.licencePlate = MhInfo.licencePlate " +
-                "WHERE contractId IS NULL) AS C " + "ON specs.mhSpecsId = C.mhSpecsId  " +
-                "JOIN KeaProject.MhType AS type " + "ON specs.mhTypeId = type.mhTypeId";
-
-        return template.query(sql, new BeanPropertyRowMapper<>(Motorhome.class));
+        template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate(), contract.getPickId(), contract.getDropId());
     }
 
     //Deleting a contract
     public void deleteContract(int contractId) {
         String sql = "DELETE FROM KeaProject.Contract " +
                 "WHERE contractId = ?";
+
+        template.update(sql, contractId);
+    }
+
+    public void deleteLastContract(){
+        deleteContract(lastAddedToTable("Contract").getId());
     }
 
     //Adapted by Thomas from Itais search method
-    public List<Contract> searchForContract(String keyword) {
+    //Only works for non-integer values (such as start and end date, and the licencePlate)
+    //Consider adding linking this with searching for a customer?
+    public List<Contract> searchForContract(String keyword){
         String sql = "SELECT * FROM KeaProject.Contract " +
                 "WHERE startDate LIKE '" + keyword + "%' " +
                 "OR endDate LIKE '" + keyword + "%' " +

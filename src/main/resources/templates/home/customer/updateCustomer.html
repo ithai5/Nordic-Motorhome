@@ -6,44 +6,46 @@
 </head>
 <body>
 <form action="/customer/updateCustomer" method="post">
+
     <div>customer id
-        <input type="number" name="customerId" th:value="${customer.customerId}" >
+        <input type="number" name="customerId" th:value="${customer.customerId}" readonly >
     </div>
-    <div>first name
+
+    <div>First Name
         <input type="text" name="firstName" th:value="${customer.firstName}">
     </div>
-    <div>lastName
+    <div>Last Name
         <input type="text" name="lastName" th:value="${customer.lastName}">
     </div>
-    <div>phone
+    <div>Phone
         <input type="text" name="phone" th:value="${customer.phone}">
     </div>
-    <div>email
+    <div>Email
         <input type="email" name="email" th:value="${customer.email}">
     </div>
-    <div>driverNum
+    <div>Driver Licence Number
         <input type="text" name="driverNum" th:value="${customer.driverNum}">
     </div>
-    <div>addressId
-        <input type="number" name="addressId" th:value="${customer.addressId}" >
+    <div>Address Id
+        <input type="number" name="addressId" th:value="${customer.addressId } " readonly >
     </div>
-    <div>country
+    <div>Country
         <input type="text" name="country" th:value="${customer.country}">
     </div>
-    <div>
+    <div>City
         <input type="text" name="city" th:value="${customer.city}">
     </div>
-    <div>street
+    <div>Street
         <input type="text" name="street" th:value="${customer.street}">
     </div>
-    <div>houseNum
+    <div>House Number
         <input type="text" name="houseNum" th:value="${customer.houseNum}">
     </div>
-    <div>zip
+    <div>Zip code
         <input type="text" name="zip" th:value="${customer.zip}">
     </div>
     <div>
-        <input type="submit" value="submit">
+        <input type="submit" value="Submit">
     </div>
 </form>
 </body>

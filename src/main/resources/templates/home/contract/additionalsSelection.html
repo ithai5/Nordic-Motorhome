@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Additions to contract</title>
+</head>
+<body>
+    <h1>Choose the pick up and drop off locations for the motorhome</h1>
+
+    <form action="#" th:action="@{/contract/confirmContract}" th:object="${extras}" method="post">
+        <div>Pick up</div>
+        <select id="pickId" name="pickId">
+            <option
+                    th:each="pickId : ${transfers}"
+                    th:value="${pickId.transferId}"
+                    th:text="${pickId.location}"
+                    th:selected="${pickId.transferId==1}">
+            </option>
+        </select>
+
+        <div>Drop off</div>
+        <select id="dropId" name="dropId">
+            <option
+                    th:each="dropId : ${transfers}"
+                    th:value="${dropId.transferId}"
+                    th:text="${dropId.location}"
+                    th:selected="${dropId.transferId==1}">
+            </option>
+        </select>
+
+        <div>Choose extras!</div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="extraD : ${extrasD}">
+                    <td th:text="${extraD.extraName}"></td>
+                    <td th:text="${extraD.pricePerDay}"></td>
+                </tr>
+                <tr th:each="extra, itemStat : *{extras}">
+                    <td><input th:field="*{extras[__${itemStat.index}__].amount}"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!--Displaying contract with filled in information so far-->
+        <input type="hidden" th:value="${contract.customerId}" th:attr=name='customerId'>
+        <input type="hidden" th:value="${contract.startDate}" th:attr=name='startDate'>
+        <input type="hidden" th:value="${contract.endDate}" th:attr=name='endDate'>
+        <input type="hidden" th:value="${contract.startKm}" th:attr=name='startKm'>
+        <input type="hidden" th:value="${contract.licencePlate}" th:attr=name='licencePlate'>
+        <input type="hidden" th:value="${contract.pickId}" th:attr=name='pickId'>
+        <input type="hidden" th:value="${contract.dropId}" th:attr=name='dropId'>
+
+        <input type="submit" value="Go to confirm">
+    </form>
+
+</body>
+</html>

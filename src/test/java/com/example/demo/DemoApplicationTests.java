@@ -1,15 +1,16 @@
 package com.example.demo;
 
-import com.example.demo.Model.Customer;
-import com.example.demo.Service.IdHolderService;
+import com.example.demo.Service.ContractService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.SQLOutput;
+
 @SpringBootTest
 class DemoApplicationTests {
     @Autowired
-    IdHolderService idHolderService;
+    ContractService contractService;
 
     @Test
     void contextLoads ()
@@ -19,8 +20,24 @@ class DemoApplicationTests {
 
     @Test
     void searchTest () {
-        System.out.println(idHolderService.findMotorhomeByPlate("CK33661"));
-        System.out.println(idHolderService.findContractById(73));
-        System.out.println(idHolderService.findCustomerById(114));
+        System.out.println(contractService.findMotorhomeByPlate("CK33661"));
+        System.out.println(contractService.findContractById(73));
+        System.out.println(contractService.findCustomerById(114));
+    }
+
+    @Test
+    void lastAddedTest() {
+        System.out.println("Results from contract table:");
+        contractService.lastAddedToTable("Contract");
+        System.out.println("Results from MhSpecs table:");
+        contractService.lastAddedToTable("MhSpecs");
+        System.out.println("Results from Transfer table:");
+        contractService.lastAddedToTable("Transfer");
+        contractService.lastAddedToTable("Customer");
+    }
+
+    @Test
+    void dateFormatTest() {
+        System.out.println(contractService.fetchAllContract().get(0).getStartDate());
     }
 }

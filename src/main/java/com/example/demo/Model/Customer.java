@@ -134,6 +134,6 @@ public class Customer extends Person{
     @Override
     public String toString ()
     {
-        return  super.toString() + "Customer{" + "customerId=" + customerId + ", phone='" + phone + '\'' + ", driverNum='" + driverNum + '\'' + ", country='" + country + '\'' + ", city='" + city + '\'' + ", street='" + street + '\'' + ", houseNum='" + houseNum + '\'' + ", zip='" + zip + '\'' + ", addressId=" + addressId + "} " ;
+        return  super.toString() + "Customer{" + "customerId=" + customerId + ", phone=" + phone + ", driverNum=" + driverNum  + ", country=" + country  + ", city=" + city  + ", street=" + street  + ", houseNum=" + houseNum + ", zip=" + zip  + ", addressId=" + addressId + "} " ;
     }
 }

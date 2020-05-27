@@ -21,12 +21,11 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    //Doesn't work!
     @GetMapping("/customer/viewCustomer")
     public String viewCustomers(Model model){
         List<Customer> customerList = customerService.fetchAll();
         model.addAttribute("customers", customerList);
-        return "/customer/viewCustomer";
+        return "home/customer/viewCustomer";
     }
 
     @GetMapping("/customer/createCustomer")
@@ -40,10 +39,10 @@ public class CustomerController {
         return "redirect:/";
     }
 
-    @GetMapping("/customer/searchCustomer/")
+    @GetMapping("/customer/searchCustomer")
     public String searchCustomer(@ModelAttribute Customer customer, Model model){
         List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
-        if (customerList.isEmpty()){ //check it there is any results for the search and direct to another page
+        if (customerList.isEmpty()||customerList==null){ //check if there are any results for the search and direct to another page
             return "home/customer/noSearchResults";
         }
         model.addAttribute("customers", customerList); //show the result of the search statement
@@ -64,12 +63,9 @@ public class CustomerController {
 
     @PostMapping("/customer/updateCustomer")
     public String updateCustomer(@ModelAttribute Customer customer){
-        System.out.println(customer);
         customerService.updateCustomer(customer);
         return "redirect:/";
     }
-
-
 
 
 

@@ -11,13 +11,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Id;
+import java.util.Comparator;
 import java.util.List;
 
 @Repository
-public class IdHolderRepo {
+public class  IdHolderRepo {
 
     @Autowired
-    JdbcTemplate template;
+    public JdbcTemplate template;
 
     public Contract findContractById(int contractId) {
         String sql = "SELECT * FROM KeaProject.Contract con " +
@@ -47,13 +48,27 @@ public class IdHolderRepo {
         Customer customer = template.queryForObject(sql, rowMapper, customerId);
         return customer;
     }
+
     public IdHolder lastAddedToTable(String tableName){ //by inserting a string name of the table that you would like to find the last id that added to the table
-        String sql = "SELECT * FROM KeaProject." + tableName;
-        System.out.println(sql);
+        String sql = "SELECT " + tableName.toLowerCase() + "Id AS id " +
+                     "FROM KeaProject." + tableName + " ORDER BY " + tableName.toLowerCase() + "Id;";
         //creating a new query to find the last id  that have been added to the database
         RowMapper<IdHolder> idHolderRowMapper = new BeanPropertyRowMapper<>(IdHolder.class);
         List<IdHolder> idHolderList = template.query(sql,idHolderRowMapper);
+
         return idHolderList.get(idHolderList.size()-1);//return the last id that have been added
+    }
+
+    public boolean preventSql(String toString){//check for sql injections
+        System.out.println("checking..."+toString );
+        if((toString.contains(";") || toString.contains("'")||(toString.contains("\"")))){
+            System.out.println("it is injection");
+            return true;
+        }
+        else{
+            System.out.println("it is not injection");
+            return false;
+        }
     }
 
 }

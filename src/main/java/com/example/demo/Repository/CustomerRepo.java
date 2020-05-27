@@ -16,36 +16,44 @@ import java.util.List;
 @Repository
 public class CustomerRepo extends IdHolderRepo{
 
-
     //collect all the information about customers
     public List<Customer> fetchAll(){
         String sql = "SELECT * " +
-                "FROM KeaProject.Customer";
+                "FROM KeaProject.Customer c JOIN KeaProject.Address a ON c.addressId = a.addressId";
         RowMapper<Customer> rowMapper= new BeanPropertyRowMapper<>(Customer.class);
         return template.query(sql,rowMapper);
     }
 
     //creating a query for adding a new customer
     public Customer addCustomer(Customer customer){
+        if(preventSql(customer.toString())){
+            return null;
+        }
         String sql = "INSERT INTO KeaProject.Customer (firstName, lastName, email, driverNum, phone, addressId) " +
                 "VALUES (?,?,?,?,?,?)";
         int addressId = createAddress(customer); //creating a new address in the database and get the id
         template.update(sql,customer.getFirstName(),customer.getLastName(),customer.getEmail(), customer.getDriverNum(),customer.getPhone(),addressId);
-        customer.setCustomerId(lastAddedToTable("Customer").getCustomerId());
+        customer.setCustomerId(lastAddedToTable("Customer").getId());
         return customer;//return the last customer that have been added
     }
 
 
     public int createAddress(Customer customer){
+        if(preventSql(customer.toString())){
+            return 0;
+        }
         String sql = "INSERT INTO KeaProject.Address (country, city, street, houseNum, zip) " +
                 "VALUES (?,?,?,?,?)";
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
         System.out.println(customer.getCountry());
         //takes the informaion form the custmer object and sign it in to the address table in the database
-        return lastAddedToTable("Address").getAddressId(); //getting the last value that has been added to the list
+        return lastAddedToTable("Address").getId(); //getting the last value that has been added to the list
     }
 
     public List<Customer> searchForCustomer(String keyword){
+        if(preventSql(keyword)){
+            return null;
+        }
         String sql = "SELECT * FROM KeaProject.Customer c " + "JOIN KeaProject.Address a ON c.addressId = a.addressId " +
                 "WHERE firstName LIKE '" + keyword + "%' " +
                 "OR lastName LIKE '" + keyword + "%' " +
@@ -55,7 +63,7 @@ public class CustomerRepo extends IdHolderRepo{
         return template.query(sql,customerRowMapper);
     }
 
-
+    /* Inside IdHolderRepo
     public Customer findCustomerById(int customerId){
         String sql = "SELECT * " +
                 "FROM KeaProject.Customer c " +
@@ -65,7 +73,7 @@ public class CustomerRepo extends IdHolderRepo{
         Customer customer = template.queryForObject(sql, rowMapper, customerId);
         return customer;
     }
-
+    */
     public Boolean deleteCustomer(int customerId){
         String sql = "DELETE FROM KeaProject.Customer " +
                 "WHERE customerId = ?";
@@ -73,6 +81,9 @@ public class CustomerRepo extends IdHolderRepo{
     }
 
     public Customer updateCustomer(Customer customer){
+        if(preventSql(customer.toString())){
+            return null;
+        }
         String sql = "UPDATE KeaProject.Customer " +
                 "SET firstName = ?, lastName = ?, email = ?, phone = ?, driverNum = ? " +
                 "WHERE customerId = ?";

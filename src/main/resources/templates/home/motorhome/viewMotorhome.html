@@ -22,7 +22,6 @@
                 <th></th>
             </tr>
             </thead>
-
             <tbody>
             <tr th:each="motorhome:${motorhomes}">
                 <td th:text="${motorhome.typeName}"></td>
@@ -35,16 +34,6 @@
                 <td th:text="${motorhome.odometer}"></td>
                 <td th:text="${motorhome.ready}"></td>
                 <td th:text="${motorhome.report}"></td>
-
-                <td>
-                    <a th:href="@{'/rentalContract/viewRentalContract/'+${rentalContract.rentalContract_id}}">
-                        <button>View</button>
-                    </a>
-
-                    <a th:href="@{'/rentalContract/deleteRentalContract/'+${rentalContract.rentalContract_id}}">
-                        <button>Delete</button>
-                    </a>
-                </td>
             </tr>
             </tbody>
         </table>

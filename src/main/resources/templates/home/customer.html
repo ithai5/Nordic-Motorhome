@@ -9,21 +9,18 @@
     <button style="color=blue">VIEW ALL CUSTOMERS</button>
     </a>
 
-    <a href="/customer/searchCustomer/">
-        <button style="color=blue">SEARCH CUSTOMER</button>
-    </a>
-
     <a href="/customer/createCustomer">
         <button style="color=blue">ADD CUSTOMER</button>
     </a>
 
-    <a href="/customer/updateCustomer">
-        <button style="color=blue">UPDATE CUSTOMER</button>
-    </a>
+    <form action="/customer/searchCustomer" method="get">
+        <div>
+            Search for a customer to view info, update or delete
+            <input type="text" name="firstName" placeholder="Searching parameter" required>
+            <input type="submit" value="Search customer">
 
-    <a href="/customer/deleteCustomer">
-        <button style="color=blue">DELETE CUSTOMER</button>
-    </a>
+        </div>
+    </form>
 
 </body>
 </html>

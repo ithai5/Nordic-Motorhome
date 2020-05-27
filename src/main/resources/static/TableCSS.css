@@ -12,7 +12,37 @@ table{
 }
 .table-header{
     background-color: aquamarine;
+
+    padding: 20px 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    color: dodgerblue;
+    text-transform: uppercase;
 }
 .table-content{
-    height:250px;
+    height: 250px;
+
+    padding: 15px;
+    text-align: center;
+    font-weight: 200;
+    font-size: 12px;
+    border-bottom: darkblue;
+}
+/*
+th{
+    padding: 20px 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    color: dodgerblue;
+    text-transform: uppercase;
+}
+*/
+td{
+    padding: 15px;
+    text-align: center;
+    font-weight: 200;
+    font-size: 12px;
+    border-bottom: darkblue;
 }

@@ -1,0 +1,9 @@
+.navbar {
+    background-color: darkgrey;
+}
+
+ul{
+    position: fixed;
+    top: 0;
+    width: 100%;
+}

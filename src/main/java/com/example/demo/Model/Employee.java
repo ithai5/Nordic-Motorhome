@@ -1,3 +1,5 @@
+// this class is part of the model package in final first year project for KEA
+//Made By Itai Gramse
 package com.example.demo.Model;
 
 import javax.persistence.Entity;
@@ -47,6 +49,6 @@ public class Employee extends Person{
     @Override
     public String toString ()
     {
-        return "Employee{" + "EmployeeId=" + EmployeeId + ", title='" + title + '\'' + ", passwordDetails='" + passwordDetails + '\'' + "} " + super.toString();
+        return "Employee{" + "EmployeeId=" + EmployeeId + ", title=" + title  + ", passwordDetails=" + passwordDetails + "} " + super.toString();
     }
 }

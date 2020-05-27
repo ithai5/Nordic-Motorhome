@@ -59,10 +59,13 @@ public class  IdHolderRepo {
     }
 
     public boolean preventSql(String toString){//check for sql injections
-        if((toString.contains(";") || toString.contains("\'")||(toString.contains("\"")))){
+        System.out.println("checking..."+toString );
+        if((toString.contains(";") || toString.contains("'")||(toString.contains("\"")))){
+            System.out.println("it is injection");
             return true;
         }
         else{
+            System.out.println("it is not injection");
             return false;
         }
     }

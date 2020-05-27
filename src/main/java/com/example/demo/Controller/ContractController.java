@@ -1,7 +1,6 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.Contract;
-import com.example.demo.Model.Customer;
 import com.example.demo.Model.Motorhome;
 import com.example.demo.Service.ContractService;
 import com.example.demo.Service.CustomerService;
@@ -106,7 +105,7 @@ public class ContractController {
 
     List<Contract> searchHits = contractService.searchContract(keyword.getStartDate());
     if(searchHits ==null){
-      return "home/login";
+      return "index1";
     }
     if (searchHits.isEmpty()){ //check it there is any results for the search and direct to another page
       return "home/contract/contractMenu";

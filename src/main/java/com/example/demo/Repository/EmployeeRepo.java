@@ -12,6 +12,7 @@ import java.util.List;
 public class EmployeeRepo extends IdHolderRepo{
     public Employee login(Employee employee){
         if(preventSql(employee.toString())){
+            System.out.println("sql injection");
             return null;
         }
         String sql = "SELECT * FROM KeaProject.Employee e " +
@@ -21,6 +22,7 @@ public class EmployeeRepo extends IdHolderRepo{
         RowMapper<Employee> rowMapper = new BeanPropertyRowMapper<>(Employee.class);
         List<Employee> employeeList = template.query(sql , rowMapper);
         if (employeeList.isEmpty()){
+            System.out.println("list is empty");
             return null;
         }
         else{

@@ -167,7 +167,7 @@ public class Motorhome {
     @Override
     public String toString ()
     {
-        return "Motorhome{" + "typeName='" + typeName + '\'' + ", pricePerDay=" + pricePerDay + ", brand='" + brand + '\'' + ", model='" + model + '\'' + ", seatNum=" + seatNum + ", bedNum=" + bedNum + ", licencePlate='" + licencePlate + '\'' + ", odometer=" + odometer + ", ready=" + ready + ", report='" + report + '\'' + '}';
+        return "Motorhome{" + "typeName=" + typeName +  ", pricePerDay=" + pricePerDay + ", brand= " + brand  + ", model=" + model + ", seatNum=" + seatNum + ", bedNum=" + bedNum + ", licencePlate=" + licencePlate  + ", odometer=" + odometer + ", ready=" + ready + ", report=" + report +  '}';
     }
     //GETTERS & SETTERS
 

@@ -42,7 +42,7 @@ public class CustomerController {
     @GetMapping("/customer/searchCustomer")
     public String searchCustomer(@ModelAttribute Customer customer, Model model){
         List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
-        if (customerList.isEmpty()){ //check if there are any results for the search and direct to another page
+        if (customerList.isEmpty()||customerList==null){ //check if there are any results for the search and direct to another page
             return "home/customer/noSearchResults";
         }
         model.addAttribute("customers", customerList); //show the result of the search statement

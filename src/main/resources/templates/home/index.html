@@ -1,10 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>Main page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
+    <style>
+        company{
+            background-image: url("${pageContext.request.contextPath}resources/images/norway1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+    </style>
 </head>
     <body>
+        <div class="navbar">
+            <ul>
+                <li><a href="index">HOME</li>
+                <li><a href="customer">MANAGE CUSTOMERS</li>
+                <li><a href="motorhome">MANAGE MOTORHOMES</li>
+                <li><a href="contract">MANAGE CONTRACTS</li>
+                <li><a href="login"> LOG IN</li>
+                <li><a href="logout"> LOG OUT</li>
+            </ul>
+        </div>
+        <div class="company">
+            <h1 style="font-family: fantasy; font: bold">NORDIC</h1>
+            <h1 style="font-family: fantasy; margin: 75px">MOTORHOME</h1>
+            <h1 style="font-family: fantasy; margin: 150px">RENTAL</h1>
+        </div>
+
+
+        <a href="customer">
+            <button>MANAGE CUSTOMERS</button>
+        </a>
+
+        <a href="motorhome">
+            <button>MANAGE MOTORHOMES</button>
+        </a>
+
+        <a href="contract">
+            <button>MANAGE CONTRACTS</button>
+        </a>
+
         <form action="/login" method="post">
             <div>Enter first name
                 <input type="text" name="firstName" placeholder="Enter first name" required>
@@ -17,5 +59,6 @@
             </div>
             <input type="submit" value="login">
         </form>
+
     </body>
 </html>

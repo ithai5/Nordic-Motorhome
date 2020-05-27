@@ -1,9 +1,33 @@
 .navbar {
-    background-color: darkgrey;
+    background-color: darkcyan;
 }
 
 ul{
     position: fixed;
     top: 0;
     width: 100%;
+    margin: 0;
+    padding: 13px;
+    background-color: cadetblue;
+}
+li{
+    display: inline;
+
+}
+
+li a{
+    color: white;
+    text-align: center;
+    padding: 14px 18px;
+}
+
+
+
+.company{
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+li a:hover{
+    background-color: -moz-mac-accentregularhighlight;
 }

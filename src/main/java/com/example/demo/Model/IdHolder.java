@@ -25,4 +25,11 @@ public class IdHolder {
     {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "IdHolder{" +
+                "id=" + id +
+                '}';
+    }
 }

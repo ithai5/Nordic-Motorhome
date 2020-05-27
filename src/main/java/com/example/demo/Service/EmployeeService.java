@@ -1,3 +1,5 @@
+// this class is part of the model package in final first year project for KEA
+//Made By Itai Gramse
 package com.example.demo.Service;
 
 import com.example.demo.Model.Employee;

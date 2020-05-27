@@ -2,32 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MAIN PAGE</title>
+    <title>login</title>
 </head>
-<body>
-    <div class="navbar">
-        <ul>
-            <li><a href="index">HOME</li>
-            <li><a href="customer">MANAGE CUSTOMERS</li>
-            <li><a href="motorhome">MANAGE MOTORHOMES</li>
-            <li><a href="contract">MANAGE CONTRACTS</li>
-        </ul>
-    </div>
-    <h1>NORDIC</h1>
-    <h1 >MOTORHOME</h1>
-    <h1>RENTAL</h1>
-
-    <a href="customer">
-        <button style="color=blue">MANAGE CUSTOMERS</button>
-    </a>
-
-    <a href="motorhome">
-        <button style="color=green">MANAGE MOTORHOMES</button>
-    </a>
-
-    <a href="contract">
-        <button style="color=red">MANAGE CONTRACTS</button>
-    </a>
-
-</body>
+    <body>
+        <form action="/login" method="post">
+            <div>Enter first name
+                <input type="text" name="firstName" placeholder="Enter first name" required>
+            </div>
+            <div>Enter last name
+                <input type="text" name="lastName" placeholder="Enter last name" required>
+            </div>
+            <div>Enter password
+                <input type="password" name="passwordDetails" placeholder="Enter password" required>
+            </div>
+            <input type="submit" value="login">
+        </form>
+    </body>
 </html>

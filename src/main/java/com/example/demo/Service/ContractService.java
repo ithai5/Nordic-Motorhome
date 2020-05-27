@@ -24,9 +24,17 @@ public class ContractService{
         contractRepo.addContract(contract);
     }
 
+    public void addExtrasToContract(List<Extra> extras) {contractRepo.addExtrasToContract(extras);}
+
     public List<Motorhome> availableMotorhomes(String startDate, String endDate) {return contractRepo.availableMotorhomes(startDate, endDate);}
 
     public void deleteContract(int contractId) {contractRepo.deleteContract(contractId);}
+
+    public void deleteExtrasFromContract(int contractId) {contractRepo.deleteExtrasFromContract(contractId);}
+
+    public void deleteLastContract() {contractRepo.deleteLastContract();}
+
+    public void deleteExtrasFromLastContract() {contractRepo.deleteExtrasFromLastContract();}
 
     public List<Contract> searchContract(String keyword) {return contractRepo.searchForContract(keyword);}
 
@@ -46,4 +54,6 @@ public class ContractService{
     public Motorhome findMotorhomeByPlate(String licencePlate){return contractRepo.findMotorhomeByPlate(licencePlate);}
     
     public Customer findCustomerById(int customerId){return contractRepo.findCustomerById(customerId);}
+
+    public IdHolder lastAddedToTable(String tableName){return contractRepo.lastAddedToTable(tableName);}
 }

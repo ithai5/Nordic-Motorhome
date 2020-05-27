@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Made by Thomas
@@ -22,6 +23,37 @@ public class ContractRepo extends IdHolderRepo {
         return template.query(sql,rowMapper);
     }
 
+    public void addContract(Contract contract){
+        String sql = "INSERT INTO KeaProject.Contract (startDate, endDate, startKm, totalPrice, customerId, licencePlate, pickId, dropId) " +
+                "VALUES (?,?,?,?,?,?,?,?)";
+
+        template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate(), contract.getPickId(), contract.getDropId());
+    }
+
+    //Deleting a contract
+    public void deleteContract(int contractId){
+        String sql = "DELETE FROM KeaProject.Contract " +
+                "WHERE contractId = ?";
+
+        template.update(sql, contractId);
+    }
+
+    public void deleteLastContract(){
+        deleteContract(lastAddedToTable("Contract").getId());
+    }
+
+    //Adapted by Thomas from Itais search method
+    //Only works for non-integer values (such as start and end date, and the licencePlate)
+    //Consider adding linking this with searching for a customer?
+    public List<Contract> searchForContract(String keyword){
+        String sql = "SELECT * FROM KeaProject.Contract " +
+                "WHERE startDate LIKE '" + keyword + "%' " +
+                "OR endDate LIKE '" + keyword + "%' " +
+                "OR licencePlate = '" + keyword + "' ";
+        RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        return template.query(sql, contractRowMapper);
+    }
+
     //Retrieves all elements from the extras table
     public List<Extra> fetchAllExtra(){
         String sql = "SELECT *" +
@@ -30,22 +62,45 @@ public class ContractRepo extends IdHolderRepo {
         return template.query(sql,rowMapper);
     }
 
+    public void addExtrasToContract(List<Extra> extras) {
+        String sql = "INSERT INTO KeaProject.ContractHasExtra (contractId, extraId, amount) " +
+                "VALUES (?, ?, ?)";
+
+        //Extracting the contractId from the newly added contract
+        int contractId = lastAddedToTable("Contract").getId();
+        //Getting the extraId from the values in the Extra table
+        List<Extra> otherValues = fetchAllExtra();
+        for (int i = 0; i < otherValues.size(); ++i) {
+            extras.get(i).setExtraId(otherValues.get(i).getExtraId());
+        }
+
+        for (Extra extra : extras) {
+            if (extra.getAmount() != 0) {
+                template.update(sql, contractId, extra.getExtraId(), extra.getAmount());
+            }
+        }
+    }
+
+    public void deleteExtrasFromContract(int contractId) {
+        String sql = "DELETE FROM KeaProject.ContractHasExtra " +
+                "WHERE contractId = ?";
+        template.update(sql, contractId);
+    }
+
+    public void deleteExtrasFromLastContract() {
+        String sql = "DELETE FROM KeaProject.ContractHasExtra " +
+                "WHERE contractId = ?";
+        int contractId = lastAddedToTable("Contract").getId();
+
+        template.update(sql, contractId);
+    }
+
     //Retrieves all elements from the transfer table
     public List<Transfer> fetchAllTransfer(){
         String sql = "SELECT *" +
                 "FROM KeaProject.Transfer";
         RowMapper<Transfer> rowMapper= new BeanPropertyRowMapper<>(Transfer.class);
         return template.query(sql,rowMapper);
-    }
-
-    public void addContract(Contract contract){
-        if (preventSql(contract.toString())){
-            return;
-        }
-        String sql = "INSERT INTO KeaProject.Contract (startDate, endDate, startKm, totalPrice, customerId, licencePlate) " +
-                "VALUES (?,?,?,?,?,?)";
-
-        template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate());
     }
 
     //Courtesy of Itai
@@ -61,27 +116,6 @@ public class ContractRepo extends IdHolderRepo {
                 "JOIN KeaProject.MhType AS type " + "ON specs.mhTypeId = type.mhTypeId";
 
         return template.query(sql,new BeanPropertyRowMapper<>(Motorhome.class));
-    }
-
-    //Deleting a contract
-    public void deleteContract(int contractId){
-        String sql = "DELETE FROM KeaProject.Contract " +
-                "WHERE contractId = ?";
-
-        template.update(sql, contractId);
-    }
-
-    //Adapted by Thomas from Itais search method
-    public List<Contract> searchForContract(String keyword){
-        if (preventSql(keyword)){
-            return null;
-        }
-        String sql = "SELECT * FROM KeaProject.Contract " +
-                "WHERE startDate LIKE '" + keyword + "%' " +
-                "OR endDate LIKE '" + keyword + "%' " +
-                "OR licencePlate = '" + keyword + "' ";
-        RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
-        return template.query(sql, contractRowMapper);
     }
 
     public double totalContractPrice(int contractId){
@@ -111,10 +145,4 @@ public class ContractRepo extends IdHolderRepo {
         System.out.println(totalPrice);
         return totalPrice;
     }
-
-    public void deleteLastContract(){
-        deleteContract(lastAddedToTable("Contract").getId());
-    }
-
-
 }

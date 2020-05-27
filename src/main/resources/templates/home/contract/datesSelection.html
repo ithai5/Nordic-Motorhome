@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Date selection</title>
@@ -14,7 +14,11 @@
         <div>End Date</div>
         <input type="datetime-local" name="endDate" required>
 
+        <!--Carrying over data filled in so far-->
+        <input type="hidden" th:value="${contract.customerId}" th:attr=name='customerId'>
+
         <input type="submit" value="Choose dates">
+
     </form>
 
 </body>

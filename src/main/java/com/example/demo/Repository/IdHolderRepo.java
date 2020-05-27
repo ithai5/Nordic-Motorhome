@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Id;
+import java.util.Comparator;
 import java.util.List;
 
 @Repository
@@ -50,11 +51,11 @@ public class  IdHolderRepo {
 
     public IdHolder lastAddedToTable(String tableName){ //by inserting a string name of the table that you would like to find the last id that added to the table
         String sql = "SELECT " + tableName.toLowerCase() + "Id AS id " +
-                     "FROM KeaProject." + tableName;
-        System.out.println(sql);
+                     "FROM KeaProject." + tableName + " ORDER BY " + tableName.toLowerCase() + "Id;";
         //creating a new query to find the last id  that have been added to the database
         RowMapper<IdHolder> idHolderRowMapper = new BeanPropertyRowMapper<>(IdHolder.class);
         List<IdHolder> idHolderList = template.query(sql,idHolderRowMapper);
+
         return idHolderList.get(idHolderList.size()-1);//return the last id that have been added
     }
 

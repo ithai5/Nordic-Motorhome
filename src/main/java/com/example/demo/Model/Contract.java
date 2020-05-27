@@ -120,6 +120,42 @@ public class Contract {
 
     //toString()
 
+    //Checks if start date is after end date
+    public boolean validDuration() {
+        int yearS = extractDateTokenFromString(2, true);
+        int monthS = extractDateTokenFromString(5, true);
+        int dateS = extractDateTokenFromString(8, true);
+
+        int yearE = extractDateTokenFromString(2, false);
+        int monthE = extractDateTokenFromString(5, false);
+        int dateE = extractDateTokenFromString(8, false);
+
+        if (yearS <= yearE) {
+            if (monthS <= monthE) {
+                if (dateS < dateE) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public int extractDateTokenFromString(int index, boolean isStart) {
+        String dateType;
+        if (isStart) {
+            dateType = startDate;
+        } else {
+            dateType = endDate;
+        }
+
+        int token = 0;
+        for (int i = 0; i < 2; ++i) {
+            token += dateType.charAt(i + index);
+        }
+        return token;
+    }
+
     @Override
     public String toString() {
         return "Contract{" +

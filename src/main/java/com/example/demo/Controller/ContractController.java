@@ -1,8 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Model.Contract;
-import com.example.demo.Model.Customer;
-import com.example.demo.Model.Motorhome;
+import com.example.demo.Model.*;
 import com.example.demo.Service.ContractService;
 import com.example.demo.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //Made by Thomas
@@ -24,8 +23,6 @@ public class ContractController {
   @Autowired
   CustomerService customerService;
 
-  static Contract newContract = new Contract();
-
   @GetMapping("/contract/customerSelection")
   public String selectCustomers(Model model) {
     model.addAttribute("customers", customerService.fetchAll());
@@ -34,48 +31,52 @@ public class ContractController {
 
   @PostMapping("/contract/datesSelection")
   public String selectDates(@ModelAttribute Contract contract, Model model) {
-    System.out.println("Dates: " + newContract);
-    newContract.setCustomerId(contract.getCustomerId());
+    model.addAttribute("contract", contract);
     return "home/contract/datesSelection";
   }
 
   @PostMapping("/contract/motorhomeSelection")
   public String selectMotorhome(@ModelAttribute Contract contract, Model model) {
-    System.out.println("Motorhome: " + newContract);
+    if (!contract.validDuration()) {
+      return "home/contract/datesIncorrect";
+    }
     List<Motorhome> mhForRent = contractService.availableMotorhomes(contract.getStartDate(), contract.getEndDate());
     model.addAttribute("motorhomes", mhForRent);
-    newContract.setStartDate(contract.getStartDate());
-    newContract.setEndDate(contract.getEndDate());
+
+    model.addAttribute("contract", contract);
     return "home/contract/motorhomeSelection";
   }
 
   @PostMapping("/contract/additionalsSelection")
   public String selectAdditionals(@ModelAttribute Contract contract, Model model) {
-    System.out.println("Additionals: " + newContract);
+    //Set the startKm value with the odometer from the car chosen
+    contract.setStartKm(contractService.findMotorhomeByPlate(contract.getLicencePlate()).getOdometer());
+
+    ExtraWrapper extras = new ExtraWrapper(new ArrayList<Extra>(contractService.fetchAllExtra()));
+
+    model.addAttribute("extrasD", extras.getExtras());
+    model.addAttribute("extras", extras);
     model.addAttribute("transfers", contractService.fetchAllTransfer());
-    //We're not storing the extras anywhere? Consider making a addExtras method to the repo
-    model.addAttribute("extras", contractService.fetchAllExtra());
-    newContract.setLicencePlate(contract.getLicencePlate());
+
+    model.addAttribute("contract", contract);
     return "home/contract/additionalsSelection";
   }
 
   @PostMapping("/contract/confirmContract")
-  public String confirmDetails(@ModelAttribute Contract contract, Model model) {
-    newContract.setPickId(contract.getPickId());
-    newContract.setDropId(contract.getDropId());
-    System.out.println("Confirm: " + newContract);
-    //startKm in contract never changes value
-    model.addAttribute("contract", newContract);
-    model.addAttribute("customer", contractService.findCustomerById(newContract.getCustomerId()));
-    model.addAttribute("motorhome", contractService.findMotorhomeByPlate(newContract.getLicencePlate()));
+  public String confirmDetails(@ModelAttribute Contract contract, @ModelAttribute ExtraWrapper extras, Model model) {
+    model.addAttribute("contract", contract);
+    model.addAttribute("customer", contractService.findCustomerById(contract.getCustomerId()));
+    model.addAttribute("motorhome", contractService.findMotorhomeByPlate(contract.getLicencePlate()));
+
+    contractService.addContract(contract);
+    contractService.addExtrasToContract(extras.getExtras());
     return "home/contract/confirmContract";
   }
 
-  @PostMapping("/contract/createContract")
-  public String createContract() {
-    System.out.println(newContract);
-    contractService.addContract(newContract);
-    newContract = new Contract();
+  @PostMapping("/contract/cancelContract")
+  public String cancelContract() {
+    contractService.deleteExtrasFromLastContract();
+    contractService.deleteLastContract();
     return "redirect:/contract";
   }
 
@@ -97,6 +98,7 @@ public class ContractController {
   //CONSIDER ADDING A CONFIRMATION BEFORE DELETE
   @GetMapping("/contract/deleteContract/{contractId}")
   public String deleteContract(@PathVariable("contractId") int contractId){
+    contractService.deleteExtrasFromContract(contractId);
     contractService.deleteContract(contractId);
     return "redirect:/contract";
   }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Date selection</title>
+</head>
+<body>
+<h1>The end date can't be before the start date!</h1>
+<h2>Please select the dates for the customer's rental</h2>
+
+<form action="/contract/motorhomeSelection" method="post">
+    <div>Start Date</div>
+    <input type="datetime-local" name="startDate" required>
+
+    <div>End Date</div>
+    <input type="datetime-local" name="endDate" required>
+
+    <!--Carrying over data filled in so far-->
+    <input type="hidden" th:value="${contract.customerId}" th:attr=name='customerId'>
+
+    <input type="submit" value="Choose dates">
+
+</form>
+
+</body>
+</html>

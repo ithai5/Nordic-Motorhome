@@ -7,49 +7,46 @@
 
 <body>
     <h1>Confirm details</h1>
-    <form action="/contract/createContract" method="post">
-        <table>
-            <thead>
+    <table>
+        <thead>
             <tr>
-                <th>Contract ID</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Odometer at Start</th>
-                <th>Total Price</th>
             </tr>
-            </thead>
+        </thead>
 
-            <tbody>
+        <tbody>
             <tr th:object="${contract}">
                 <td th:text="${contract.startDate}"></td>
                 <td th:text="${contract.endDate}"></td>
                 <td th:text="${contract.startKm}"></td>
             </tr>
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 
-        <table>
-            <thead>
+    <table>
+        <thead>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>E-mail</th>
                 <th>Zipcode</th>
             </tr>
-            </thead>
+        </thead>
 
-            <tbody>
+        <tbody>
             <tr th:object="${customer}">
                 <td th:text="${customer.firstName}"></td>
                 <td th:text="${customer.lastName}"></td>
                 <td th:text="${customer.email}"></td>
                 <td th:text="${customer.zip}"></td>
             </tr>
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 
-        <table>
-            <thead>
+    <table>
+        <thead>
             <tr>
                 <th>Type</th>
                 <th>Brand</th>
@@ -57,19 +54,27 @@
                 <th>Number of beds</th>
                 <th>Price per day</th>
             </tr>
-            </thead>
+        </thead>
 
-            <tbody>
-                <tr th:object="${motorhome}">
+        <tbody>
+            <tr th:object="${motorhome}">
                 <td th:text="${motorhome.typeName}"></td>
                 <td th:text="${motorhome.brand}"></td>
                 <td th:text="${motorhome.model}"></td>
                 <td th:text="${motorhome.bedNum}"></td>
                 <td th:text="${motorhome.pricePerDay}"></td>
-                </tr>
-            </tbody>
-        </table>
-        <input type="submit" value="Sign contract">
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/contract">
+        <button>Confirm</button>
+    </a>
+
+    <form action="/contract/cancelContract" method="post">
+        <input type="submit" value="Cancel">
     </form>
+
+
 </body>
 </html>

@@ -6,20 +6,23 @@
     <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
 </head>
     <body>
-        <div class="navbar">
-            <ul>
-                <li><a href="index">HOME</li>
-                <li><a href="customer">MANAGE CUSTOMERS</li>
-                <li><a href="motorhome">MANAGE MOTORHOMES</li>
-                <li><a href="contract">MANAGE CONTRACTS</li>
-                <li><a href="login">LOG IN</li>
-                <li><a href="logout">LOG OUT</li>
+
+            <div class="bg-image">
+            <ul class="navbar">
+                <li><a class="navbarB" href="index">HOME</a></li>
+                <li><a class="navbarB" href="customer">MANAGE CUSTOMERS</a></li>
+                <li><a class="navbarB" href="motorhome">MANAGE MOTORHOMES</a></li>
+                <li><a class="navbarB" href="contract">MANAGE CONTRACTS</a></li>
+                <li><a class="navbarB" href="login">LOG IN</a></li>
+                <li><a class="navbarB" href="logout">LOG OUT</a></li>
             </ul>
-        </div>
+
         <div class="company">
-            <h1>NORDIC</h1>
-            <h1>MOTORHOME</h1>
-            <h1 class="rental">RENTAL</h1>
+            <h1 class="company" id="rental">NORDIC MOTORHOME</h1>
+
+            <div class="slogan"><br>Wonderful travel, in a comfortable way
+            </div>
+
         </div>
 
         <!--
@@ -35,20 +38,21 @@
             <button>MANAGE CONTRACTS</button>
         </a>
         -->
-        <div></div>
-        <div class="login">
-            <form action="/login" method="post">
-                <div>First name
-                    <input type="text" name="firstName" placeholder="Enter first name" required>
+
+        <div >
+            <form class="login" action="/login" method="post">
+                <div class="field">First name
+                    <input class="userInput" type="text" name="firstName" placeholder="Enter first name" required>
                 </div>
-                <div>Last name
-                    <input type="text" name="lastName" placeholder="Enter last name" required>
+                <div class="field">Last name
+                    <input class="userInput" type="text" name="lastName" placeholder="Enter last name" required>
                 </div>
-                <div>Password
-                    <input type="password" name="passwordDetails" placeholder="Enter password" required>
+                <div class="field">Password
+                    <input class="userInput" type="password" name="passwordDetails" placeholder="Enter password" required>
                 </div>
                 <input type="submit" value="Login">
             </form>
         </div>
+            </div>
     </body>
 </html>

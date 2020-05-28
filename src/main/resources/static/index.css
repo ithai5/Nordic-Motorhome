@@ -1,7 +1,23 @@
 .navbar {
-    background-color: darkcyan;
-    height: 80px;
-    max-width: 500px;
+    padding: 8px 16px;
+    float: left;
+    border: none;
+    display: inline;
+    background-color: cadetblue;
+
+
+    outline: 0;
+}
+.navbarB{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.navbarB:hover{
+    background-color: #111;
 }
 
 ul{
@@ -19,34 +35,48 @@ li{
     padding: 18px;
 }
 
+.slogan{
+    color: aliceblue;
+    margin: 50px;
+    font-size: 37px;
 
+}
 .company{
-    border: 3px solid chocolate;
-    background-color: coral;
-    font-family: Phosphate;
-    font: bold;
-    font-size:85px;
+    float: left;
+    font-size: 50px;
+    font-style: italic;
+    font-weight: bold;
+    color: #730099;
+    box-sizing: content-box;
+    margin: 70px;
 }
-/*
-.nordic{
-    float:left; padding:30px 15px; background-color: coral; font-family: Phosphate; font: bold; font-size:125px;
-}
-.motorhome{
-    float: left; padding:30px 15px; position:relative; top: 15px; right: 15px; background-color: coral; font-family: Phosphate; font: bold; font-size: 125px;
-}
-*/
-.rental{
-    text-align: right;
-    writing-mode: vertical-rl;
+body{
+    background-image: url("images/norway1.jpg") ;
+
+    background-position: inherit;
+
+    background-repeat: repeat-y;
+    background-size: cover;
 }
 
 .login{
-    width: 80px;
-    height: 80px;
-    padding: 10px;
-    border: 8px solid indianred;
+
+    position: absolute;
+    width: 300px;
+    bottom: 125px;
+    right: 125px;
+    padding: 30px;
+
     border-radius: 6px;
-    background-color: dodgerblue;
+    background-color: darkgrey;
     opacity: 0.8;
     font-weight: bold;
+    float: right;
+
+}
+.field{
+    margin: 8px;
+}
+.userInput{
+    float: right;
 }

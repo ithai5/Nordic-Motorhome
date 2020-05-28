@@ -25,7 +25,18 @@ public class ContractRepo extends IdHolderRepo {
                 "VALUES (?,?,?,?,?,?,?,?)";
 
         template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate(), contract.getPickId(), contract.getDropId());
+
+        double totalPrice= completeContractTotal(lastAddedToTable("Contract").getId()).getTotalContractPrice();
+        int contractId=lastAddedToTable("Contract").getId();
+        System.out.println("Our test" + totalPrice + " and " + contractId);
+
+        sql = "UPDATE KeaProject.Contract " +
+                "SET totalPrice = ?" +
+                " WHERE contractId = ?";
+        template.update(sql, totalPrice, contractId);
+
     }
+
 
     //Deleting a contract
     public void deleteContract(int contractId) {
@@ -120,7 +131,7 @@ public class ContractRepo extends IdHolderRepo {
 
     public double amountOfDays (int contractId){
 
-        String sql = "SELECT DATEDIFF(endDate, startDate) As totalPrice FROM KEAProject.Contract " +
+        String sql = "SELECT DATEDIFF(endDate, startDate) As totalPrice FROM KeaProject.Contract " +
         "WHERE contractId = " + contractId;
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         List<Contract> contractList = template.query(sql, contractRowMapper);
@@ -129,7 +140,7 @@ public class ContractRepo extends IdHolderRepo {
 
     public double findPricePerDay (int contractId) {
 
-        String sql = "SELECT pricePerDay  FROM Contract c " +
+        String sql = "SELECT pricePerDay  FROM KeaProject.Contract c " +
                 "JOIN MhInfo i ON c.licencePlate = i.licencePlate " +
                 "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
                 "JOIN MhType t ON s.mhTypeId =t.mhTypeId WHERE c.contractId = " + contractId;
@@ -139,7 +150,7 @@ public class ContractRepo extends IdHolderRepo {
         return motorhomeList.get(0).getPricePerDay();
     }
 
-    public double seasonPricing (int contractId) {
+    public double findSeasonPricing (int contractId) {
 
         double peakSeason = 1.6;
         double midSeason = 1.3;
@@ -153,17 +164,20 @@ public class ContractRepo extends IdHolderRepo {
                     "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
                     "JOIN MhType t ON s.mhTypeId = t.mhTypeId " +
                     "WHERE MONTH(startDate) >= " + month[i] + /*" AND DAY(startDate)>= " + startPeakDay +*/
-                    " AND MONTH(endDate) <= " + month[i+1] + /*" AND DAY(endDate)<= " + endPeakDay +*/
+                    " AND MONTH(startDate) <= " + month[i+1] + /*" AND DAY(endDate)<= " + endPeakDay +*/
                     " AND contractId = " + contractId;
 
             RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
             List<Contract> contractList = template.query(sql, contractRowMapper);
             if (!contractList.isEmpty()&& i==0){
+                System.out.println("This is the " + peakSeason);
                 return peakSeason;
             }else if (!contractList.isEmpty()&& i==2){
+                System.out.println("This is the " + midSeason);
                 return midSeason;
             }
         }
+        System.out.println("This is the " + offSeason);
         return offSeason;
     }
 
@@ -190,7 +204,7 @@ public class ContractRepo extends IdHolderRepo {
     //Possible transfer costs
     public double findTransferCosts (int contractId) {
 
-        String sql = "SELECT  (t1.price + t2.price) totalPrice FROM Contract c " +
+        String sql = "SELECT  (t1.price + t2.price) totalPrice FROM KeaProject.Contract c " +
                 "JOIN Transfer t1 ON c.pickId = t1.transferId " +
                 "JOIN Transfer t2 ON c.dropId =  t2.transferId " +
                 "WHERE c.contractId = " + contractId;
@@ -209,12 +223,13 @@ public class ContractRepo extends IdHolderRepo {
     public Invoice completeContractTotal(int contractId) {
 
         Invoice invoice = new Invoice();
-        invoice.setSeasonPrice(seasonPricing(contractId));
+        invoice.setSeasonPrice((findSeasonPricing(contractId)));
         invoice.setAmountDays((int)amountOfDays(contractId));
         invoice.setTypePriceTotal((findPricePerDay(contractId)));
         invoice.setExtraTotalPrice((findExtraTotal(contractId)));
         invoice.setTransferTotal((findTransferCosts(contractId)));
-        invoice.findContractTotal();
+        invoice.setTotalContractPrice(invoice.findTotalContractPrice());
+        System.out.println(invoice.toString());
         return invoice;
     }
 

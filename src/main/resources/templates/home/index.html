@@ -1,21 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:background-image="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Main page</title>
     <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
-    <style>
-        company{
-            background-image: url("${pageContext.request.contextPath}resources/images/norway1.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-attachment: fixed;
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-        }
-    </style>
 </head>
     <body>
         <div class="navbar">
@@ -29,8 +17,8 @@
             </ul>
         </div>
         <div class="company">
-            <h1 class="nordic">NORDIC</h1>
-            <h1 class="motorhome">MOTORHOME</h1>
+            <h1>NORDIC</h1>
+            <h1>MOTORHOME</h1>
             <h1 class="rental">RENTAL</h1>
         </div>
 
@@ -47,6 +35,7 @@
             <button>MANAGE CONTRACTS</button>
         </a>
         -->
+        <div></div>
         <div class="login">
             <form action="/login" method="post">
                 <div>First name

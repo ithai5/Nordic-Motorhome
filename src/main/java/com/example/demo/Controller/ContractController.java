@@ -64,12 +64,17 @@ public class ContractController {
 
   @PostMapping("/contract/confirmContract")
   public String confirmDetails(@ModelAttribute Contract contract, @ModelAttribute ExtraWrapper extras, Model model) {
-    model.addAttribute("contract", contract);
-    model.addAttribute("customer", contractService.findCustomerById(contract.getCustomerId()));
-    model.addAttribute("motorhome", contractService.findMotorhomeByPlate(contract.getLicencePlate()));
 
     contractService.addContract(contract);
     contractService.addExtrasToContract(extras.getExtras());
+
+    model.addAttribute("contract", contract);
+    model.addAttribute("customer", contractService.findCustomerById(contract.getCustomerId()));
+    model.addAttribute("motorhome", contractService.findMotorhomeByPlate(contract.getLicencePlate()));
+    System.out.println("This is the contract" + contract.toString());
+    model.addAttribute("invoice", contractService.completeContractTotal(contractService.lastAddedToTable("Contract").getId()));
+
+
     return "home/contract/confirmContract";
   }
 
@@ -116,5 +121,6 @@ public class ContractController {
     model.addAttribute("contracts", searchHits); //show the result of the search statement
     return "home/contract/searchContract";
   }
+
 
 }

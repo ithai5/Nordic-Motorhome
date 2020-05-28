@@ -38,9 +38,10 @@ public class ContractService{
 
     public List<Contract> searchContract(String keyword) {return contractRepo.searchForContract(keyword);}
 
-    public double totalContractPrice(int contractId){
+
+    /*public double totalContractPrice(int contractId){
         return contractRepo.totalContractPrice(contractId);
-    }
+    }*/
 
     public List<Extra> fetchAllExtra(){
         return contractRepo.fetchAllExtra();
@@ -56,4 +57,8 @@ public class ContractService{
     public Customer findCustomerById(int customerId){return contractRepo.findCustomerById(customerId);}
 
     public IdHolder lastAddedToTable(String tableName){return contractRepo.lastAddedToTable(tableName);}
+
+    public Invoice completeContractTotal (int contractId){
+        return contractRepo.completeContractTotal(contractId);
+    }
 }

@@ -1,9 +1,6 @@
 package com.example.demo.Repository;
 
-import com.example.demo.Model.Contract;
-import com.example.demo.Model.Extra;
-import com.example.demo.Model.Motorhome;
-import com.example.demo.Model.Transfer;
+import com.example.demo.Model.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -19,8 +16,8 @@ public class ContractRepo extends IdHolderRepo {
     public List<Contract> fetchAllContract(){
         String sql = "SELECT * " +
                 "FROM KeaProject.Contract";
-        RowMapper<Contract> rowMapper= new BeanPropertyRowMapper<>(Contract.class);
-        return template.query(sql,rowMapper);
+        RowMapper<Contract> rowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        return template.query(sql, rowMapper);
     }
 
     public void addContract(Contract contract){
@@ -28,10 +25,21 @@ public class ContractRepo extends IdHolderRepo {
                 "VALUES (?,?,?,?,?,?,?,?)";
 
         template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate(), contract.getPickId(), contract.getDropId());
+
+        double totalPrice= completeContractTotal(lastAddedToTable("Contract").getId()).getTotalContractPrice();
+        int contractId=lastAddedToTable("Contract").getId();
+        System.out.println("Our test" + totalPrice + " and " + contractId);
+
+        sql = "UPDATE KeaProject.Contract " +
+                "SET totalPrice = ?" +
+                " WHERE contractId = ?";
+        template.update(sql, totalPrice, contractId);
+
     }
 
+
     //Deleting a contract
-    public void deleteContract(int contractId){
+    public void deleteContract(int contractId) {
         String sql = "DELETE FROM KeaProject.Contract " +
                 "WHERE contractId = ?";
 
@@ -54,7 +62,7 @@ public class ContractRepo extends IdHolderRepo {
         return template.query(sql, contractRowMapper);
     }
 
-    //Retrieves all elements from the extras table
+
     public List<Extra> fetchAllExtra(){
         String sql = "SELECT *" +
                 "FROM KeaProject.Extra";
@@ -118,31 +126,152 @@ public class ContractRepo extends IdHolderRepo {
         return template.query(sql,new BeanPropertyRowMapper<>(Motorhome.class));
     }
 
-    public double totalContractPrice(int contractId){
-        double totalPrice = 0;
-        //creating an sql for find the price for the contract exclude extra
-        String sql = "SELECT contractId, startDate, endDate, customerId, " +
-                        "(pricePerDay+(SELECT SUM(amount*pricePerDay) AS PriceForExtra " + //collect the price of the extra per day
-                        "FROM KeaProject.ContractHasExtra h " +
-                        "JOIN Extra e ON h.extraId = e.extraId " +
-                        "WHERE contractId = " + contractId + ")) *DATEDIFF(endDate,startDate) AS totalPrice " +
-                //calculate the amount of days that the contract is and time it the price per day of the motorhome
-                     "FROM Contract c " +
-                     "JOIN MhInfo i ON c.licencePlate=i.licencePlate " +
-                     "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
-                     "JOIN MhType t ON s.mhTypeId = t.mhTypeId " + //getting the price per day form the table MhType
-                     "WHERE contractId = " +contractId;
+
+
+
+    public double amountOfDays (int contractId){
+
+        String sql = "SELECT DATEDIFF(endDate, startDate) As totalPrice FROM KeaProject.Contract " +
+        "WHERE contractId = " + contractId;
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         List<Contract> contractList = template.query(sql, contractRowMapper);
-        totalPrice = contractList.get(0).getTotalPrice();
-        //Collecting the price of the transportation, can be split for another method
-        sql = "SELECT  (t1.price + t2.price) totalPirce FROM Contract c " +
+        return contractList.get(0).getTotalPrice();
+    }
+
+    public double findPricePerDay (int contractId) {
+
+        String sql = "SELECT pricePerDay  FROM KeaProject.Contract c " +
+                "JOIN MhInfo i ON c.licencePlate = i.licencePlate " +
+                "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+                "JOIN MhType t ON s.mhTypeId =t.mhTypeId WHERE c.contractId = " + contractId;
+
+        RowMapper<Motorhome> motorhomeRowMapper= new BeanPropertyRowMapper<>(Motorhome.class);
+        List<Motorhome> motorhomeList = template.query(sql, motorhomeRowMapper);
+        return motorhomeList.get(0).getPricePerDay();
+    }
+
+    public double findSeasonPricing (int contractId) {
+
+        double peakSeason = 1.6;
+        double midSeason = 1.3;
+        double offSeason = 1;
+
+        int[]month = {7, 8, 5, 10};
+
+        for (int i=0; i<=2; i+=2){
+            String sql = "SELECT * FROM KeaProject.Contract c " +
+                    "JOIN MhInfo i ON c.licencePlate=i.licencePlate " +
+                    "JOIN MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
+                    "JOIN MhType t ON s.mhTypeId = t.mhTypeId " +
+                    "WHERE MONTH(startDate) >= " + month[i] + /*" AND DAY(startDate)>= " + startPeakDay +*/
+                    " AND MONTH(startDate) <= " + month[i+1] + /*" AND DAY(endDate)<= " + endPeakDay +*/
+                    " AND contractId = " + contractId;
+
+            RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+            List<Contract> contractList = template.query(sql, contractRowMapper);
+            if (!contractList.isEmpty()&& i==0){
+                System.out.println("This is the " + peakSeason);
+                return peakSeason;
+            }else if (!contractList.isEmpty()&& i==2){
+                System.out.println("This is the " + midSeason);
+                return midSeason;
+            }
+        }
+        System.out.println("This is the " + offSeason);
+        return offSeason;
+    }
+
+
+    //finding totalPrice of Extras
+    public double findExtraTotal(int contractId) {
+
+
+        String sql = "SELECT SUM(pricePerDay*amount) AS totalPrice FROM KeaProject.Contract c " +
+                "JOIN ContractHasExtra ce ON c.ContractId = ce.ContractId " +
+                "JOIN Extra e ON ce.extraId = e.extraId " +
+                "WHERE c.contractId = " + contractId;
+
+        RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        List<Contract> contractList = template.query(sql, contractRowMapper);
+
+        if (contractList.isEmpty()){
+            return 0;
+        }
+
+        return contractList.get(0).getTotalPrice();
+    }
+
+    //Possible transfer costs
+    public double findTransferCosts (int contractId) {
+
+        String sql = "SELECT  (t1.price + t2.price) totalPrice FROM KeaProject.Contract c " +
                 "JOIN Transfer t1 ON c.pickId = t1.transferId " +
                 "JOIN Transfer t2 ON c.dropId =  t2.transferId " +
                 "WHERE c.contractId = " + contractId;
-        contractList = template.query(sql,contractRowMapper);
-        totalPrice += contractList.get(0).getTotalPrice();
-        System.out.println(totalPrice);
-        return totalPrice;
+
+        RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
+        List<Contract> contractList = template.query(sql, contractRowMapper);
+
+        if (contractList.isEmpty()){
+            return 0;
+        }
+        return contractList.get(0).getTotalPrice();
     }
+
+
+    //Nesrin: simple method to add up all contract elements together
+    public Invoice completeContractTotal(int contractId) {
+
+        Invoice invoice = new Invoice();
+        invoice.setSeasonPrice((findSeasonPricing(contractId)));
+        invoice.setAmountDays((int)amountOfDays(contractId));
+        invoice.setTypePriceTotal((findPricePerDay(contractId)));
+        invoice.setExtraTotalPrice((findExtraTotal(contractId)));
+        invoice.setTransferTotal((findTransferCosts(contractId)));
+        invoice.setTotalContractPrice(invoice.findTotalContractPrice());
+        System.out.println(invoice.toString());
+        return invoice;
+    }
+
+    //Make a model version of invoice total
+    //createModel Inovice
+    //return invoicealso html
+
+
+    /* Nesrin: method if customer reads summary and then chooses to abort process, leading to deletion of values
+    in contract table */
+    public void deleteProcess (int contractId) {
+        //technically, the contract is made in the table at the time of reviewing summary
+        //lastaddedtotheTable method (from IdHolderRepo) + deleteContract method
+        //this shall not induce automatic cancellation fees
+    }
+
+    /*Nesrin: this method not only deals with contract expenses but other fees based on
+    the behaviour of the customer */
+    public double CompleteInvoiceTotal (int contractId) {
+
+        double totalInvoice = 0;
+      //  completeContractTotal + other fees like...
+        /* if staff checkbox that customer leaves tank less than half full, + 70euros
+    If customer has driven more than 400 km * 1euro
+    Question: how do we handle the 400 free kilometers per day, insurance, external cleaning.
+    Is this already inclusive in the daily amount? */
+        return totalInvoice;
+    }
+
+    //Nesrin: after deletion of contract, this cancellation of contract should be called
+    public double contractCancellation (int contractId){
+        double fee = 0;
+    /*
+    If Up to 50 days prior to the start of the term of rental: 20% of the rental price, minimum 200€
+    If Between 49 and 15 days prior to the start of the term of rental: 50% of the rental price
+    If Less than 15 days prior to the start of the term of rental: 80% of the rental price
+    If On the day of renting: 95% of the rental price */
+
+    return fee;
+
+    }
+
+
+
 }

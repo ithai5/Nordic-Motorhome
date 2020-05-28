@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 //Made by Thomas
@@ -75,11 +76,25 @@ public class ContractController {
     return "home/contract/confirmContract";
   }
 
-  @PostMapping("/contract/cancelContract")
-  public String cancelContract() {
+  @PostMapping("/contract/undoContract")
+  public String undoContract() {
     contractService.deleteExtrasFromLastContract();
     contractService.deleteLastContract();
     return "redirect:/contract";
+  }
+
+  @GetMapping("/contract/cancelContract/{contractId}")
+  public String cancelContract(@PathVariable("contractId") int contractId) {
+    Contract cancelledContract = contractService.findContractById(contractId);
+    contractService.generateEndPrice(cancelledContract, true);
+    return "redirect:/contract/";
+  }
+
+  @GetMapping("/contract/updatePrice/{contractId}")
+  public String updatePrice(@PathVariable("contractId") int contractId) {
+    Contract endedContract = contractService.findContractById(contractId);
+    contractService.generateEndPrice(endedContract, false);
+    return "redirect:/contract/";
   }
 
   @GetMapping("/contract/viewContract/{contractId}")

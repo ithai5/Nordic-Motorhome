@@ -40,6 +40,11 @@ public class ContractService{
 
     public List<Contract> searchContract(String keyword) {return contractRepo.searchForContract(keyword);}
 
+    public Invoice completeContractTotal (int contractId){
+        return contractRepo.completeContractTotal(contractId);
+    }
+
+    public void generateEndPrice(Contract contract, boolean wasCanceled){contractRepo.generateEndPrice(contract, wasCanceled);}
 
     /*public double totalContractPrice(int contractId){
         return contractRepo.totalContractPrice(contractId);
@@ -59,8 +64,4 @@ public class ContractService{
     public Customer findCustomerById(int customerId){return contractRepo.findCustomerById(customerId);}
 
     public IdHolder lastAddedToTable(String tableName){return contractRepo.lastAddedToTable(tableName);}
-
-    public Invoice completeContractTotal (int contractId){
-        return contractRepo.completeContractTotal(contractId);
-    }
 }

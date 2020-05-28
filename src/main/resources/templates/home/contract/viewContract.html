@@ -74,5 +74,13 @@
     <a th:href="@{'/contract/deleteContract/'+${contract.contractId}}">
         <button>Delete</button>
     </a>
+
+    <a th:href="@{'/contract/cancelContract/'+${contract.contractId}}">
+        <button>Cancel Rental</button>
+    </a>
+
+    <a th:href="@{'/contract/updatePrice/'+${contract.contractId}}">
+        <button>Recalculate Price</button>
+    </a>
 </body>
 </html>

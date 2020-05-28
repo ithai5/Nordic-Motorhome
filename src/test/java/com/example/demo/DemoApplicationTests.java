@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.SQLOutput;
+import java.text.DateFormat;
+import java.util.Date;
 
 @SpringBootTest
 class DemoApplicationTests {
@@ -39,5 +41,11 @@ class DemoApplicationTests {
     @Test
     void dateFormatTest() {
         System.out.println(contractService.fetchAllContract().get(0).getStartDate());
+    }
+
+    @Test
+    void currentDate(){
+        Date current = new Date();
+        System.out.println(DateFormat.getInstance().format(current));
     }
 }

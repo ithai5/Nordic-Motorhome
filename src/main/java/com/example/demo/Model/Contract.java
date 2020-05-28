@@ -94,7 +94,6 @@ public class Contract {
         this.licencePlate = licencePlate;
     }
 
-
     public Integer getPickId() {
         return pickId;
     }
@@ -115,13 +114,13 @@ public class Contract {
 
     //Checks if start date is after end date
     public boolean invalidDuration() {
-        int yearS = extractDateTokenFromString(2, true);
-        int monthS = extractDateTokenFromString(5, true);
-        int dateS = extractDateTokenFromString(8, true);
+        int yearS = extractDateTokenFromString(2, startDate);
+        int monthS = extractDateTokenFromString(5, startDate);
+        int dateS = extractDateTokenFromString(8, startDate);
 
-        int yearE = extractDateTokenFromString(2, false);
-        int monthE = extractDateTokenFromString(5, false);
-        int dateE = extractDateTokenFromString(8, false);
+        int yearE = extractDateTokenFromString(2, endDate);
+        int monthE = extractDateTokenFromString(5, endDate);
+        int dateE = extractDateTokenFromString(8, endDate);
 
         if (yearS <= yearE) {
             if (monthS == monthE) {
@@ -133,24 +132,16 @@ public class Contract {
                 return false;
             }
         }
-
         return true;
     }
 
-    //Converts
-    public int extractDateTokenFromString(int index, boolean isStart) {
-        String dateType;
-        if (isStart) {
-            dateType = startDate;
-        } else {
-            dateType = endDate;
-        }
-        System.out.println(dateType);
-        int tokenA = Character.getNumericValue(dateType.charAt(0 + index)) * 10;
-        int tokenB = Character.getNumericValue(dateType.charAt(1 + index)) * 1;
+    //Converts a certain part of the String holding a Date into
+    //their numeric values. Can be used for getting the year, month and day.
+    public int extractDateTokenFromString(int index, String date) {
+        int tokenA = Character.getNumericValue(date.charAt(0 + index)) * 10;
+        int tokenB = Character.getNumericValue(date.charAt(1 + index)) * 1;
         int tokenC = tokenA + tokenB;
 
-        System.out.println("Token=" + tokenA + "Token=" + tokenB + "Token=" + tokenC);
         return tokenC;
     }
 

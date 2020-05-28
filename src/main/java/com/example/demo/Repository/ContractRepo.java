@@ -52,7 +52,6 @@ public class ContractRepo extends IdHolderRepo {
         return template.query(sql, contractRowMapper);
     }
 
-
     public List<Extra> fetchAllExtra(){
         String sql = "SELECT *" +
                 "FROM KeaProject.Extra";
@@ -72,6 +71,8 @@ public class ContractRepo extends IdHolderRepo {
             extras.get(i).setExtraId(otherValues.get(i).getExtraId());
         }
 
+        //Adding new entries to the ContractHasExtra table for each item that appears
+        //more than 0 times
         for (Extra extra : extras) {
             if (extra.getAmount() != 0) {
                 template.update(sql, contractId, extra.getExtraId(), extra.getAmount());
@@ -82,7 +83,6 @@ public class ContractRepo extends IdHolderRepo {
     public void addPriceToContract() {
         double totalPrice= completeContractTotal(lastAddedToTable("Contract").getId()).getTotalContractPrice();
         int contractId=lastAddedToTable("Contract").getId();
-        System.out.println("Our test" + totalPrice + " and " + contractId);
 
         String sql = "UPDATE KeaProject.Contract " +
                 "SET totalPrice = ?" +
@@ -130,7 +130,7 @@ public class ContractRepo extends IdHolderRepo {
 
 
 
-
+    //Why does this return a double? A duration of days will always be an integer number
     public double amountOfDays (int contractId){
 
         String sql = "SELECT DATEDIFF(endDate, startDate) As totalPrice FROM KeaProject.Contract " +
@@ -172,21 +172,17 @@ public class ContractRepo extends IdHolderRepo {
             RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
             List<Contract> contractList = template.query(sql, contractRowMapper);
             if (!contractList.isEmpty()&& i==0){
-                System.out.println("This is the " + peakSeason);
                 return peakSeason;
             }else if (!contractList.isEmpty()&& i==2){
-                System.out.println("This is the " + midSeason);
                 return midSeason;
             }
         }
-        System.out.println("This is the " + offSeason);
         return offSeason;
     }
 
 
     //finding totalPrice of Extras
     public double findExtraTotal(int contractId) {
-
 
         String sql = "SELECT SUM(pricePerDay*amount) AS totalPrice FROM KeaProject.Contract c " +
                 "JOIN ContractHasExtra ce ON c.ContractId = ce.ContractId " +
@@ -231,7 +227,7 @@ public class ContractRepo extends IdHolderRepo {
         invoice.setExtraTotalPrice((findExtraTotal(contractId)));
         invoice.setTransferTotal((findTransferCosts(contractId)));
         invoice.setTotalContractPrice(invoice.findTotalContractPrice());
-        System.out.println(invoice.toString());
+        
         return invoice;
     }
 
@@ -259,6 +255,57 @@ public class ContractRepo extends IdHolderRepo {
     Question: how do we handle the 400 free kilometers per day, insurance, external cleaning.
     Is this already inclusive in the daily amount? */
         return totalInvoice;
+    }
+
+    public double determineCancelModifier(int contractId) {
+        String sql = "SELECT DATEDIFF(startDate, CURRENT_DATE) As id FROM KeaProject.Contract " +
+                "WHERE contractId = " + contractId;
+        RowMapper<IdHolder> idHolderRowMapper = new BeanPropertyRowMapper<>(IdHolder.class);
+        int datesBeforeStart = template.query(sql, idHolderRowMapper).get(0).getId();
+
+        if (datesBeforeStart > 50) {
+            return 0.2;
+        } else if (datesBeforeStart < 50 && datesBeforeStart > 14) {
+            return 0.5;
+        } else if (datesBeforeStart < 15) {
+            return 0.8;
+        } else if (datesBeforeStart == 0) {
+            return 0.95;
+        } else {
+            return 1;
+        }
+    }
+
+
+    //Currently no way the fuel check is done. Should an attribute ~isFull be added to the system
+    //Or will we find a way to do it through the Report string?
+    public double fuelAndKmCheck(Contract contract) {
+        double priceAdditions = 0;
+
+        //Calculating if the customer has driven more than
+        //400 km a day
+        double totalDays = amountOfDays(contract.getContractId());
+        int newOdometer = findMotorhomeByPlate(contract.getLicencePlate()).getOdometer();
+        double drivenDistance = newOdometer - contract.getStartKm();
+        double kmsPerDay = drivenDistance / totalDays;
+
+        if (kmsPerDay > 400) {
+            priceAdditions = kmsPerDay - 400;
+        }
+        return priceAdditions;
+    }
+
+    public void generateEndPrice(Contract toEnd, boolean wasCanceled) {
+        if (wasCanceled) {
+            double cancelModifier = determineCancelModifier(toEnd.getContractId());
+            toEnd.setTotalPrice(toEnd.getTotalPrice() * cancelModifier);
+        } else {
+            toEnd.setTotalPrice(toEnd.getTotalPrice() + fuelAndKmCheck(toEnd));
+        }
+        String sql = "UPDATE KeaProject.Contract " +
+                "SET totalPrice = ?" +
+                "WHERE contractId = ?";
+        template.update(sql, toEnd.getTotalPrice(), toEnd.getContractId());
     }
 
     //Nesrin: after deletion of contract, this cancellation of contract should be called

@@ -24,17 +24,17 @@
                 <li><a href="customer">MANAGE CUSTOMERS</li>
                 <li><a href="motorhome">MANAGE MOTORHOMES</li>
                 <li><a href="contract">MANAGE CONTRACTS</li>
-                <li><a href="login"> LOG IN</li>
-                <li><a href="logout"> LOG OUT</li>
+                <li><a href="login">LOG IN</li>
+                <li><a href="logout">LOG OUT</li>
             </ul>
         </div>
         <div class="company">
-            <h1 style="font-family: fantasy; font: bold">NORDIC</h1>
-            <h1 style="font-family: fantasy; margin: 75px">MOTORHOME</h1>
-            <h1 style="font-family: fantasy; margin: 150px">RENTAL</h1>
+            <h1 class="nordic">NORDIC</h1>
+            <h1 class="motorhome">MOTORHOME</h1>
+            <h1 class="rental">RENTAL</h1>
         </div>
 
-
+        <!--
         <a href="customer">
             <button>MANAGE CUSTOMERS</button>
         </a>
@@ -46,19 +46,20 @@
         <a href="contract">
             <button>MANAGE CONTRACTS</button>
         </a>
-
-        <form action="/login" method="post">
-            <div>Enter first name
-                <input type="text" name="firstName" placeholder="Enter first name" required>
-            </div>
-            <div>Enter last name
-                <input type="text" name="lastName" placeholder="Enter last name" required>
-            </div>
-            <div>Enter password
-                <input type="password" name="passwordDetails" placeholder="Enter password" required>
-            </div>
-            <input type="submit" value="login">
-        </form>
-
+        -->
+        <div class="login">
+            <form action="/login" method="post">
+                <div>First name
+                    <input type="text" name="firstName" placeholder="Enter first name" required>
+                </div>
+                <div>Last name
+                    <input type="text" name="lastName" placeholder="Enter last name" required>
+                </div>
+                <div>Password
+                    <input type="password" name="passwordDetails" placeholder="Enter password" required>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
     </body>
 </html>

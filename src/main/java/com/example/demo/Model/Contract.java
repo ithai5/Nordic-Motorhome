@@ -114,7 +114,7 @@ public class Contract {
     //toString()
 
     //Checks if start date is after end date
-    public boolean validDuration() {
+    public boolean invalidDuration() {
         int yearS = extractDateTokenFromString(2, true);
         int monthS = extractDateTokenFromString(5, true);
         int dateS = extractDateTokenFromString(8, true);
@@ -124,16 +124,20 @@ public class Contract {
         int dateE = extractDateTokenFromString(8, false);
 
         if (yearS <= yearE) {
-            if (monthS <= monthE) {
+            if (monthS == monthE) {
                 if (dateS < dateE) {
-                    return true;
+                    return false;
                 }
+            }
+            else if (monthS < monthE) {
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 
+    //Converts
     public int extractDateTokenFromString(int index, boolean isStart) {
         String dateType;
         if (isStart) {
@@ -141,12 +145,13 @@ public class Contract {
         } else {
             dateType = endDate;
         }
+        System.out.println(dateType);
+        int tokenA = Character.getNumericValue(dateType.charAt(0 + index)) * 10;
+        int tokenB = Character.getNumericValue(dateType.charAt(1 + index)) * 1;
+        int tokenC = tokenA + tokenB;
 
-        int token = 0;
-        for (int i = 0; i < 2; ++i) {
-            token += dateType.charAt(i + index);
-        }
-        return token;
+        System.out.println("Token=" + tokenA + "Token=" + tokenB + "Token=" + tokenC);
+        return tokenC;
     }
 
     @Override

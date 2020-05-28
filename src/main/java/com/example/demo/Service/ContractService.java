@@ -26,6 +26,8 @@ public class ContractService{
 
     public void addExtrasToContract(List<Extra> extras) {contractRepo.addExtrasToContract(extras);}
 
+    public void addPriceToContract(){contractRepo.addPriceToContract();}
+
     public List<Motorhome> availableMotorhomes(String startDate, String endDate) {return contractRepo.availableMotorhomes(startDate, endDate);}
 
     public void deleteContract(int contractId) {contractRepo.deleteContract(contractId);}

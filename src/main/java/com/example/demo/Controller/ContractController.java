@@ -37,7 +37,7 @@ public class ContractController {
 
   @PostMapping("/contract/motorhomeSelection")
   public String selectMotorhome(@ModelAttribute Contract contract, Model model) {
-    if (!contract.validDuration()) {
+    if (contract.invalidDuration()) {
       return "home/contract/datesIncorrect";
     }
     List<Motorhome> mhForRent = contractService.availableMotorhomes(contract.getStartDate(), contract.getEndDate());
@@ -64,17 +64,14 @@ public class ContractController {
 
   @PostMapping("/contract/confirmContract")
   public String confirmDetails(@ModelAttribute Contract contract, @ModelAttribute ExtraWrapper extras, Model model) {
-
     contractService.addContract(contract);
     contractService.addExtrasToContract(extras.getExtras());
+    contractService.addPriceToContract();
 
     model.addAttribute("contract", contract);
     model.addAttribute("customer", contractService.findCustomerById(contract.getCustomerId()));
     model.addAttribute("motorhome", contractService.findMotorhomeByPlate(contract.getLicencePlate()));
-    System.out.println("This is the contract" + contract.toString());
     model.addAttribute("invoice", contractService.completeContractTotal(contractService.lastAddedToTable("Contract").getId()));
-
-
     return "home/contract/confirmContract";
   }
 

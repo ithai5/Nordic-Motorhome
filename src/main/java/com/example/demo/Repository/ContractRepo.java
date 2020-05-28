@@ -25,16 +25,6 @@ public class ContractRepo extends IdHolderRepo {
                 "VALUES (?,?,?,?,?,?,?,?)";
 
         template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate(), contract.getPickId(), contract.getDropId());
-
-        double totalPrice= completeContractTotal(lastAddedToTable("Contract").getId()).getTotalContractPrice();
-        int contractId=lastAddedToTable("Contract").getId();
-        System.out.println("Our test" + totalPrice + " and " + contractId);
-
-        sql = "UPDATE KeaProject.Contract " +
-                "SET totalPrice = ?" +
-                " WHERE contractId = ?";
-        template.update(sql, totalPrice, contractId);
-
     }
 
 
@@ -87,6 +77,18 @@ public class ContractRepo extends IdHolderRepo {
                 template.update(sql, contractId, extra.getExtraId(), extra.getAmount());
             }
         }
+    }
+
+    public void addPriceToContract() {
+        double totalPrice= completeContractTotal(lastAddedToTable("Contract").getId()).getTotalContractPrice();
+        int contractId=lastAddedToTable("Contract").getId();
+        System.out.println("Our test" + totalPrice + " and " + contractId);
+
+        String sql = "UPDATE KeaProject.Contract " +
+                "SET totalPrice = ?" +
+                " WHERE contractId = ?";
+        template.update(sql, totalPrice, contractId);
+
     }
 
     public void deleteExtrasFromContract(int contractId) {

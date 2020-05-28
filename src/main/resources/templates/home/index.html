@@ -1,21 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>Main page</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
+    <style>
+        company{
+            background-image: url("${pageContext.request.contextPath}resources/images/norway1.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+        }
+    </style>
 </head>
     <body>
-        <form action="/login" method="post">
-            <div>Enter first name
-                <input type="text" name="firstName" placeholder="Enter first name" required>
-            </div>
-            <div>Enter last name
-                <input type="text" name="lastName" placeholder="Enter last name" required>
-            </div>
-            <div>Enter password
-                <input type="password" name="passwordDetails" placeholder="Enter password" required>
-            </div>
-            <input type="submit" value="login">
-        </form>
+        <div class="navbar">
+            <ul>
+                <li><a href="index">HOME</li>
+                <li><a href="customer">MANAGE CUSTOMERS</li>
+                <li><a href="motorhome">MANAGE MOTORHOMES</li>
+                <li><a href="contract">MANAGE CONTRACTS</li>
+                <li><a href="login">LOG IN</li>
+                <li><a href="logout">LOG OUT</li>
+            </ul>
+        </div>
+        <div class="company">
+            <h1 class="nordic">NORDIC</h1>
+            <h1 class="motorhome">MOTORHOME</h1>
+            <h1 class="rental">RENTAL</h1>
+        </div>
+
+        <!--
+        <a href="customer">
+            <button>MANAGE CUSTOMERS</button>
+        </a>
+
+        <a href="motorhome">
+            <button>MANAGE MOTORHOMES</button>
+        </a>
+
+        <a href="contract">
+            <button>MANAGE CONTRACTS</button>
+        </a>
+        -->
+        <div class="login">
+            <form action="/login" method="post">
+                <div>First name
+                    <input type="text" name="firstName" placeholder="Enter first name" required>
+                </div>
+                <div>Last name
+                    <input type="text" name="lastName" placeholder="Enter last name" required>
+                </div>
+                <div>Password
+                    <input type="password" name="passwordDetails" placeholder="Enter password" required>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
     </body>
 </html>

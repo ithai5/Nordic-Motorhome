@@ -1,5 +1,7 @@
 .navbar {
     background-color: darkcyan;
+    height: 80px;
+    max-width: 500px;
 }
 
 ul{
@@ -12,42 +14,39 @@ ul{
 }
 li{
     display: inline;
-
-}
-
-li a{
     color: white;
     text-align: center;
-    padding: 18px 18px;
+    padding: 18px;
 }
 
 
 .company{
-    padding-top: 50px;
-    padding-bottom: 30px;
-    position: fixed;
-
+    border: 3px solid chocolate;
+    background-color: coral;
+    font-family: Phosphate;
+    font: bold;
+    font-size:85px;
 }
-
+/*
 .nordic{
     float:left; padding:30px 15px; background-color: coral; font-family: Phosphate; font: bold; font-size:125px;
 }
 .motorhome{
     float: left; padding:30px 15px; position:relative; top: 15px; right: 15px; background-color: coral; font-family: Phosphate; font: bold; font-size: 125px;
 }
+*/
 .rental{
-    float:right; margin-bottom: 60%; padding:30px 15px; background-color: coral; font-family: Phosphate; font: bold; font-size: larger;  font-size: 125px; writing-mode: vertical-rl;
-}
-li a:hover{
-    background-color: -moz-mac-accentregularhighlight;
+    text-align: right;
+    writing-mode: vertical-rl;
 }
 
 .login{
-    position: relative;
-    top: 20px;
-    float: top;
-    font-weight: bold;
+    width: 80px;
+    height: 80px;
+    padding: 10px;
     border: 8px solid indianred;
     border-radius: 6px;
-    padding: 15px;
+    background-color: dodgerblue;
+    opacity: 0.8;
+    font-weight: bold;
 }

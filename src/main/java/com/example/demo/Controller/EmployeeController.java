@@ -36,7 +36,7 @@ public class EmployeeController {
     @PostMapping("/logout")
     public String logOut() {
         employeeS = null;
-        return "home/index";
+        return "redirect:/";
     }
 
     @GetMapping("/mainMenu")
@@ -54,7 +54,7 @@ public class EmployeeController {
                 return "home/ownerMenu";
             default:
                 System.out.println("something went wrong");
-                return "home/index";
+                return "redirect:/";
         }
     }
 

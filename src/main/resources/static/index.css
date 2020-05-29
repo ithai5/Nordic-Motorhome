@@ -36,19 +36,38 @@ li{
 }
 
 .slogan{
+    /*
     color: aliceblue;
     margin: 50px;
     font-size: 37px;
 
+
+     */
+    argin-top: 0px;
+    margin-left: 180px;
+
+    color: #dfebec;
+    font-size: 37px;
 }
 .company{
+    /*
     float: left;
-    font-size: 50px;
+    font-size: 85px;
     font-style: italic;
     font-weight: bold;
     color: #730099;
     box-sizing: content-box;
     margin: 70px;
+
+     */
+    /* float: left; */
+    font-size: 100px;
+    font-style: oblique;
+    font-weight: bold;
+    color: #9fc5c6;
+    margin-top: 425px;
+    box-sizing: content-box;
+    margin-left: 155px;
 }
 body{
     background-image: url("images/norway1.jpg") ;

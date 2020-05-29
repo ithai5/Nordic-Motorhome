@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/styles.css" th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/TableCSS.css" th:href="@{/tableCSS.css}" />
 </head>
 <body>
-    <div><h1>There are no results for your search</h1>
+
+<div class="background">
+    <div class="layer">
+
+        <div class="main-wrapper">
+            <header class="header header--bg">
+                <div class="container">
+                    <nav class="navbar">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            </button>
+                            <a class="navbar-brand" href="#">NORDIC MOTORHOMES</a>
+                        </div>
+                    </nav>
+                    <div class="header__content text-left">
+                        <h1 class="header__content__title">NO SEARCH RESULTS</h1>
+                    </div>
+                </div>
+            </header>
+    <div><h1>Unfortunately, there are no results for your search</h1>
         <form action="/motorhome/searchMotorhome/" method="post">Search Motorhome
             <input type="text" name="licencePlate" placeholder="Type search parameter" required>
             <input type="submit" value="Search Motorhome">

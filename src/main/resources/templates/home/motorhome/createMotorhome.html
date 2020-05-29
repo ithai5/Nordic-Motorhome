@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Create motorhome</title>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/styles.css" th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/TableCSS.css" th:href="@{/tableCSS.css}" />
 </head>
 <body>
+
+<div class="background">
+    <div class="layer">
+
+        <div class="main-wrapper">
+            <header class="header header--bg">
+                <div class="container">
+                    <nav class="navbar">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            </button>
+                            <a class="navbar-brand" href="#">NORDIC MOTORHOMES</a>
+                        </div>
+                    </nav>
+                    <div class="header__content text-left">
+                        <h1 class="header__content__title">CREATE MOTORHOME</h1>
+                    </div>
+                </div>
+            </header>
 <h1>Create New Motorhome</h1>
 <form action="/motorhome/addMotorhome" method="post">
     <div>Enter type name
@@ -42,5 +63,23 @@
     </div>
     <input type="submit" value="Create New Motorhome">
 </form>
+            <footer class="footer footer--bg">
+                <div class="container">
+                    <div class="page-section">
+                        <div class="row gutters-100">
+                            <div class="col-md-4 col-lg-3">
+                                <div class="footer__first">
+                                    <h2 class="footer__title">NORDIC MOTORHOMES</h2>
+                                </div>
+                            </div>
+                            <hr class="footer__horizontal-bar">
+                            <p class="footer__bottom-paragraph">© Copyright 2020 <a href="#" style="color: #00aafe;font-weight:bold;">KEA Computer Science Group 7</a>. All Rights Reserved</p>
+                        </div>
+                    </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

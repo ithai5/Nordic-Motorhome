@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>View All Customers</h1>
+    <div class="tableshrink">
     <table>
             <thead>
                 <tr>
@@ -34,11 +35,14 @@
                     <td th:text="${customer.houseNum}"></td>
                     <td th:text="${customer.zip}"></td>
                     <td>
-                        <a href="updateCustomer.html"><button class="button">UPDATE</button></a>
-                        <a href="viewCustomer.html"><button class="button">DELETE</button></a>
+                        <a class ="button" href="updateCustomer.html">UPDATE</a>
+                    </td>
+                    <td>
+                        <a class ="button" href="viewCustomer.html">DELETE</a>
                     </td>
                 </tr>
             </tbody>
     </table>
+    </div>
 </body>
 </html>

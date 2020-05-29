@@ -8,11 +8,61 @@ h1{
     margin-bottom: 20px;
     padding: 15px;
 }
+
+
 table{
-    height: 100%;
-    width: 100%;
-    border: darkblue;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 61%;
+    margin: 1%;
+    background-color: #395e60;
+    border-radius: 3px;
+    border-color:#304f4f ;
+    overflow-x: auto;
+
+
+
+
 }
+.tableshrink{
+    overflow-x: auto;
+    
+}
+th:hover{
+    background-color: #588d8d;
+}
+th{
+    color: #eff5f5;
+
+
+}
+td{
+    background-color: #9fc5c6;
+    overflow-x: auto;
+    color: black;
+
+    border-color: #609d9f;
+    margin: 10px;
+
+}
+.button{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: #568d8f;
+    margin: 2px;
+
+
+}
+.button:hover{
+    background-color: #dfebec;
+    color: black;
+}
+
+/*
 
 th{
     padding: 20px;
@@ -36,10 +86,38 @@ tr:nth-child(even) {
     background-color: red;
 }
 
-.button{
+.button {
     color: yellow;
     background-color: darkblue;
     font-weight: bold;
+}
+/*
+h2 {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.table-bordered {
+  border: 1px solid #ddd !important;
+}
+
+table caption {
+	padding: .5em 0;
+}
+
+@media screen and (max-width: 767px) {
+  table caption {
+    display: none;
+  }
+}
+
+.p {
+  text-align: center;
+  padding-top: 140px;
+  font-size: 14px;
+}
+th{
+    padding: 20px 20px;
     text-align: center;
     padding: 5px 7px;
     border-radius: 6px;

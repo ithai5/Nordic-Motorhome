@@ -26,7 +26,6 @@ public class EmployeeController {
         if(employeeService.login(employee)==null){
             System.out.println("login fail");
             return "home/index";
-        }
         else{
             employeeS = employee;
             return "redirect:/mainMenu";

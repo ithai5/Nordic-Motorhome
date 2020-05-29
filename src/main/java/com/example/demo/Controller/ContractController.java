@@ -111,6 +111,11 @@ public class ContractController {
     return "home/contract/viewContract";
   }
 
+  @PostMapping("/contract/viewContracts")
+  public String viewAllContracts() {
+    return"/home/contract/viewAllContracts";
+  }
+
   //Previously GET
   @PostMapping("/contract")
   public String menu(Model model) {

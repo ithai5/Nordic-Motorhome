@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View All Contracts</title>
+</head>
+<body>
+    <table border = "0" cellpadding = "8" cellspacing = "8" >
+        <thead>
+        <tr>
+            <th>Contract ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Odometer at Start</th>
+            <th>Total Price</th>
+            <th>Customer ID</th>
+            <th>Licence Plate</th>
+            <th>Pick ID</th>
+            <th>Drop ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contract:${contracts}">
+            <td th:text="${contract.contractId}"></td>
+            <td th:text="${contract.startDate}"></td>
+            <td th:text="${contract.endDate}"></td>
+            <td th:text="${contract.startKm}"></td>
+            <td th:text="${contract.totalPrice}"></td>
+            <td th:text="${contract.customerId}"></td>
+            <td th:text="${contract.licencePlate}"></td>
+            <td th:text="${contract.pickId}"></td>
+            <td th:text="${contract.dropId}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

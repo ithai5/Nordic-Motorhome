@@ -31,13 +31,13 @@ public class EmployeeController {
             model.addAttribute("employee", employee);
             switch (title){
                 case "sales assistant":
-                    return "home/logins/logSA";
+                    return "home/salesAssistantMenu";
                 case "mechanic":
-                    return "home/logins/logM";
+                    return "home/motorhome/motorhomeMenu";
                 case "bookkeeper":
-                    return "home/logins/logB";
+                    return "home/bookkeeperMenu";
                 case "owner":
-                    return "home/logins/logO";
+                    return "home/ownerMenu";
                 default:
                     System.out.println("something went wrong");
                     return "home/index";

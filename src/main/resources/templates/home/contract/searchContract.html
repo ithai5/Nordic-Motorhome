@@ -3,8 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Contract List</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css" th:href="@{/styles.css}" />
 </head>
 <body>
+
+<div class="main-wrapper">
+    <header class="header header--bg">
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">NORDIC MOTORHOMES</a>
+                </div>
+            </nav>
+            <div class="header__content text-center">
+                <h1 class="header__content__title">SEARCH CONTRACT INFORMATION</h1>
+            </div>
+        </div>
+    </header>
+
 <h1>All Hits</h1>
 <table>
     <thead>
@@ -43,5 +64,20 @@
     </tbody>
 </table>
 
+    <footer class="footer footer--bg">
+        <div class="container">
+            <div class="page-section">
+                <div class="row gutters-100">
+                    <div class="col-md-4 col-lg-3">
+                        <div class="footer__first">
+                            <h2 class="footer__title">NORDIC MOTORHOMES</h2>
+                        </div>
+                    </div>
+                    <hr class="footer__horizontal-bar">
+                    <p class="footer__bottom-paragraph">© Copyright 2020 <a href="#" style="color: #00aafe;font-weight:bold;">KEA Computer Science Group 7</a>. All Rights Reserved</p>
+                </div>
+            </div>
+    </footer>
+</div>
 </body>
 </html>

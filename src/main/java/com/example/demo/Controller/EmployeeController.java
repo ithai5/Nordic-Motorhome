@@ -19,32 +19,43 @@ public class EmployeeController {
         return "home/index";
     }
     */
+    static Employee employeeS;
+
     @PostMapping("/login")
-    public String login(@ModelAttribute Employee employee, Model model){
-        System.out.println(employee);
+    public String login(@ModelAttribute Employee employee){
         if(employeeService.login(employee)==null){
             System.out.println("login fail");
             return "home/index";
         }
         else{
-            String title = employeeService.login(employee).getTitle().toLowerCase();
-            model.addAttribute("employee", employee);
-            switch (title){
-                case "sales assistant":
-                    return "home/salesAssistantMenu";
-                case "mechanic":
-                    return "home/motorhome/motorhomeMenu";
-                case "bookkeeper":
-                    return "home/bookkeeperMenu";
-                case "owner":
-                    return "home/ownerMenu";
-                default:
-                    System.out.println("something went wrong");
-                    return "home/index";
-            }
+            employeeS = employee;
+            return "redirect:/mainMenu";
         }
     }
 
+    @PostMapping("/logout")
+    public String logOut() {
+        employeeS = null;
+        return "home/index";
+    }
 
+    @GetMapping("/mainMenu")
+    public String home(Model model) {
+        String title = employeeService.login(employeeS).getTitle().toLowerCase();
+        model.addAttribute("employee", employeeS);
+        switch (title) {
+            case "sales assistant":
+                return "home/salesAssistantMenu";
+            case "mechanic":
+                return "home/motorhome/motorhomeMenu";
+            case "bookkeeper":
+                return "home/bookkeeperMenu";
+            case "owner":
+                return "home/ownerMenu";
+            default:
+                System.out.println("something went wrong");
+                return "home/index";
+        }
+    }
 
 }

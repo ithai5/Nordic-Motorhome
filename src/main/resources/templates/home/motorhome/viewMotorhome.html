@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Motorhome View</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/TableCSS.css}">
 </head>
     <body>
-        <h1>Main menu</h1>
+        <h1>View All Motorhomes</h1>
         <table>
             <thead>
             <tr>
@@ -34,6 +35,12 @@
                 <td th:text="${motorhome.odometer}"></td>
                 <td th:text="${motorhome.ready}"></td>
                 <td th:text="${motorhome.report}"></td>
+                <td>
+                    <a class ="button" href="updateMotorhome.html">UPDATE</a>
+                </td>
+                <td>
+                    <a class ="button" href="viewMotorhome.html">DELETE</a>
+                </td>
             </tr>
             </tbody>
         </table>

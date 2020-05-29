@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Login successful!</title>
 </head>
 <body>
-<h1>Login successful!</h1>
+<h1>Welcome <span th:text="${employee.firstName}"></span></h1>
 <form action="/motorhome" method="post">
     <input type="submit" value="Next">
 </form>

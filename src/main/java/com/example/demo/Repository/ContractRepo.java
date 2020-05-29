@@ -27,7 +27,6 @@ public class ContractRepo extends IdHolderRepo {
         template.update(sql, contract.getStartDate(), contract.getEndDate(), contract.getStartKm(), contract.getTotalPrice(), contract.getCustomerId(), contract.getLicencePlate(), contract.getPickId(), contract.getDropId());
     }
 
-
     //Deleting a contract
     public void deleteContract(int contractId) {
         String sql = "DELETE FROM KeaProject.Contract " +
@@ -128,8 +127,6 @@ public class ContractRepo extends IdHolderRepo {
         return template.query(sql,new BeanPropertyRowMapper<>(Motorhome.class));
     }
 
-
-
     //Why does this return a double? A duration of days will always be an integer number
     public double amountOfDays (int contractId){
 
@@ -180,7 +177,6 @@ public class ContractRepo extends IdHolderRepo {
         return offSeason;
     }
 
-
     //finding totalPrice of Extras
     public double findExtraTotal(int contractId) {
 
@@ -215,7 +211,6 @@ public class ContractRepo extends IdHolderRepo {
         }
         return contractList.get(0).getTotalPrice();
     }
-
 
     //Nesrin: simple method to add up all contract elements together
     public Invoice completeContractTotal(int contractId) {
@@ -276,8 +271,7 @@ public class ContractRepo extends IdHolderRepo {
         }
     }
 
-
-    //Currently no way the fuel check is done. Should an attribute ~isFull be added to the system
+    //Currently no fuel check is done. Should an attribute ~isFull be added to the system
     //Or will we find a way to do it through the Report string?
     public double fuelAndKmCheck(Contract contract) {
         double priceAdditions = 0;
@@ -295,11 +289,27 @@ public class ContractRepo extends IdHolderRepo {
         return priceAdditions;
     }
 
+    //Changes the price accordingly in the event of a cancellation or
+    //natural expiration of a contract, with too many kms driven
     public void generateEndPrice(Contract toEnd, boolean wasCanceled) {
+        //Fee calculations for cancelling a contract
         if (wasCanceled) {
+            double actualTotal = completeContractTotal(toEnd.getContractId()).getTotalContractPrice();
+            //Check if price already has been modified and
+            //if true, don't change the price
+            if (toEnd.getTotalPrice() != actualTotal) {
+                return;
+            }
             double cancelModifier = determineCancelModifier(toEnd.getContractId());
-            toEnd.setTotalPrice(toEnd.getTotalPrice() * cancelModifier);
-        } else {
+            double newPrice = toEnd.getTotalPrice() * cancelModifier;
+            if (newPrice < 200) {
+                toEnd.setTotalPrice(200);
+            } else {
+                toEnd.setTotalPrice(newPrice);
+            }
+        }
+        //Fee calculations for rents that have expired
+        else {
             toEnd.setTotalPrice(toEnd.getTotalPrice() + fuelAndKmCheck(toEnd));
         }
         String sql = "UPDATE KeaProject.Contract " +

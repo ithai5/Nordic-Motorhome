@@ -38,9 +38,9 @@ th:hover{
 }
 th{
     color: #eff5f5;
+    text-transform: uppercase;
+    font-weight: bold;
     padding: 15px;
-
-
 }
 
 td{

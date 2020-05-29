@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Motorhome Selection</title>
     <link rel="stylesheet" type="text/css" href="src/main/resources/static/styles.css" th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/TableCSS.css" th:href="@{/tableCSS.css}" />
 </head>
 <body>
-
 
 <div class="main-wrapper">
     <header class="header header--bg">
@@ -63,24 +63,8 @@
         <input type="hidden" th:value="${contract.endDate}" th:attr=name='endDate'>
 
         <input type="submit" value="Choose car">
-
     </form>
 
-    <footer class="footer footer--bg">
-        <div class="container">
-            <div class="page-section">
-                <div class="row gutters-100">
-                    <div class="col-md-4 col-lg-3">
-                        <div class="footer__first">
-                            <h2 class="footer__title">NORDIC MOTORHOMES</h2>
-                        </div>
-                    </div>
-                    <hr class="footer__horizontal-bar">
-                    <p class="footer__bottom-paragraph">© Copyright 2020 <a href="#" style="color: #00aafe;font-weight:bold;">KEA Computer Science Group 7</a>. All Rights Reserved</p>
-                </div>
-            </div>
-    </footer>
-</div>
 
 </body>
 </html>

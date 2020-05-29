@@ -58,13 +58,16 @@
                 <tr th:each="extraD : ${extrasD}">
                     <td th:text="${extraD.extraName}"></td>
                     <td th:text="${extraD.pricePerDay}"></td>
+                    <td></td>>
                 </tr>
                 <tr th:each="extra, itemStat : *{extras}">
                     <td><input th:field="*{extras[__${itemStat.index}__].amount}"></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-                <tr><input type="submit" value="Go to confirm"></tr>
             </tbody>
         </table>
+        <tr><input type="submit" value="Go to confirm"></tr>
 
         <!--Displaying contract with filled in information so far-->
         <input type="hidden" th:value="${contract.customerId}" th:attr=name='customerId'>

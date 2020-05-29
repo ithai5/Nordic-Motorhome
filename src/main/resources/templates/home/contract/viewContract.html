@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="src/main/resources/static/TableCSS.css" th:href="@{/tableCSS.css}" />
 </head>
 <body>
+<div class="background">
+    <div class="layer">
 
 <div class="main-wrapper">
     <header class="header header--bg">
@@ -31,8 +33,7 @@
 
 
     <h1>Contract Details</h1>
-
-
+    <div style="overflow-x:auto;">
     <table>
         <thead>
             <tr>
@@ -109,6 +110,7 @@
         <input type="submit" value="Recalculate Price">
     </form>
 
+</div>
     <footer class="footer footer--bg">
         <div class="container">
             <div class="page-section">

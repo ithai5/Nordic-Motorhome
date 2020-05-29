@@ -24,7 +24,8 @@ public class ContractController {
   @Autowired
   CustomerService customerService;
 
-  @GetMapping("/contract/customerSelection")
+  //Previously GET
+  @PostMapping("/contract/customerSelection")
   public String selectCustomers(Model model) {
     model.addAttribute("customers", customerService.fetchAll());
     return "home/contract/customerSelection";
@@ -83,21 +84,25 @@ public class ContractController {
     return "redirect:/contract";
   }
 
-  @GetMapping("/contract/cancelContract/{contractId}")
+  //Previously GET
+  //You can cancel a contract multiple times and the price reduction stacks...
+  @PostMapping("/contract/cancelContract/{contractId}")
   public String cancelContract(@PathVariable("contractId") int contractId) {
     Contract cancelledContract = contractService.findContractById(contractId);
     contractService.generateEndPrice(cancelledContract, true);
-    return "redirect:/contract/";
+    return "home/contract/contractChangeSuccess";
   }
 
-  @GetMapping("/contract/updatePrice/{contractId}")
+  //Previously GET
+  @PostMapping("/contract/updatePrice/{contractId}")
   public String updatePrice(@PathVariable("contractId") int contractId) {
     Contract endedContract = contractService.findContractById(contractId);
     contractService.generateEndPrice(endedContract, false);
-    return "redirect:/contract/";
+    return "home/contract/contractChangeSuccess";
   }
 
-  @GetMapping("/contract/viewContract/{contractId}")
+  //Previously GET
+  @PostMapping("/contract/viewContract/{contractId}")
   public String viewContract(@PathVariable("contractId") int contractId, Model model) {
     Contract contract = contractService.findContractById(contractId);
     model.addAttribute("contract", contract);
@@ -106,32 +111,39 @@ public class ContractController {
     return "home/contract/viewContract";
   }
 
-  @GetMapping("/contract")
+  //Previously GET
+  @PostMapping("/contract")
   public String menu(Model model) {
     model.addAttribute("contracts", contractService.fetchAllContract());
     return "home/contract/contractMenu";
   }
 
+  //PREVIOUSLY GET
   //CONSIDER ADDING A CONFIRMATION BEFORE DELETE
-  @GetMapping("/contract/deleteContract/{contractId}")
+  @PostMapping("/contract/deleteContract/{contractId}")
   public String deleteContract(@PathVariable("contractId") int contractId){
     contractService.deleteExtrasFromContract(contractId);
     contractService.deleteContract(contractId);
-    return "redirect:/contract";
+    return "home/contract/contractChangeSuccess";
   }
 
   @PostMapping("/contract/searchContract")
   public String searchContract(@ModelAttribute Contract keyword, Model model){
 
     List<Contract> searchHits = contractService.searchContract(keyword.getStartDate());
-    if(searchHits ==null){
-      return "index1";
-    }
     if (searchHits.isEmpty()){ //check it there is any results for the search and direct to another page
-      return "home/contract/contractMenu";
+      return "redirect:/contract";
     }
+
     model.addAttribute("contracts", searchHits); //show the result of the search statement
-    return "home/contract/searchContract";
+    if (searchHits.size() == 1) {
+      //This part doesn't work, fix later 11:38
+      int toView = searchHits.get(0).getContractId();
+      model.addAttribute("contractId", toView);
+      return "redirect:/contract/viewContract/{contractId}";
+    } else {
+      return "home/contract/searchContract";
+    }
   }
 
 

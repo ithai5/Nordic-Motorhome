@@ -112,7 +112,7 @@ public class Contract {
 
     //toString()
 
-    //Checks if start date is after end date
+    //Checks if start date of a contract is after its end date
     public boolean invalidDuration() {
         int yearS = extractDateTokenFromString(2, startDate);
         int monthS = extractDateTokenFromString(5, startDate);

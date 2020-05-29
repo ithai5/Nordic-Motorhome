@@ -96,16 +96,16 @@
         </tbody>
     </table>
 
-    <a th:href="@{'/contract/deleteContract/'+${contract.contractId}}">
-        <button>Delete</button>
-    </a>
+    <form action="#" th:action="@{'/contract/deleteContract/'+${contract.contractId}}" method="post">
+        <input type="submit" value="Delete Contract">
+    </form>
 
-    <a th:href="@{'/contract/cancelContract/'+${contract.contractId}}">
-        <button>Cancel Rental</button>
-    </a>
+    <form action="#" th:action="@{'/contract/cancelContract/'+${contract.contractId}}" method="post">
+        <input type="submit" value="Cancel Rental">
+    </form>
 
-    <a th:href="@{'/contract/updatePrice/'+${contract.contractId}}">
-        <button>Recalculate Price</button>
-    </a>
+    <form action="#" th:action="@{'/contract/updatePrice/'+${contract.contractId}}" method="post">
+        <input type="submit" value="Recalculate Price">
+    </form>
 </body>
 </html>

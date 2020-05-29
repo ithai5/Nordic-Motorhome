@@ -50,15 +50,10 @@
         <td th:text="${contract.totalPrice}"></td>
         <td th:text="${contract.customerId}"></td>
         <td th:text="${contract.licencePlate}"></td>
-        <td><a th:href="@{'/contract/viewContract/'+${contract.contractId}}">
-            <button>View</button>
-        </a>
-            <a th:href="@{'/contract/deleteContract/'+${contract.contractId}}">
-                <button>Delete</button>
-            </a>
-            <a th:href="@{'/contract/updateContract/'+${contract.contractId}}">
-                <button>Update</button>
-            </a>
+        <td>
+            <form action="#" th:action="@{'/contract/viewContract/'+${contract.contractId}}" method="post">
+                <input type="submit" value="View">
+            </form>
         </td>
     </tr>
     </tbody>

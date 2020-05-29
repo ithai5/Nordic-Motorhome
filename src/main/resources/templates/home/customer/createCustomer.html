@@ -6,7 +6,7 @@
 </head>
 <body>
     <h1>Create New Customer</h1>
-    <form action="/customer/createCustomer" method="post">
+    <form action="/customer/addCustomer" method="post">
         <div>Enter first name
         <input type="text" name="firstName" placeholder="John" required>
         </div>
@@ -18,6 +18,9 @@
         </div>
         <div>Enter driver Licence Number
         <input type="text" name="driverNum" placeholder="12345678" required>
+        </div>
+        <div>Enter personal phone Number
+            <input type="text" name="phone" placeholder="12345678" required>
         </div>
         <div>Enter country
         <input type="text" name="country" placeholder="Columbia" required>
@@ -36,12 +39,6 @@
         </div>
         <input type="submit" value="Create New Customer">
     </form>
-
-    <form action="/customer/searchCustomer/" method="get">Search Customer
-        <input type="text" name="firstName" placeholder="Type search parameter" required>
-        <input type="submit" value="Search Customer">
-    </form>
-    
         
 </body>
 </html>

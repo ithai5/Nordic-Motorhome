@@ -30,17 +30,32 @@
 
     <h1>Select a motorhome for the customer to rent</h1>
     <form action="/contract/additionalsSelection" method="post">
-        <ul>
-            <li th:each="motorhome:${motorhomes}">
-                <input type="radio" name="licencePlate" th:value="${motorhome.licencePlate}" required>
-                <span th:text="${motorhome.brand}"></span>
-                <span th:text="${motorhome.model}"></span>
-                <span th:text="${motorhome.seatNum}"></span>
-                <span th:text="${motorhome.bedNum}"></span>
-                <span th:text="${motorhome.odometer}"></span>
-                <span th:text="${motorhome.pricePerDay}"></span>
-            </li>
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Seats</th>
+                    <th>Beds</th>
+                    <th>Odometer</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="motorhome:${motorhomes}">
+                    <td th:text="${motorhome.typeName}"></td>
+                    <td th:text="${motorhome.brand}"></td>
+                    <td th:text="${motorhome.model}"></td>
+                    <td th:text="${motorhome.seatNum}"></td>
+                    <td th:text="${motorhome.bedNum}"></td>
+                    <td th:text="${motorhome.odometer}"></td>
+                    <td th:text="${motorhome.pricePerDay}"></td>
+                    <td><input type="radio" name="licencePlate" th:value="${motorhome.licencePlate}" required></td>
+                </tr>
+            </tbody>
+        </table>
 
         <!--Displaying contract with filled in information so far-->
         <input type="hidden" th:value="${contract.customerId}" th:attr=name='customerId'>

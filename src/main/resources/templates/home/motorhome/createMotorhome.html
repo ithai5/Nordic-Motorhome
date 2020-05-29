@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Create New Motorhome</h1>
-<form action="/motorhome/createMotorhome" method="post">
+<form action="/motorhome/addMotorhome" method="post">
     <div>Enter type name
         <input type="text" name="typeName" placeholder="Urban Plus" required>
     </div>
@@ -32,10 +32,13 @@
         <input type="number" name="odometer" placeholder="0" required>
     </div>
     <div>Enter status
-        <input type="" name="ready" placeholder="1(available)" >
+        <select id="ready" name="ready">
+            <option value="false" selected><p>Not Ready</p></option>
+            <option value="true"><p>Ready</p></option>
+        </select>
     </div>
     <div>Enter report
-        <input type="text" name="report" placeholder="nice and shine" >
+        <input type="text" name="report" placeholder="nice and shiny" >
     </div>
     <input type="submit" value="Create New Motorhome">
 </form>

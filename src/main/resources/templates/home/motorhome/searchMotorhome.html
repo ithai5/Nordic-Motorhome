@@ -26,15 +26,14 @@
         <td th:text="${motorhome.bedNum}"></td>
         <td th:text="${motorhome.typeName}"></td>
         <td>
-            <a th:href="@{viewMotorhome/}">
-                <button>View</button>
-            </a>
-            <a th:href="@{'/motorhome/deleteMotorhome/'+${motorhome.licencePlate}}">
-                <button>Delete</button>
-            </a>
-            <a th:href="@{'/motorhome/updateMotorhome/'+${motorhome.licencePlate}}">
-                <button>Update</button>
-            </a>
+            <form action="#" th:action="@{'/motorhome/deleteMotorhome/'+${motorhome.licencePlate}}" method="post">
+                <input type="submit" value="Delete From Fleet">
+            </form>
+
+            <form action="#" th:action="@{'/motorhome/updateMotorhome/'+${motorhome.licencePlate}}" method="post">
+                <input type="submit" value="Update Information">
+            </form>
+
         </td>
     </tr>
     </tbody>

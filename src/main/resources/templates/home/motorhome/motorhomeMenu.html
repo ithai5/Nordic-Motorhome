@@ -5,13 +5,14 @@
     <title>MANAGE MOTORHOMES</title>
 </head>
 <body>
-    <a href="/motorhome/viewMotorhome/">
-        <button style="color=blue">VIEW ALL MOTORHOMES</button>
-    </a>
 
-    <a href="/motorhome/createMotorhome/">
-        <button style="color=blue">ADD MOTORHOME</button>
-    </a>
+    <form action="/motorhome/viewMotorhome" method="post">
+        <input type="submit" value="View All Motorhomes">
+    </form>
+
+    <form action="/motorhome/createMotorhome" method="post">
+        <input type="submit" value="Add Motorhome To Fleet">
+    </form>
     <!--
     <a href="/motorhome/updateMotorhome/">
         <button style="color=blue">UPDATE MOTORHOME</button>
@@ -25,7 +26,7 @@
         <button style="color=blue">SEARCH MOTORHOME</button>
     </a>
     -->
-    <form action="/motorhome/searchMotorhome" method="get">
+    <form action="/motorhome/searchMotorhome" method="post">
         <div>
             Search for a motorhome to view info, update or delete
             <input type="text" name="licencePlate" placeholder="Searching parameter" required>

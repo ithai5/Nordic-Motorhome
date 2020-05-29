@@ -13,11 +13,11 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String createCustomer(){
         return "home/index";
     }
-
+    */
     @PostMapping("/login")
     public String login(@ModelAttribute Employee employee){
         System.out.println(employee);
@@ -28,23 +28,21 @@ public class EmployeeController {
         else{
             String title = employeeService.login(employee).getTitle().toLowerCase();
             switch (title){
-                case("sales assistant"):
-                    System.out.println("Sales Assistant");
-                    return "home/salesAssistantMenu";
-                case("Mechanic"):
-                    System.out.println("Mechanic");
-                    return "home/mechanicMenu";
-                case("Bookkeeper"):
-                    System.out.println("Bookkeeper");
-                    return "home/index";
-                case("owner"):
-                    System.out.println("owner");
-                    return "home/ownerMenu";
+                case "sales assistant":
+                    return "home/logins/logSA";
+                case "mechanic":
+                    return "home/logins/logM";
+                case "bookkeeper":
+                    return "home/logins/logB";
+                case "owner":
+                    return "home/logins/logO";
                 default:
                     System.out.println("something went wrong");
                     return "home/index";
             }
         }
     }
+
+
 
 }

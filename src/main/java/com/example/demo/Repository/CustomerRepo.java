@@ -45,7 +45,6 @@ public class CustomerRepo extends IdHolderRepo{
         String sql = "INSERT INTO KeaProject.Address (country, city, street, houseNum, zip) " +
                 "VALUES (?,?,?,?,?)";
         template.update(sql,customer.getCountry(),customer.getCity(),customer.getStreet(),customer.getHouseNum(),customer.getZip());
-        System.out.println(customer.getCountry());
         //takes the informaion form the custmer object and sign it in to the address table in the database
         return lastAddedToTable("Address").getId(); //getting the last value that has been added to the list
     }

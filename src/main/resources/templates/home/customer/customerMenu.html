@@ -5,15 +5,15 @@
     <title>MANAGE CUSTOMERS</title>
 </head>
 <body>
-    <a href="/customer/viewCustomer">
-    <button style="color=blue">VIEW ALL CUSTOMERS</button>
-    </a>
+    <form action="/customer/viewCustomer" method="post">
+        <input type="submit" value="View All Customers">
+    </form>
 
-    <a href="/customer/createCustomer">
-        <button style="color=blue">ADD CUSTOMER</button>
-    </a>
+    <form action="/customer/createCustomer" method="post">
+        <input type="submit" value="Create Customer">
+    </form>
 
-    <form action="/customer/searchCustomer" method="get">
+    <form action="/customer/searchCustomer" method="post">
         <div>
             Search for a customer to view info, update or delete
             <input type="text" name="firstName" placeholder="Searching parameter" required>

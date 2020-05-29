@@ -21,25 +21,28 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @GetMapping("/customer/viewCustomer")
+    //Previous get method
+    @PostMapping("/customer/viewCustomer")
     public String viewCustomers(Model model){
         List<Customer> customerList = customerService.fetchAll();
         model.addAttribute("customers", customerList);
         return "home/customer/viewCustomer";
     }
 
-    @GetMapping("/customer/createCustomer")
+    //Previous get method
+    @PostMapping("/customer/createCustomer")
     public String createCustomer(){
         return "home/customer/createCustomer";
     }
 
-    @PostMapping("/customer/createCustomer")
-    public String createCustomer(@ModelAttribute Customer customer){
+    @PostMapping("/customer/addCustomer")
+    public String addCustomer(@ModelAttribute Customer customer){
         customerService.addCustomer(customer);
-        return "redirect:/";
+        return "home/customer/actionSuccessful";
     }
 
-    @GetMapping("/customer/searchCustomer")
+    //Previous get method
+    @PostMapping("/customer/searchCustomer")
     public String searchCustomer(@ModelAttribute Customer customer, Model model){
         List<Customer> customerList = customerService.searchForCustomer( customer.getFirstName());
         if (customerList.isEmpty()||customerList==null){ //check if there are any results for the search and direct to another page
@@ -49,13 +52,15 @@ public class CustomerController {
         return "home/customer/searchCustomer";
     }
 
-    @GetMapping("/customer/deleteCustomer/{customerId}")
+    //Previous get method
+    @PostMapping("/customer/deleteCustomer/{customerId}")
     public String deleteCustomer(@PathVariable("customerId") int customerId){
         Boolean delete = customerService.deleteCustomer(customerId);
-        return "redirect:/";
+        return "home/customer/actionSuccessful";
     }
 
-    @GetMapping("/customer/updateCustomer/{customerId}")
+    //Previous get method
+    @PostMapping("/customer/updateCustomer/{customerId}")
     public String updateCustomer(@PathVariable("customerId") int customerId, Model model){
         model.addAttribute("customer",customerService.findCustomerById(customerId));
         return "home/customer/updateCustomer";
@@ -64,10 +69,7 @@ public class CustomerController {
     @PostMapping("/customer/updateCustomer")
     public String updateCustomer(@ModelAttribute Customer customer){
         customerService.updateCustomer(customer);
-        return "redirect:/";
+        return "home/customer/actionSuccessful";
     }
-
-
-
 
 }

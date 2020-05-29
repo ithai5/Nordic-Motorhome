@@ -18,30 +18,31 @@ public class MotorhomeController {
     @Autowired
     MotorhomeService motorhomeService;
 
-
+    //Previous Get method
     //VIEW ALL
-    @GetMapping("/motorhome/viewMotorhome")
+    @PostMapping("/motorhome/viewMotorhome")
     public String viewMotorhomes (Model model){
         List<Motorhome> motorhomeList = motorhomeService.fetchAll();
         model.addAttribute("motorhomes", motorhomeList);
         return "home/motorhome/viewMotorhome";
     }
 
-
+    //Previous Get method
     //ADD
-    @GetMapping("/motorhome/createMotorhome")
-    public String addMotorhome(){
+    @PostMapping("/motorhome/createMotorhome")
+    public String createMotorhome(){
         return "home/motorhome/createMotorhome";
     }
 
-    @PostMapping("/motorhome/createMotorhome")
+    @PostMapping("/motorhome/addMotorhome")
     public String addMotorhome (@ModelAttribute Motorhome motorhome){
         motorhomeService.addMotorhome(motorhome);
-        return "redirect:/";
+        return "home/motorhome/actionSuccessful";
     }
 
+    //Previous Get method
     //SEARCH
-    @GetMapping("/motorhome/searchMotorhome")
+    @PostMapping("/motorhome/searchMotorhome")
     public String searchMotorhome (@ModelAttribute Motorhome motorhome, Model model){
         List<Motorhome> motorhomeList = motorhomeService.searchMotorhome(motorhome.getLicencePlate());
         if(motorhomeList.isEmpty()||motorhomeList==null){
@@ -51,26 +52,26 @@ public class MotorhomeController {
         return "home/motorhome/searchMotorhome";
     }
 
-
+    //Previous Get method
     //DELETE
-    @GetMapping("/motorhome/deleteMotorhome/{licencePlate}")
+    @PostMapping("/motorhome/deleteMotorhome/{licencePlate}")
     public String deleteMotorhome(@PathVariable("licencePlate") String licencePlate){
         Boolean delete = motorhomeService.deleteMotorhome(licencePlate);
-        return "redirect:/";
+        return "home/motorhome/actionSuccessful";
     }
 
-
+    //Previous Get method
     //UPDATE
-    @GetMapping("/motorhome/updateMotorhome/{licencePlate}")
+    @PostMapping("/motorhome/updateMotorhome/{licencePlate}")
     public String updateMotorhome(@PathVariable("licencePlate") String licencePlate, Model model){
         model.addAttribute("motorhome", motorhomeService.findMotorhomeByPlate(licencePlate));
         return "home/motorhome/updateMotorhome";
     }
 
+    //Previous Get method
     @PostMapping("/motorhome/updateMotorhome")
     public String updateMotorhome(@ModelAttribute Motorhome motorhome){
-        System.out.println(motorhome.getLicencePlate());
         motorhomeService.updateMotorhome(motorhome);
-        return "redirect:/";
+        return "home/motorhome/actionSuccessful";
     }
 }

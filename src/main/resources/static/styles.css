@@ -53,7 +53,25 @@ html,body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  overflow-x: hidden; 
+  overflow-x: hidden;
+
+}
+
+.background {
+    background:url("norway1.jpg");
+    position: relative;
+}
+
+.layer{
+    content: '';
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(95, 158, 160, .6);
+    z-index: -1;
 }
 
 a:hover, a:focus{
@@ -111,7 +129,7 @@ button:focus{
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(5, 180, 249, .6);
+    background-color: rgba(00, 00, 00, .3);
     z-index: -1;
   }
 

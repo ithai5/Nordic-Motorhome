@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Motorhome View</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/TableCSS.css}">
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/styles.css" th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/TableCSS.css" th:href="@{/tableCSS.css}" />
 </head>
-    <body>
+<body>
+
+
+        <div class="main-wrapper">
+            <header class="header header--bg">
+                <div class="container">
+                    <nav class="navbar">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            </button>
+                            <a class="navbar-brand" href="#">NORDIC MOTORHOMES</a>
+                        </div>
+                    </nav>
+                    <div class="header__content text-left">
+                        <h1 class="header__content__title">ALL MOTORHOMES</h1>
+                    </div>
+                </div>
+            </header>
         <h1>View All Motorhomes</h1>
         <table>
             <thead>
@@ -44,5 +62,7 @@
             </tr>
             </tbody>
         </table>
+
+
     </body>
 </html>

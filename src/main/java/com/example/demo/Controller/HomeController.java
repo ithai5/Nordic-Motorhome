@@ -10,25 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class HomeController {
     @GetMapping("/")
     public String index(){return "home/index";}
-    /*
-    @PostMapping("/login")
-    public String login(@ModelAttribute Employee credentials) {
-        String title = credentials.getTitle();
 
-        switch (title) {
-            case "Owner":
-                return "home/index";
-            case "Sales Assistant":
-                return "home/contract";
-            case "Bookkeeper":
-                return "home/index";
-            case "Mechanic":
-                return "home/motorhome";
-            default:
-                return "home/index";
-        }
-    }
-    */
     @PostMapping("/salesAssistantMenu")
     public String saMenu() {
         return "home/salesAssistantMenu";

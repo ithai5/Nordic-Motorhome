@@ -62,6 +62,7 @@
                 <tr th:each="extra, itemStat : *{extras}">
                     <td><input th:field="*{extras[__${itemStat.index}__].amount}"></td>
                 </tr>
+                <tr><input type="submit" value="Go to confirm"></tr>
             </tbody>
         </table>
 
@@ -74,7 +75,6 @@
         <input type="hidden" th:value="${contract.pickId}" th:attr=name='pickId'>
         <input type="hidden" th:value="${contract.dropId}" th:attr=name='dropId'>
 
-        <input type="submit" value="Go to confirm">
     </form>
 </body>
 </html>

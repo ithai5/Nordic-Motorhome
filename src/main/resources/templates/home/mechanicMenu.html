@@ -2,28 +2,22 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Owner Menu</title>
+    <title>Mechanic Menu</title>
     <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
 </head>
 <body>
     <ul class="navbar">
         <li>
-            <form action="/mainMenu" method="get">
+            <form action="/login" th:object="${employee}"method="post">
                 <input type="submit" value="Home">
-            </form>
-            <form action="/customer" method="post">
-                <input type="submit" value="Manage Customers">
             </form>
             <form action="/motorhome" method="post">
                 <input type="submit" value="Manage Motorhomes">
             </form>
-            <form action="/contract" method="post">
-                <input type="submit" value="Manage Contracts">
-            </form>
-            <form action="/logout" method="post">
+            <form action="/" method="get">
                 <input type="submit" value="Logout">
             </form>
-            <h2 class ="employee">Welcome <span th:text="${employee.firstName}"></span></h2>
+            <h2 class ="employee">Welcome <span th:text="${employee.firstName}"></span>
         </li>
     </ul>
 </body>

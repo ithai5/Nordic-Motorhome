@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Login successful!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
 </head>
 <body>
 <h1>Welcome <span th:text="${employee.firstName}"></span></h1>
     <form action="/salesAssistantMenu" method="post">
-        <input type="submit" value="Next">
+        <input class="submit" type="submit" value="Next">
     </form>
-
 </body>
 </html>

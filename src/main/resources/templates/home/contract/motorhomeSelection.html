@@ -54,6 +54,7 @@
                     <td th:text="${motorhome.pricePerDay}"></td>
                     <td><input type="radio" name="licencePlate" th:value="${motorhome.licencePlate}" required></td>
                 </tr>
+                <tr><input type="submit" value="Choose car"></tr>
             </tbody>
         </table>
 
@@ -62,7 +63,6 @@
         <input type="hidden" th:value="${contract.startDate}" th:attr=name='startDate'>
         <input type="hidden" th:value="${contract.endDate}" th:attr=name='endDate'>
 
-        <input type="submit" value="Choose car">
     </form>
 
 

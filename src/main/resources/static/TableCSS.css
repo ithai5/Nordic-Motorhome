@@ -36,6 +36,7 @@ table{
 th:hover{
     background-color: #588d8d;
 }
+
 th{
     color: #eff5f5;
     text-transform: uppercase;
@@ -51,8 +52,8 @@ td{
     border-color: #609d9f;
     margin: 10px;
     padding: 10px;
-
 }
+
 .button{
     float: left;
     display: block;

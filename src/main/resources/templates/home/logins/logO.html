@@ -2,14 +2,13 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
     <title>Login successful!</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
 </head>
 <body>
 <h1>Welcome <span th:text="${employee.firstName}"></span></h1>
-<form action="/ownerMenu" method="post">
-    <input class="submit" type="submit" value="Next">
-</form>
-
+    <form action="/ownerMenu" method="post">
+        <input class="submit" type="submit" value="Next">
+    </form>
 </body>
 </html>

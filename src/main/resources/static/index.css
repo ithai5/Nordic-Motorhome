@@ -20,6 +20,10 @@
     background-color: #111;
 }
 
+body{
+    background-image: url("../images/norway1.jpg");
+}
+
 ul{
     position: fixed;
     top: 0;
@@ -33,6 +37,8 @@ li{
     color: white;
     text-align: center;
     padding: 18px;
+
+
 }
 
 .slogan{

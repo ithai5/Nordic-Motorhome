@@ -11,10 +11,12 @@
             <div class="bg-image">
             <ul class="navbar">
                 <li><a class="navbarB" href="index">HOME</a></li>
+                <!--
                 <li><a class="navbarB" href="customer">MANAGE CUSTOMERS</a></li>
                 <li><a class="navbarB" href="motorhome">MANAGE MOTORHOMES</a></li>
                 <li><a class="navbarB" href="contract">MANAGE CONTRACTS</a></li>
-                <li><a class="navbarB" href="login">LOG IN</a></li>
+                -->
+                <li><a class="navbarB" onclick="document.getElementById('id01').style.display='block'" >LOG IN</a></li>
                 <li><a class="navbarB" href="logout">LOG OUT</a></li>
             </ul>
 
@@ -40,20 +42,28 @@
         </a>
         -->
 
-        <div >
+        <div id="id01" class="modal">
             <form class="login" action="/login" method="post">
-                <div class="field">First name
+                <div class="field">
                     <input class="userInput" type="text" name="firstName" placeholder="Enter first name" required>
                 </div>
-                <div class="field">Last name
+                <div class="field">
                     <input class="userInput" type="text" name="lastName" placeholder="Enter last name" required>
                 </div>
-                <div class="field">Password
+                <div class="field">
                     <input class="userInput" type="password" name="passwordDetails" placeholder="Enter password" required>
-                </div>
-                <input type="submit" value="Login">
+                </div >
+                <input class="submit" type="submit" value="Login">
             </form>
         </div>
             </div>
+            <script>
+                var modal = document.getElementById('id01');
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
     </body>
 </html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookkeeper</title>
+</head>
+<body>
+    <h1>Welcome <span th:text="${employee.firstName}"></span></h1>
+    <div>
+        <form action="/contract" method="post">
+            <input type="submit" value="View All Contracts">
+        </form>
+    </div>
+
+    <div>
+        <form action="/customer/viewCustomer" method="post">
+            <input type="submit" value="View All Customers">
+        </form>
+    </div>
+
+    <div>
+        <form action="/motorhome/viewMotorhome" method="post">
+            <input type="submit" value="View All Motorhomes">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,10 +1,11 @@
 .navbar {
-    padding: 8px 16px;
+
     float: left;
     border: none;
     display: inline;
     background-color: cadetblue;
-
+    padding: 0;
+    margin: 0;
 
     outline: 0;
 }
@@ -16,6 +17,7 @@
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    margin: ;
 }
 .navbarB:hover{
     background-color: #dfebec;
@@ -123,6 +125,33 @@ body{
 #login{
     bottom: 125px;
     right: 125px;
+}
+input[type=submit]{
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    background-color: cadetblue;
+    border-color:cadetblue ;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    border-radius: 0px;
+    margin: 0;
+
+}
+input[type=submit]:hover{
+    background-color: #dfebec;
+    color: black;
+}
+.employee{
+    float: right;
+    margin-right: 75px;
+}
+.employee:hover{
+    color: black;
 }
 
 

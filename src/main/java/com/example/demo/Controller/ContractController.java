@@ -90,7 +90,7 @@ public class ContractController {
   public String cancelContract(@PathVariable("contractId") int contractId) {
     Contract cancelledContract = contractService.findContractById(contractId);
     contractService.generateEndPrice(cancelledContract, true);
-    return "home/contract/contractChangeSuccess";
+    return "home/contract/actionSuccessful";
   }
 
   //Previously GET
@@ -98,7 +98,7 @@ public class ContractController {
   public String updatePrice(@PathVariable("contractId") int contractId) {
     Contract endedContract = contractService.findContractById(contractId);
     contractService.generateEndPrice(endedContract, false);
-    return "home/contract/contractChangeSuccess";
+    return "home/contract/actionSuccessful";
   }
 
   //Previously GET
@@ -124,7 +124,7 @@ public class ContractController {
   public String deleteContract(@PathVariable("contractId") int contractId){
     contractService.deleteExtrasFromContract(contractId);
     contractService.deleteContract(contractId);
-    return "home/contract/contractChangeSuccess";
+    return "home/contract/actionSuccessful";
   }
 
   @PostMapping("/contract/searchContract")
@@ -132,18 +132,12 @@ public class ContractController {
 
     List<Contract> searchHits = contractService.searchContract(keyword.getStartDate());
     if (searchHits.isEmpty()){ //check it there is any results for the search and direct to another page
-      return "redirect:/contract";
+      return "home/contract/noSearchResults";
     }
 
     model.addAttribute("contracts", searchHits); //show the result of the search statement
-    if (searchHits.size() == 1) {
-      //This part doesn't work, fix later 11:38
-      int toView = searchHits.get(0).getContractId();
-      model.addAttribute("contractId", toView);
-      return "redirect:/contract/viewContract/{contractId}";
-    } else {
-      return "home/contract/searchContract";
-    }
+
+    return "home/contract/searchContract";
   }
 
 

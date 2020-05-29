@@ -4,6 +4,7 @@ import com.example.demo.Model.Employee;
 import com.example.demo.Service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class EmployeeController {
     }
     */
     @PostMapping("/login")
-    public String login(@ModelAttribute Employee employee){
+    public String login(@ModelAttribute Employee employee, Model model){
         System.out.println(employee);
         if(employeeService.login(employee)==null){
             System.out.println("login fail");
@@ -27,6 +28,7 @@ public class EmployeeController {
         }
         else{
             String title = employeeService.login(employee).getTitle().toLowerCase();
+            model.addAttribute("employee", employee);
             switch (title){
                 case "sales assistant":
                     return "home/logins/logSA";

@@ -22,6 +22,7 @@ table{
 }
 .tableshrink{
     overflow-x: auto;
+
 }
 th:hover{
     background-color: #588d8d;

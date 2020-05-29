@@ -28,10 +28,10 @@
 
     <form action="/contract/motorhomeSelection" method="post">
         <div>Start Date</div>
-        <input type="datetime-local" name="startDate" required>
+        <input type="datetime-local" placeholder="yyyy-mm-dd 00:00" name="startDate" required>
 
         <div>End Date</div>
-        <input type="datetime-local" name="endDate" required>
+        <input type="datetime-local" placeholder="yyyy-mm-dd 00:00" name="endDate" required>
 
         <!--Carrying over data filled in so far-->
         <input type="hidden" th:value="${contract.customerId}" th:attr=name='customerId'>

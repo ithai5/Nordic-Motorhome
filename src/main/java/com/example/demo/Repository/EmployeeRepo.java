@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Repository
-public class EmployeeRepo extends IdHolderRepo{
+public class EmployeeRepo extends DbInteraction {
     public Employee login(Employee employee){
         if(preventSql(employee.toString())){
             System.out.println("sql injection");

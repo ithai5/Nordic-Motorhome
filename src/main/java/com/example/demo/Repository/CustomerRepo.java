@@ -4,17 +4,14 @@
 package com.example.demo.Repository;
 
 import com.example.demo.Model.Customer;
-import com.example.demo.Model.IdHolder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class CustomerRepo extends IdHolderRepo{
+public class CustomerRepo extends DbInteraction {
 
     //collect all the information about customers
     public List<Customer> fetchAll(){

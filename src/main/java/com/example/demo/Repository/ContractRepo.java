@@ -5,12 +5,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 //Made by Thomas
 @Repository
-public class ContractRepo extends IdHolderRepo {
+public class ContractRepo extends DbInteraction {
 
     //Retrieves all elements from the contract table
     public List<Contract> fetchAllContract(){

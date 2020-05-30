@@ -1,6 +1,5 @@
 package com.example.demo.Repository;
 
-import com.example.demo.Model.IdHolder;
 import com.example.demo.Model.Motorhome;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MotorhomeRepo extends IdHolderRepo {
+public class MotorhomeRepo extends DbInteraction {
 
     //VIEW ALL
     public List<Motorhome> fetchAll(){

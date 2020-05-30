@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @Repository
-public class  IdHolderRepo {
+public class DbInteraction {
 
     @Autowired
     public JdbcTemplate template;

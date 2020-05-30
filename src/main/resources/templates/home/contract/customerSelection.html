@@ -28,17 +28,17 @@
 
     <h1>Please choose an existing customer, or create a new one</h1>
             <div style="overflow-x:auto;">
-    <form action="/contract/datesSelection" method="post">
-        <div th:object="${newContract}"></div>
-        <select id="customerId" name="customerId">
-            <option
-                    th:each="customer:${customers}"
-                    th:value="${customer.customerId}"
-                    th:text="${customer.email}">
-                    </option>
-                </select>
-        <input type="submit" value="Next">
-    </form>
+                <form action="/customer/createCustomer" method="post">
+                    <input type="submit" value="Create New Customer">
+                </form>
+                <form action="/contract/customerSearched" method="post">
+                    <div>
+                        <input type="text" name="firstName" placeholder="Searching parameter" required>
+                        <input type="submit" value="Search For Customer">
+
+                    </div>
+                </form>
+
         </div>
         </div>
         <footer class="footer footer--bg">

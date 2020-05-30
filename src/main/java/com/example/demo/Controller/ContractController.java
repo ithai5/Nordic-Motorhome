@@ -6,13 +6,11 @@ import com.example.demo.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 //Made by Thomas
@@ -20,15 +18,24 @@ import java.util.List;
 public class ContractController {
   @Autowired
   ContractService contractService;
-
   @Autowired
   CustomerService customerService;
 
   //Previously GET
   @PostMapping("/contract/customerSelection")
-  public String selectCustomers(Model model) {
-    model.addAttribute("customers", customerService.fetchAll());
+  public String selectCustomers() {
     return "home/contract/customerSelection";
+  }
+
+  @PostMapping("/contract/customerSearched")
+  public String searchedCustomer(@ModelAttribute Customer customer, Model model) {
+    List<Customer> searchHits = customerService.searchForCustomer(customer.getFirstName());
+    if (searchHits.isEmpty()) {
+      return "home/contract/customerSelection";
+    } else {
+      model.addAttribute("customers", searchHits);
+      return "home/contract/customerSearched";
+    }
   }
 
   @PostMapping("/contract/datesSelection")
@@ -81,7 +88,7 @@ public class ContractController {
   public String undoContract() {
     contractService.deleteExtrasFromLastContract();
     contractService.deleteLastContract();
-    return "redirect:/contract";
+    return "home/contract/actionSuccessful";
   }
 
   //Previously GET

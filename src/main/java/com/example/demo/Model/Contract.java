@@ -11,7 +11,7 @@ public class Contract {
     private String startDate;
     private String endDate;
     private int startKm;
-    private double totalPrice;
+    private Double totalPrice;
     private double pricePerDay; //Needed for the totalContractPrice calculation + seasonPrice method calculation
     //Foreign keys
     private int customerId;
@@ -25,7 +25,7 @@ public class Contract {
 
     public Contract() {}
 
-    public Contract(int contractId, String startDate, String endDate, int startKm, double totalPrice, int customerId, String licencePlate, Integer pickId, Integer dropId) {
+    public Contract(int contractId, String startDate, String endDate, int startKm, Double totalPrice, int customerId, String licencePlate, Integer pickId, Integer dropId) {
         this.contractId = contractId;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -70,11 +70,11 @@ public class Contract {
         this.startKm = startKm;
     }
 
-    public double getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

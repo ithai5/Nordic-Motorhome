@@ -188,7 +188,7 @@ public class ContractRepo extends IdHolderRepo {
         RowMapper<Contract> contractRowMapper = new BeanPropertyRowMapper<>(Contract.class);
         List<Contract> contractList = template.query(sql, contractRowMapper);
 
-        if (contractList.isEmpty()){
+        if (contractList.isEmpty() || contractList.get(0).getTotalPrice() == null){
             return 0;
         }
 
@@ -292,18 +292,19 @@ public class ContractRepo extends IdHolderRepo {
     //Changes the price accordingly in the event of a cancellation or
     //natural expiration of a contract, with too many kms driven
     public void generateEndPrice(Contract toEnd, boolean wasCanceled) {
+        double actualTotal = completeContractTotal(toEnd.getContractId()).getTotalContractPrice();
+        //Check if price already has been modified and
+        //if true, don't change the price
+        if (toEnd.getTotalPrice() != actualTotal) {
+            return;
+        }
+
         //Fee calculations for cancelling a contract
         if (wasCanceled) {
-            double actualTotal = completeContractTotal(toEnd.getContractId()).getTotalContractPrice();
-            //Check if price already has been modified and
-            //if true, don't change the price
-            if (toEnd.getTotalPrice() != actualTotal) {
-                return;
-            }
             double cancelModifier = determineCancelModifier(toEnd.getContractId());
             double newPrice = toEnd.getTotalPrice() * cancelModifier;
             if (newPrice < 200) {
-                toEnd.setTotalPrice(200);
+                toEnd.setTotalPrice(200.0);
             } else {
                 toEnd.setTotalPrice(newPrice);
             }

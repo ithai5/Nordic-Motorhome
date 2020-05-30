@@ -56,10 +56,14 @@
                 <td th:text="${motorhome.ready}"></td>
                 <td th:text="${motorhome.report}"></td>
                 <td>
-                    <a class ="button" href="updateMotorhome.html">UPDATE</a>
+                    <form action="#" th:action="@{'/motorhome/updateMotorhome/'+${motorhome.licencePlate}}" method="post">
+                        <input type="submit" value="Update Information">
+                    </form>
                 </td>
                 <td>
-                    <a class ="button" href="viewMotorhome.html">DELETE</a>
+                    <form action="#" th:action="@{'/motorhome/deleteMotorhome/'+${motorhome.licencePlate}}" method="post">
+                        <input type="submit" value="Delete Motorhome">
+                    </form>
                 </td>
             </tr>
             </tbody>

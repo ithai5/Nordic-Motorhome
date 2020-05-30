@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Customer</title>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/styles.css" th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/TableCSS.css" th:href="@{/tableCSS.css}" />
+</head>
+<body>
+<div class="background">
+    <div class="layer">
+
+        <div class="main-wrapper">
+            <header class="header header--bg">
+                <div class="container">
+                    <nav class="navbar">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                            </button>
+                            <a class="navbar-brand" href="#">NORDIC MOTORHOMES</a>
+                        </div>
+                    </nav>
+                    <div class="header__content text-left">
+                        <h1 class="header__content__title">SEARCH HITS</h1>
+                    </div>
+                </div>
+            </header>
+
+            <h2>Customer Results</h2>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Driver Number</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Street</th>
+                        <th>House Number</th>
+                        <th>Zip Code</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="customer:${customers}">
+                        <td th:text="${customer.firstName}"></td>
+                        <td th:text="${customer.lastName}"></td>
+                        <td th:text="${customer.email}"></td>
+                        <td th:text="${customer.driverNum}"></td>
+                        <td th:text="${customer.country}"></td>
+                        <td th:text="${customer.city}"></td>
+                        <td th:text="${customer.street}"></td>
+                        <td th:text="${customer.houseNum}"></td>
+                        <td th:text="${customer.zip}"></td>
+                        <td>
+                            <form action="/contract/datesSelection" method="post">
+                                <input type="hidden" th:value="${customer.customerId}" th:attr=name='customerId'>
+                                <input type="submit" value="Choose Customer">
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+            <footer class="footer footer--bg">
+                <div class="container">
+                    <div class="page-section">
+                        <div class="row gutters-100">
+                            <div class="col-md-4 col-lg-3">
+                                <div class="footer__first">
+                                    <h2 class="footer__title">NORDIC MOTORHOMES</h2>
+                                </div>
+                            </div>
+                            <hr class="footer__horizontal-bar">
+                            <p class="footer__bottom-paragraph">© Copyright 2020 <a href="#" style="color: #00aafe;font-weight:bold;">KEA Computer Science Group 7</a>. All Rights Reserved</p>
+                        </div>
+                    </div>
+            </footer>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

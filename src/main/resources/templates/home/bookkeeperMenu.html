@@ -6,23 +6,33 @@
     <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
 </head>
 <body>
-    <h1>Welcome <span th:text="${employee.firstName}"></span></h1>
-    <div>
-        <form action="/contract" method="post">
-            <input type="submit" value="View All Contracts">
+<ul>
+    <li class="navbar">
+        <form  class="navbarB" action="/mainMenu" method="get">
+            <input type="submit" value="Home">
         </form>
-    </div>
-
-    <div>
-        <form action="/customer/viewCustomer" method="post">
-            <input type="submit" value="View All Customers">
-        </form>
-    </div>
-
-    <div>
-        <form action="/motorhome/viewMotorhome" method="post">
+        <form class="navbarB" action="/motorhome/viewMotorhome" method="post">
             <input type="submit" value="View All Motorhomes">
         </form>
+        <form  class="navbarB"action="/customer/viewCustomer" method="post">
+            <input type="submit" value="View All Customers">
+        </form>
+        <form  class="navbarB" action="/logout" method="post">
+            <input type="submit" value="Logout">
+        </form>
+        <form class="navbarB" action="/motorhome/viewMotorhome" method="post">
+            <input type="submit" value="View All Motorhomes">
+        </form>
+        <h2 class ="employee">Welcome <span th:text="${employee.firstName}"></span></h2>
+    </li>
+</ul>
+    <div class="company">
+        <h1 class="company" id="rental">NORDIC MOTORHOME</h1>
+
+        <div class="slogan"><br>Wonderful travel, in a comfortable way
+        </div>
+
     </div>
+
 </body>
 </html>

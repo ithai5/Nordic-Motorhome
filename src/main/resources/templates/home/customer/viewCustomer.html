@@ -55,10 +55,14 @@
                     <td th:text="${customer.houseNum}"></td>
                     <td th:text="${customer.zip}"></td>
                     <td>
-                        <a class ="button" href="updateCustomer.html">UPDATE</a>
+                        <form action="#" th:action=@{'/customer/updateCustomer/'+${customer.customerId}} method="post">
+                            <input type="submit" value="Update Customer">
+                        </form>
                     </td>
                     <td>
-                        <a class ="button" href="viewCustomer.html">DELETE</a>
+                        <form action="#"th:action="@{'/customer/deleteCustomer/'+${customer.customerId}}" method="post">
+                            <input type="submit" value="Delete Customer">
+                        </form>
                     </td>
                 </tr>
             </tbody>

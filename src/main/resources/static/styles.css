@@ -155,13 +155,17 @@ button:focus{
   }
 
 .header__content__title{
+
+
     font-size: 50px;
     font-weight: bold;
-    color: #fff;
+    color: #9fc5c6;
     letter-spacing: 13px;
     margin-bottom: 25px;
   }
-
+.inputSpace{
+    float: rigth;
+}
 .header__content__paragraph{
     font-size: 16px;
     color: #f8f8f8;
@@ -272,7 +276,9 @@ button:focus{
     padding: 35px 20px;
     margin-bottom: 60px;
   }
-
+.div-input{
+    width:385px
+}
 .service .thumbnail:hover{
       -webkit-box-shadow: 2px 5.66px 20px 0px rgba(136, 136, 136, 0.2);
               box-shadow: 2px 5.66px 20px 0px rgba(136, 136, 136, 0.2);

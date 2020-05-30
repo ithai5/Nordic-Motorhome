@@ -29,9 +29,12 @@
 
 
     <h2>Search for Contract</h2>
-    <form action="contract/searchContract" method="post">
+    <form class="navbarB" action="contract/searchContract" method="post">
         <input type="text" name="startDate" placeholder="Type search parameter" required>
         <input type="submit" value="Search">
+    </form>
+    <form  action="contract/customerSelection" method="post">
+        <input type="submit" value="Sign new contract">
     </form>
     <div style="overflow-x:auto;">
     <table>
@@ -58,9 +61,7 @@
     </table>
     </div>
 
-        <form action="contract/customerSelection" method="post">
-            <input type="submit" value="Sign new contract">
-        </form>
+
     <footer class="footer footer--bg">
         <div class="container">
             <div class="page-section">

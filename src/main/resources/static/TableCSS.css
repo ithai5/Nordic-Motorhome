@@ -14,7 +14,9 @@ form{
     text-align: left;
     margin: 20px
 }
-
+form.input[type="submit"] {
+    background-color: #568d8f;
+}
 table{
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     text-align: center;

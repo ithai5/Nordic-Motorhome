@@ -2,51 +2,90 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/styles.css" th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/TableCSS.css" th:href="@{/tableCSS.css}" />
     <title>Update Customer</title>
 </head>
 <body>
-<form action="/customer/updateCustomer" method="post">
+    <div class="background">
+        <div class="layer">
+            <div class="main-wrapper">
+                <header class="header header--bg">
+                    <div class="container">
+                        <nav class="navbar">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                </button>
+                                <a class="navbar-brand" href="#">NORDIC MOTORHOMES</a>
+                            </div>
+                        </nav>
+                        <div class="header__content text-left">
+                            <h1 class="header__content__title">UPDATE CUSTOMER</h1>
+                        </div>
+                    </div>
+                </header>
 
-    <div>customer id
-        <input type="number" name="customerId" th:value="${customer.customerId}" readonly >
+                <h1>Update Customer Details</h1>
+                <form action="/customer/updateCustomer" method="post">
+    <div class="div-input">customer id
+        <input  class = "inputSpace" type="number" name="customerId" th:value="${customer.customerId}" readonly >
     </div>
 
-    <div>First Name
-        <input type="text" name="firstName" th:value="${customer.firstName}">
+    <div class="div-input">First Name
+        <input class = "inputSpace"  type="text" name="firstName" th:value="${customer.firstName}">
     </div>
-    <div>Last Name
-        <input type="text" name="lastName" th:value="${customer.lastName}">
+    <div class="div-input">Last Name
+        <input class = "inputSpace"  type="text" name="lastName" th:value="${customer.lastName}">
     </div>
-    <div>Phone
-        <input type="text" name="phone" th:value="${customer.phone}">
+    <div class="div-input">Phone
+        <input class = "inputSpace"  type="text" name="phone" th:value="${customer.phone}">
     </div>
-    <div>Email
-        <input type="email" name="email" th:value="${customer.email}">
+    <div class="div-input">Email
+        <input class = "inputSpace"  type="email" name="email" th:value="${customer.email}">
     </div>
-    <div>Driver Licence Number
-        <input type="text" name="driverNum" th:value="${customer.driverNum}">
+    <div class="div-input">Driver Licence Number
+        <input class = "inputSpace"  type="text" name="driverNum" th:value="${customer.driverNum}">
     </div>
-    <div>Address Id
-        <input type="number" name="addressId" th:value="${customer.addressId } " readonly >
+    <div class="div-input">Address Id
+        <input  class = "inputSpace" type="number" name="addressId" th:value="${customer.addressId } " readonly >
     </div>
-    <div>Country
-        <input type="text" name="country" th:value="${customer.country}">
+    <div class="div-input">Country
+        <input  class = "inputSpace" type="text" name="country" th:value="${customer.country}">
     </div>
-    <div>City
-        <input type="text" name="city" th:value="${customer.city}">
+    <div class="div-input">City
+        <input  class = "inputSpace" type="text" name="city" th:value="${customer.city}">
     </div>
-    <div>Street
-        <input type="text" name="street" th:value="${customer.street}">
+    <div class="div-input">Street
+        <input class = "inputSpace"  type="text" name="street" th:value="${customer.street}">
     </div>
-    <div>House Number
-        <input type="text" name="houseNum" th:value="${customer.houseNum}">
+    <div class="div-input">House Number
+        <input class = "inputSpace"  type="text" name="houseNum" th:value="${customer.houseNum}">
     </div>
-    <div>Zip code
-        <input type="text" name="zip" th:value="${customer.zip}">
+    <div class="div-input">Zip code
+        <input class = "inputSpace"  type="text" name="zip" th:value="${customer.zip}">
     </div>
-    <div>
-        <input type="submit" value="Submit">
+    <div class="div-input">
+        <input class = "inputSpace"  type="submit" value="Submit">
     </div>
-</form>
+                </form>
+                <footer class="footer footer--bg">
+                    <div class="container">
+                        <div class="page-section">
+                            <div class="footer__first">
+                                <h2 class="footer__title">NORDIC MOTORHOMES</h2>
+                            </div>
+                            <hr class="footer__horizontal-bar">
+                            <p class="footer__bottom-paragraph">© Copyright 2020 <a href="#" style="color: #00aafe;font-weight:bold;">KEA Computer Science Group 7</a>. All Rights Reserved</p>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
+
+
+
+

@@ -6,25 +6,33 @@
     <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
 </head>
 <body>
-    <ul class="navbar">
-        <li>
-            <form action="/mainMenu" method="get">
+    <ul>
+        <li class="navbar">
+            <form  class="navbarB" action="/mainMenu" method="get">
                 <input type="submit" value="Home">
             </form>
-            <form action="/customer" method="post">
+            <form  class="navbarB" action="/customer" method="post">
                 <input type="submit" value="Manage Customers">
             </form>
-            <form action="/motorhome" method="post">
+            <form  class="navbarB" action="/motorhome" method="post">
                 <input type="submit" value="Manage Motorhomes">
             </form>
-            <form action="/contract" method="post">
+            <form  class="navbarB" action="/contract" method="post">
                 <input type="submit" value="Manage Contracts">
             </form>
-            <form action="/logout" method="post">
+            <form  class="navbarB" action="/logout" method="post">
                 <input type="submit" value="Logout">
             </form>
             <h2 class ="employee">Welcome <span th:text="${employee.firstName}"></span></h2>
         </li>
     </ul>
+    <div class="company">
+        <h1 class="company" id="rental">NORDIC MOTORHOME</h1>
+
+        <div class="slogan"><br>Wonderful travel, in a comfortable way
+        </div>
+
+    </div>
+
 </body>
 </html>

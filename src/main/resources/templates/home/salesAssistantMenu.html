@@ -6,6 +6,24 @@
     <link rel="stylesheet" type="text/css" th:href="@{/index.css}">
 </head>
 <body>
+<ul>
+    <li class="navbar">
+        <form  class="navbarB" action="/mainMenu" method="get">
+            <input type="submit" value="Home">
+        </form>
+        <form  class="navbarB" action="/customer" method="post">
+            <input type="submit" value="Manage Customers">
+        </form>
+        <form  class="navbarB" action="/contract" method="post">
+            <input type="submit" value="Manage Contracts">
+        </form>
+        <form  class="navbarB" action="/logout" method="post">
+            <input type="submit" value="Logout">
+        </form>
+        <h2 class ="employee">Welcome <span th:text="${employee.firstName}"></span></h2>
+    </li>
+</ul>
+<!--
     <h1>Welcome <span th:text="${employee.firstName}"></span></h1>
     <form action="/contract" method="post">
         <input type="submit" value="Contracts">
@@ -13,5 +31,14 @@
     <form action="/customer" method="post">
         <input type="submit" value="Customers">
     </form>
+-->
+    <div class="company">
+        <h1 class="company" id="rental">NORDIC MOTORHOME</h1>
+
+        <div class="slogan"><br>Wonderful travel, in a comfortable way
+        </div>
+
+    </div>
+
 </body>
 </html>

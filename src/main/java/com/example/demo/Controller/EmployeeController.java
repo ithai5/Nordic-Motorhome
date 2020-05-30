@@ -23,9 +23,10 @@ public class EmployeeController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute Employee employee){
-        if(employeeService.login(employee)==null){
+        if(employeeService.login(employee)==null) {
             System.out.println("login fail");
             return "home/index";
+        }
         else{
             employeeS = employee;
             return "redirect:/mainMenu";

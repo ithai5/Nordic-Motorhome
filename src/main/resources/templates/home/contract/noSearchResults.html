@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">>>
 <head>
     <meta charset="UTF-8">
     <title>Search Contract</title>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/styles.css" th:href="@{/styles.css}" />
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/basic.css" th:href="@{/basic.css}" />
 </head>
 <body>
-    <div><h1>There is no results for your search</h1>
+
+    <div><h1>There are no results for your search</h1>
         <form action="contract/searchContract" method="post">
             <input type="text" name="startDate" placeholder="Type search parameter" required>
             <input type="submit" value="Search">

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//Made by Ignacio
 @Repository
 public class MotorhomeRepo extends DbInteraction {
 
@@ -48,8 +49,8 @@ public class MotorhomeRepo extends DbInteraction {
         return lastAddedToTable("MhType").getId();
     }
 
-    //SEARCH
 
+    //SEARCH
     public List<Motorhome> searchMotorhome(String keyword){
         if(preventSql(keyword)){
             return null;
@@ -67,25 +68,13 @@ public class MotorhomeRepo extends DbInteraction {
         return template.query(sql, motorhomeRowMapper);
     }
 
-    /*
-    //findByPlate
-    /* Moved inside idHolderRepo
-    public Motorhome findMotorhomeByPlate(String licencePlate){
-        String sql = "SELECT * FROM KeaProject.MhInfo i " +
-            "JOIN KeaProject.MhSpecs s ON i.mhSpecsId = s.mhSpecsId " +
-            "JOIN KeaProject.MhType t ON s.mhTypeId = t.mhTypeId " +
-            "WHERE licencePlate = " + licencePlate;
-        RowMapper<Motorhome> motorhomeRowMapper = new BeanPropertyRowMapper<>(Motorhome.class);
-        Motorhome motorhome = template.queryForObject(sql, motorhomeRowMapper, licencePlate);
-        return motorhome;
-    }
-    //DELETE
-     */
 
+    //DELETE
     public boolean deleteMotorhome(String licencePlate){
         String sql = "DELETE FROM KeaProject.MhInfo WHERE licencePlate = ?";
         return template.update(sql, licencePlate)<0;
     }
+
 
     //UPDATE
     public Motorhome updateMotorhome(Motorhome motorhome)

@@ -22,7 +22,6 @@ public class Contract {
 
 
     //CONSTRUCTORS
-
     public Contract() {}
 
     public Contract(int contractId, String startDate, String endDate, int startKm, Double totalPrice, int customerId, String licencePlate, Integer pickId, Integer dropId) {
@@ -38,6 +37,7 @@ public class Contract {
         this.dropId = dropId;
     }
 
+    //GETTERS AND SETTERS
     public int getContractId() {
         return contractId;
     }

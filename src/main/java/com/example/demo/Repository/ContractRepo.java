@@ -225,31 +225,6 @@ public class ContractRepo extends DbInteraction {
         return invoice;
     }
 
-    //Make a model version of invoice total
-    //createModel Inovice
-    //return invoicealso html
-
-
-    /* Nesrin: method if customer reads summary and then chooses to abort process, leading to deletion of values
-    in contract table */
-    public void deleteProcess (int contractId) {
-        //technically, the contract is made in the table at the time of reviewing summary
-        //lastaddedtotheTable method (from IdHolderRepo) + deleteContract method
-        //this shall not induce automatic cancellation fees
-    }
-
-    /*Nesrin: this method not only deals with contract expenses but other fees based on
-    the behaviour of the customer */
-    public double CompleteInvoiceTotal (int contractId) {
-
-        double totalInvoice = 0;
-      //  completeContractTotal + other fees like...
-        /* if staff checkbox that customer leaves tank less than half full, + 70euros
-    If customer has driven more than 400 km * 1euro
-    Question: how do we handle the 400 free kilometers per day, insurance, external cleaning.
-    Is this already inclusive in the daily amount? */
-        return totalInvoice;
-    }
 
     public double determineCancelModifier(int contractId) {
         String sql = "SELECT DATEDIFF(startDate, CURRENT_DATE) As id FROM KeaProject.Contract " +
@@ -330,7 +305,5 @@ public class ContractRepo extends DbInteraction {
     return fee;
 
     }
-
-
 
 }

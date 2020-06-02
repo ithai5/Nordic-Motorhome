@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
+//Made by Ignacio
 @Controller
 public class MotorhomeController {
     @Autowired
@@ -43,10 +44,10 @@ public class MotorhomeController {
     @PostMapping("/motorhome/searchMotorhome")
     public String searchMotorhome (@ModelAttribute Motorhome motorhome, Model model){
         List<Motorhome> motorhomeList = motorhomeService.searchMotorhome(motorhome.getLicencePlate());
-        if(motorhomeList.isEmpty()||motorhomeList==null){
+        if(motorhomeList.isEmpty()||motorhomeList==null){ //check it there is any results for the search and direct to another page
             return "home/motorhome/noSearchResultsMh";
         }
-        model.addAttribute("motorhomes", motorhomeList);
+        model.addAttribute("motorhomes", motorhomeList); //show the result of the search statement
         return "home/motorhome/searchMotorhome";
     }
 

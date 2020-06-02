@@ -27,7 +27,6 @@ public class Motorhome {
 
 
     //CONSTRUCTORS
-
     public Motorhome() {}
 
     public Motorhome (Integer mhTypeId, String typeName, Double pricePerDay, Integer mhSpecsId, String brand, String model, Integer seatNum, Integer bedNum, String licencePlate, Integer odometer, Boolean ready, String report)
@@ -47,7 +46,7 @@ public class Motorhome {
         this.report = report;
     }
 
-    //getters setters
+    //GETTERS AND SETTERS
     public Integer getMhTypeId(){
         return mhTypeId;
     }
@@ -164,14 +163,10 @@ public class Motorhome {
         this.report = report;
     }
 
+
     @Override
     public String toString ()
     {
         return "Motorhome{" + "typeName=" + typeName +  ", pricePerDay=" + pricePerDay + ", brand= " + brand  + ", model=" + model + ", seatNum=" + seatNum + ", bedNum=" + bedNum + ", licencePlate=" + licencePlate  + ", odometer=" + odometer + ", ready=" + ready + ", report=" + report +  '}';
     }
-    //GETTERS & SETTERS
-
-    //toString() method
-
-
 }

@@ -60,7 +60,6 @@ body{
     font-size: 37px;
 }
 .company{
-
     font-size: 100px;
     font-style: oblique;
     font-weight: bold;
@@ -76,6 +75,7 @@ body{
 
     background-repeat: repeat-y;
     background-size: cover;
+
 }
 
 .login{

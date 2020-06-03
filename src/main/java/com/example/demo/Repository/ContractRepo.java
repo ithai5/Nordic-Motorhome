@@ -121,7 +121,8 @@ public class ContractRepo extends DbInteraction {
                 "JOIN " +
                 "(SELECT MhInfo.licencePlate, startDate, endDate, contractId, MhInfo.mhSpecsId, MhInfo.odometer " +
                 "FROM KeaProject.MhInfo AS info " + "JOIN KeaProject.Contract ON info.licencePlate= Contract.licencePlate " +
-                "AND ((startDate >= '" + startDate + "' AND startDate <= '" + endDate + "') " + "OR(endDate >= '" + startDate + "' AND endDate <= '" + endDate + "') " +
+                "AND ((startDate >= '" + startDate + "' AND startDate <= '" + endDate + "') " + "OR(endDate >= '" + startDate +
+                "' AND endDate <= '" + endDate + "') " +
                 "OR (startDate >= '" + startDate + "' AND endDate <= '" + endDate + "')) " +
                 "RIGHT JOIN MhInfo ON info.licencePlate = MhInfo.licencePlate " +
                 "WHERE contractId IS NULL) AS C " + "ON specs.mhSpecsId = C.mhSpecsId  " +

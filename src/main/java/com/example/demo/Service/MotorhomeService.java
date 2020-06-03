@@ -17,6 +17,8 @@ public class MotorhomeService{
         return motorhomeRepo.fetchAll();
     }
 
+    public List<Motorhome> fetchAlSpecs(){return motorhomeRepo.fetchAllSpecs();}
+
     public Motorhome addMotorhome(Motorhome motorhome){
         return motorhomeRepo.addMotorhome(motorhome);
     }

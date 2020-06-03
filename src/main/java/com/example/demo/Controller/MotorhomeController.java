@@ -29,7 +29,9 @@ public class MotorhomeController {
     //Previous Get method
     //ADD
     @PostMapping("/motorhome/createMotorhome")
-    public String createMotorhome(){
+    public String createMotorhome(Model model){
+        System.out.println(motorhomeService.fetchAlSpecs()  );
+        model.addAttribute("specs", motorhomeService.fetchAlSpecs());
         return "home/motorhome/createMotorhome";
     }
 

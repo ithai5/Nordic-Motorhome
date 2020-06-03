@@ -21,6 +21,12 @@ public class MotorhomeRepo extends DbInteraction {
         return template.query(sql,rowMapper);
     }
 
+    //LIST OF MODELS FOR CREATE
+    public List<Motorhome> fetchAllSpecs(){
+        String sql = "SELECT * FROM MhSpecs";
+        RowMapper<Motorhome> rowMapper= new BeanPropertyRowMapper<>(Motorhome.class);
+        return template.query(sql, rowMapper);
+    }
 
     //ADD
     public Motorhome addMotorhome(Motorhome motorhome){
@@ -29,8 +35,7 @@ public class MotorhomeRepo extends DbInteraction {
         }
         String sql = "INSERT INTO KeaProject.MhInfo (licencePlate, odometer, ready, report, mhSpecsId) " +
                 "VALUES (?, ?, ?, ?, ?)";
-        int mhSpecsId = addMhSpecs(motorhome);
-        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), mhSpecsId);
+        template.update(sql, motorhome.getLicencePlate(), motorhome.getOdometer(), motorhome.isReady(), motorhome.getReport(), motorhome.getMhSpecsId());
         return motorhome;
     }
 

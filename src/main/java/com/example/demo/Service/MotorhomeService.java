@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 //Made by Ignacio
+
+
+//This annotation informs the Spring framework that this class is a Repository class
 @Service
 public class MotorhomeService{
     @Autowired
-    MotorhomeRepo motorhomeRepo;
+    MotorhomeRepo motorhomeRepo; // Hereby we connect the Service class and the Repository class
 
     public List<Motorhome> fetchAll(){
         return motorhomeRepo.fetchAll();

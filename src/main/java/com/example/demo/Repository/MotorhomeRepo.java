@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 //Made by Ignacio
+
+//This annotation informs the Spring framework that this class is a Repository class
 @Repository
-public class MotorhomeRepo extends DbInteraction {
+public class MotorhomeRepo extends DbInteraction {  //In this class we write all the methods related to the database queries
 
     //VIEW ALL
     public List<Motorhome> fetchAll(){

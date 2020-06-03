@@ -12,17 +12,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
 //Made by Ignacio
+
+//In the MVC pattern, the Controller package serves as a connection point between the View (UI) and the Model (data)
+
+//This annotation informs the Spring framework that this class is a Controller class
 @Controller
 public class MotorhomeController {
+    //This annotation is used to connect the MotorhomeController class with the MotorhomeService class
     @Autowired
     MotorhomeService motorhomeService;
 
     //Previous Get method
     //VIEW ALL
-    @PostMapping("/motorhome/viewMotorhome")
+    @PostMapping("/motorhome/viewMotorhome")   //This annotation uses the method POST to send a request to the server
     public String viewMotorhomes (Model model){
-        List<Motorhome> motorhomeList = motorhomeService.fetchAll();
-        model.addAttribute("motorhomes", motorhomeList);
+        List<Motorhome> motorhomeList = motorhomeService.fetchAll(); //An object of the class MotorhomeService is used to call the method fetchAll
+        model.addAttribute("motorhomes", motorhomeList);  //We use the method addAtribute from the model to display the data in the view (HTML)
         return "home/motorhome/viewMotorhome";
     }
 
@@ -34,7 +39,7 @@ public class MotorhomeController {
     }
 
     @PostMapping("/motorhome/addMotorhome")
-    public String addMotorhome (@ModelAttribute Motorhome motorhome){
+    public String addMotorhome (@ModelAttribute Motorhome motorhome){   //This annotation converts the data from the view (HTML) into a model element
         motorhomeService.addMotorhome(motorhome);
         return "home/motorhome/actionSuccessful";
     }
@@ -44,10 +49,10 @@ public class MotorhomeController {
     @PostMapping("/motorhome/searchMotorhome")
     public String searchMotorhome (@ModelAttribute Motorhome motorhome, Model model){
         List<Motorhome> motorhomeList = motorhomeService.searchMotorhome(motorhome.getLicencePlate());
-        if(motorhomeList.isEmpty()||motorhomeList==null){ //check it there is any results for the search and direct to another page
+        if(motorhomeList.isEmpty()||motorhomeList==null){ //checks if there is any results for the search and direct to another page
             return "home/motorhome/noSearchResultsMh";
         }
-        model.addAttribute("motorhomes", motorhomeList); //show the result of the search statement
+        model.addAttribute("motorhomes", motorhomeList); //shows the result of the search statement
         return "home/motorhome/searchMotorhome";
     }
 
@@ -62,7 +67,7 @@ public class MotorhomeController {
     //Previous Get method
     //UPDATE
     @PostMapping("/motorhome/updateMotorhome/{licencePlate}")
-    public String updateMotorhome(@PathVariable("licencePlate") String licencePlate, Model model){
+    public String updateMotorhome(@PathVariable("licencePlate") String licencePlate, Model model){  //This annotation is used to access an specific part of the URL
         model.addAttribute("motorhome", motorhomeService.findMotorhomeByPlate(licencePlate));
         return "home/motorhome/updateMotorhome";
     }

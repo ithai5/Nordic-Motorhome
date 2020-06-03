@@ -4,8 +4,8 @@ package com.example.demo.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+//This annotation informs the Spring framework that this class is a Model class
 @Entity
-
 public class Motorhome {
     @Id
     //ATTRIBUTES

@@ -23,12 +23,13 @@ public class ContractController {
 
   //Previously GET
   @PostMapping("/contract/customerSelection")
-  public String selectCustomers() {
+  public String selectCustomer() {
     return "home/contract/customerSelection";
   }
 
   @PostMapping("/contract/customerSearched")
   public String searchedCustomer(@ModelAttribute Customer customer, Model model) {
+    //If the search failed, go back to the search screen else, display the customer information
     List<Customer> searchHits = customerService.searchForCustomer(customer.getFirstName());
     if (searchHits.isEmpty()) {
       return "home/contract/customerSelection";
@@ -46,6 +47,7 @@ public class ContractController {
 
   @PostMapping("/contract/motorhomeSelection")
   public String selectMotorhome(@ModelAttribute Contract contract, Model model) {
+    //If the startDate is after the end date make them choose again
     if (contract.invalidDuration()) {
       return "home/contract/datesIncorrect";
     }
@@ -73,6 +75,7 @@ public class ContractController {
 
   @PostMapping("/contract/confirmContract")
   public String confirmDetails(@ModelAttribute Contract contract, @ModelAttribute ExtraWrapper extras, Model model) {
+    //The contract information is already stored in the database by this step
     contractService.addContract(contract);
     contractService.addExtrasToContract(extras.getExtras());
     contractService.addPriceToContract();
@@ -84,6 +87,7 @@ public class ContractController {
     return "home/contract/confirmContract";
   }
 
+  //
   @PostMapping("/contract/undoContract")
   public String undoContract() {
     contractService.deleteExtrasFromLastContract();
@@ -92,7 +96,6 @@ public class ContractController {
   }
 
   //Previously GET
-  //You can cancel a contract multiple times and the price reduction stacks...
   @PostMapping("/contract/cancelContract/{contractId}")
   public String cancelContract(@PathVariable("contractId") int contractId) {
     Contract cancelledContract = contractService.findContractById(contractId);

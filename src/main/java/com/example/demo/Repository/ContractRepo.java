@@ -57,6 +57,8 @@ public class ContractRepo extends DbInteraction {
         return template.query(sql,rowMapper);
     }
 
+    //Method responsible for adding the extras to the ContractHasExtra table
+    //associated with a certain contract
     public void addExtrasToContract(List<Extra> extras) {
         String sql = "INSERT INTO KeaProject.ContractHasExtra (contractId, extraId, amount) " +
                 "VALUES (?, ?, ?)";
@@ -78,6 +80,7 @@ public class ContractRepo extends DbInteraction {
         }
     }
 
+    //Generates the actual price used for the contract
     public void addPriceToContract() {
         double totalPrice= completeContractTotal(lastAddedToTable("Contract").getId()).getTotalContractPrice();
         int contractId=lastAddedToTable("Contract").getId();
@@ -88,13 +91,13 @@ public class ContractRepo extends DbInteraction {
         template.update(sql, totalPrice, contractId);
 
     }
-
     public void deleteExtrasFromContract(int contractId) {
         String sql = "DELETE FROM KeaProject.ContractHasExtra " +
                 "WHERE contractId = ?";
         template.update(sql, contractId);
     }
 
+    //Deletes the list of extras associated with the last created contract
     public void deleteExtrasFromLastContract() {
         String sql = "DELETE FROM KeaProject.ContractHasExtra " +
                 "WHERE contractId = ?";
@@ -112,6 +115,7 @@ public class ContractRepo extends DbInteraction {
     }
 
     //Courtesy of Itai
+    //Method responsible for getting all unoccupied cars for a certain period
     public List<Motorhome> availableMotorhomes(String startDate, String endDate) {
         String sql = "SELECT * FROM MhSpecs AS specs " +
                 "JOIN " +
@@ -225,7 +229,8 @@ public class ContractRepo extends DbInteraction {
         return invoice;
     }
 
-
+    //Method responsible for applying a modifier on the price based
+    //on when the contract was cancelled
     public double determineCancelModifier(int contractId) {
         String sql = "SELECT DATEDIFF(startDate, CURRENT_DATE) As id FROM KeaProject.Contract " +
                 "WHERE contractId = " + contractId;
@@ -291,19 +296,6 @@ public class ContractRepo extends DbInteraction {
                 "SET totalPrice = ?" +
                 "WHERE contractId = ?";
         template.update(sql, toEnd.getTotalPrice(), toEnd.getContractId());
-    }
-
-    //Nesrin: after deletion of contract, this cancellation of contract should be called
-    public double contractCancellation (int contractId){
-        double fee = 0;
-    /*
-    If Up to 50 days prior to the start of the term of rental: 20% of the rental price, minimum 200€
-    If Between 49 and 15 days prior to the start of the term of rental: 50% of the rental price
-    If Less than 15 days prior to the start of the term of rental: 80% of the rental price
-    If On the day of renting: 95% of the rental price */
-
-    return fee;
-
     }
 
 }

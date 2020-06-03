@@ -46,10 +46,6 @@ public class ContractService{
 
     public void generateEndPrice(Contract contract, boolean wasCanceled){contractRepo.generateEndPrice(contract, wasCanceled);}
 
-    /*public double totalContractPrice(int contractId){
-        return contractRepo.totalContractPrice(contractId);
-    }*/
-
     public List<Extra> fetchAllExtra(){
         return contractRepo.fetchAllExtra();
     }
